@@ -85,26 +85,42 @@ class WatchlistName:
 
 @dataclass
 class AliasResult:
-    """One held-out alias screened against the remaining watchlist."""
+    """
+    One held-out alias screened against the remaining watchlist.
+
+    `hit_score` is the crucial field, and getting to it required correcting a
+    modelling error. The first version recorded only the single best match, so
+    an alias whose true organisation ranked second was scored as a miss. No
+    screening filter works that way: it returns every entry above threshold
+    and an analyst works the list. If the correct organisation appears
+    anywhere in that list, the party is caught.
+
+    `hit_score` is therefore the highest score achieved against the TRUE
+    organisation, and recall at a threshold is the share of aliases whose
+    hit_score clears it. `top_score` is retained separately because the gap
+    between them is itself operationally meaningful: it is how far down the
+    alert list an analyst has to read.
+    """
 
     alias: str
     true_ent_num: int
-    matched_ent_num: int | None
-    matched_name: str | None
-    score: float
-    correct: bool
-    """Top match belongs to the correct entity."""
 
-    alerted_on_sanctioned: bool = False
+    hit_score: float
+    """Best score against any name belonging to the true organisation."""
+
+    top_score: float
+    """Best score against anything on the watchlist."""
+
+    top_ent_num: int | None
+    top_name: str | None
+
+    rank_of_true: int | None = None
     """
-    Top match is some sanctioned entity, though not the right one.
+    Position of the true organisation in the alert list, 1-based.
 
-    Worth separating. Two SDN entries frequently describe the same real
-    organisation — `AL-AQSA FOUNDATION` is listed several times by country —
-    and an analyst who sees a hit on either blocks the payment. Counting that
-    as a miss understates what the filter achieves operationally, while
-    counting it as a clean catch would overstate precision of attribution.
-    Both numbers are reported.
+    None when it never scores above the floor. A rank of 1 means the filter
+    put the right answer first; a rank of 40 means it is technically caught
+    and practically buried.
     """
 
 
@@ -141,19 +157,33 @@ def build_watchlist(entries, aliases) -> list[WatchlistName]:
 def screen_aliases(aliases, watchlist: list[WatchlistName],
                    index=None, limit=None, clustering=None) -> list[AliasResult]:
     """
-    Hold-one-out screening.
+    Hold-one-out screening, scored as a filter actually behaves.
 
-    For each alias, the identical string is excluded from the watchlist before
-    matching. Without that exclusion the alias matches itself at 100 and the
-    measurement is circular — it would report near-perfect recall while
-    testing nothing.
+    Two corrections are baked in here, both found by reading results rather
+    than rates.
 
-    Exclusion is by normalised string rather than by index position, because
-    the same name can appear under several entity numbers and leaving a
-    duplicate in would readmit the trivial self-match.
+    The alias under test is excluded from the watchlist by normalised string.
+    Without that the alias matches itself at 100 and the measurement is
+    circular — near-perfect recall, nothing tested. Exclusion is by string
+    rather than index because the same name appears under several entity
+    numbers and a duplicate readmits the self-match.
+
+    Every candidate is scored, not just the best. A screening filter returns
+    all entries above threshold and an analyst works the list, so the question
+    is whether the true organisation appears ANYWHERE in it — not whether it
+    ranked first. Recording only the top hit understated recall by counting a
+    correct second-place answer as a miss.
     """
+    from .match import candidates_for, score as name_score
+
     names = [w.name for w in watchlist]
+    ents = [w.ent_num for w in watchlist]
     index = index if index is not None else candidate_index(names)
+
+    def same_org(a, b):
+        if clustering is not None:
+            return clustering.same_org(a, b)
+        return a == b
 
     out: list[AliasResult] = []
     for i, (alias, _target) in enumerate(aliases):
@@ -161,35 +191,33 @@ def screen_aliases(aliases, watchlist: list[WatchlistName],
             break
 
         held_out = normalise(alias.name)
-        best_pos, best_score = -1, 0.0
+        scored: list[tuple[float, int]] = []
 
-        from .match import candidates_for, score as name_score
         for pos in candidates_for(alias.name, index):
             if normalise(names[pos]) == held_out:
-                continue          # the held-out variant, and its duplicates
-            s = name_score(alias.name, names[pos])
-            if s > best_score:
-                best_pos, best_score = pos, s
+                continue
+            scored.append((name_score(alias.name, names[pos]), pos))
 
-        matched = watchlist[best_pos].ent_num if best_pos >= 0 else None
+        scored.sort(key=lambda t: -t[0])
 
-        # A catch is a hit on the right ORGANISATION, not the right listing.
-        # OFAC designates the same group under several entity numbers, and
-        # requiring exact equality counted a perfect match against a sister
-        # listing as a miss.
-        if clustering is not None:
-            hit = clustering.same_org(matched, alias.ent_num)
-        else:
-            hit = (matched == alias.ent_num)
+        hit_score = 0.0
+        rank_of_true: int | None = None
+        for rank, (sc, pos) in enumerate(scored, start=1):
+            if same_org(ents[pos], alias.ent_num):
+                hit_score = sc
+                rank_of_true = rank
+                break
+
+        top_score, top_pos = (scored[0] if scored else (0.0, -1))
 
         out.append(AliasResult(
             alias=alias.name,
             true_ent_num=alias.ent_num,
-            matched_ent_num=matched,
-            matched_name=names[best_pos] if best_pos >= 0 else None,
-            score=best_score,
-            correct=hit,
-            alerted_on_sanctioned=(matched is not None and not hit),
+            hit_score=hit_score,
+            top_score=top_score,
+            top_ent_num=ents[top_pos] if top_pos >= 0 else None,
+            top_name=names[top_pos] if top_pos >= 0 else None,
+            rank_of_true=rank_of_true,
         ))
         if (i + 1) % 2000 == 0:
             log.info("screened %s aliases", i + 1)
@@ -226,9 +254,9 @@ class ThresholdPoint:
     aliases_total: int
     aliases_alerted: int
     aliases_caught: int          # alerted AND matched to the right entity
-    aliases_operational: int     # alerted on any sanctioned entity
+    aliases_operational: int     # caught AND ranked first
     recall: float
-    operational_recall: float
+    operational_recall: float    # share caught at rank 1
     recall_ci: tuple[float, float]
 
     clean_total: int
@@ -273,15 +301,18 @@ def sweep(alias_results: list[AliasResult],
     n_clean = len(clean_results)
 
     for t in thresholds:
-        alerted = [r for r in alias_results if r.score >= t]
-        caught = sum(1 for r in alerted if r.correct)
+        # Caught: the true organisation appears in the alert list at this
+        # threshold, wherever it ranks.
+        caught = sum(1 for r in alias_results if r.hit_score >= t)
         recall = caught / n_alias if n_alias else 0.0
 
-        # Operational catch: the filter alerted on SOME sanctioned entity, so
-        # an analyst reviews and blocks even if the attribution is to a sister
-        # listing of the same organisation.
-        operational = sum(1 for r in alerted
-                          if r.correct or r.alerted_on_sanctioned)
+        alerted = [r for r in alias_results if r.top_score >= t]
+
+        # Caught AND ranked first. The gap between this and recall is how
+        # often an analyst has to read past the top hit to find the real
+        # match, which is a workload question rather than a detection one.
+        operational = sum(1 for r in alias_results
+                          if r.hit_score >= t and r.rank_of_true == 1)
 
         fp = sum(1 for r in clean_results if r.score >= t)
         fpr = fp / n_clean if n_clean else 0.0
@@ -315,7 +346,7 @@ def separation(alias_results: list[AliasResult],
     is purely about which error to accept — which is the honest framing, and
     the opposite of what a single recommended number implies.
     """
-    correct = sorted(r.score for r in alias_results if r.correct)
+    correct = sorted(r.hit_score for r in alias_results if r.hit_score > 0)
     clean = sorted(r.score for r in clean_results)
     if not correct or not clean:
         return {}

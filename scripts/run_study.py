@@ -109,7 +109,7 @@ def main() -> int:
                                             limit=args.alias_limit,
                                             clustering=clustering)
 
-    unreachable = resolve.unreachable_aliases(alias_results)
+    unreachable = [r_ for r_ in alias_results if r_.hit_score == 0.0]
     print(f"\n  aliases with NO candidate at any threshold: "
           f"{len(unreachable):,} ({len(unreachable)/max(1,len(alias_results)):.1%})")
     for r_ in unreachable[:6]:
@@ -224,8 +224,8 @@ def main() -> int:
     import csv
     with (EVIDENCE / "alias_results.csv").open("w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=[
-            "alias", "true_ent_num", "matched_ent_num", "matched_name",
-            "score", "correct", "alerted_on_sanctioned"])
+            "alias", "true_ent_num", "hit_score", "top_score",
+            "top_ent_num", "top_name", "rank_of_true"])
         w.writeheader()
         for r in alias_results:
             w.writerow(asdict(r))

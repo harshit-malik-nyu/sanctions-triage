@@ -169,4 +169,4 @@ def unreachable_aliases(alias_results) -> list:
     implementation, and it is the strongest argument in the report for
     investing in secondary identifiers rather than in better fuzzy matching.
     """
-    return [r for r in alias_results if r.score == 0.0]
+    return [r for r in alias_results if r.hit_score == 0.0]
