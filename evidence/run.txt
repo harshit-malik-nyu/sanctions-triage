@@ -31,8 +31,9 @@ OFAC SANCTIONS LIST
   aliases     : 20,206
   sdn sha256  : 1ac8e3cbbb07ba74...
 
-  watchlist (entities only): 9,973
-  aliases of those entities: 11,333
+  entity entries            : 9,973
+  aliases of those entities : 11,333
+  watchlist NAMES (primary + alias): 21,306
 
 ========================================================================
 CLEAN POPULATION
@@ -49,32 +50,32 @@ CLEAN POPULATION
 ========================================================================
 SCREENING
 ========================================================================
-  blocking index: 5,375 keys
+  blocking index: 7,137 keys
   aliases screened : 6,000
   clean screened   : 7,967
 
-  alias median score : 86.8
-  clean median score : 56.4
-  clean 95th pct     : 81.5
+  alias median score : 87.5
+  clean median score : 58.5
+  clean 95th pct     : 82.4
   distributions overlap: True
 
 ========================================================================
 THRESHOLD SWEEP
 ========================================================================
-   thr   recall   FP rate  alerts/10k
-    52    37.9%    59.78%      5978.4
-    56    37.2%    51.49%      5148.7
-    60    36.0%    42.30%      4229.9
-    64    34.7%    33.43%      3342.5
-    68    33.0%    25.81%      2580.6
-    72    30.9%    18.38%      1837.6
-    76    27.8%    11.32%      1132.2
-    80    25.0%     7.29%       729.3
-    84    21.9%     2.62%       262.3
-    88    18.6%     0.82%        81.6
-    92    15.2%     0.09%         8.8
-    96    12.2%     0.03%         2.5
-   100     9.6%     0.00%         0.0
+   thr   recall  op.recall   FP rate  alerts/10k
+    52    51.6%      92.4%    64.68%      6467.9
+    56    51.2%      90.8%    56.34%      5634.5
+    60    50.6%      88.2%    46.98%      4698.1
+    64    49.8%      84.9%    37.48%      3748.0
+    68    48.1%      79.4%    28.96%      2895.7
+    72    46.0%      72.8%    21.29%      2128.8
+    76    41.6%      63.5%    13.56%      1355.6
+    80    37.6%      54.3%     8.87%       887.4
+    84    32.1%      42.4%     3.49%       348.9
+    88    25.2%      31.0%     1.24%       124.3
+    92    18.1%      21.1%     0.15%        15.1
+    96    10.2%      11.1%     0.09%         8.8
+   100     3.5%       3.9%     0.05%         5.0
 
 ========================================================================
 OFAC ENFORCEMENT RECORD
@@ -90,15 +91,15 @@ OFAC ENFORCEMENT RECORD
 ========================================================================
 RECOMMENDATION
 ========================================================================
-  cost-optimal threshold : 94
-    recall               : 13.9%
-    alerts per 10k       : 3.8
-    annual review cost   : $320,070
-    annual exposure      : $25,903,293
-    total                : $26,223,364
-    analyst FTE          : 2.1
+  cost-optimal threshold : 92
+    recall               : 18.1%
+    alerts per 10k       : 15.1
+    annual review cost   : $1,280,281
+    annual exposure      : $24,640,451
+    total                : $25,920,733
+    analyst FTE          : 8.4
 
-  stable under   : remediation_multiple
-  UNSTABLE under : p_miss_becomes_enforcement, penalty_per_enforcement, review_cost_per_alert, true_sanctioned_rate
+  stable under   : review_cost_per_alert, remediation_multiple
+  UNSTABLE under : p_miss_becomes_enforcement, penalty_per_enforcement, true_sanctioned_rate
 
 Evidence written to /home/runner/work/sanctions-triage/sanctions-triage/evidence

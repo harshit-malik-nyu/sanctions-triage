@@ -1,19 +1,19 @@
 {
   "cost_optimal": {
-    "threshold": 94.0,
-    "recall": 0.1385,
+    "threshold": 92.0,
+    "recall": 0.1805,
     "recall_ci95": [
-      0.12999061041077473,
-      0.14747200619123554
+      0.17097359266753426,
+      0.19043527594752047
     ],
-    "false_positive_rate": 0.00037655328228944395,
-    "alerts_per_10k_screened": 3.7655328228944396,
-    "alerts_per_year": 18827.664114472198,
-    "review_cost_usd": 320070.2899460274,
-    "expected_missed_per_year": 43.074999999999996,
-    "exposure_cost_usd": 25903293.3975,
-    "total_cost_usd": 26223363.687446028,
-    "analyst_fte": 2.0919626793858
+    "false_positive_rate": 0.0015062131291577758,
+    "alerts_per_10k_screened": 15.062131291577758,
+    "alerts_per_year": 75310.65645788879,
+    "review_cost_usd": 1280281.1597841096,
+    "expected_missed_per_year": 40.975,
+    "exposure_cost_usd": 24640451.4675,
+    "total_cost_usd": 25920732.62728411,
+    "analyst_fte": 8.3678507175432
   },
   "recall_constrained": null,
   "recall_floor": 0.95,
@@ -29,20 +29,20 @@
       ],
       "optimal_thresholds": [
         98.0,
-        94.0,
-        94.0,
         92.0,
-        88.0
+        92.0,
+        92.0,
+        86.0
       ],
       "recalls_at_optimum": [
-        0.10266666666666667,
-        0.1385,
-        0.1385,
-        0.15233333333333332,
-        0.1855
+        0.04733333333333333,
+        0.1805,
+        0.1805,
+        0.1805,
+        0.286
       ],
       "threshold_range": [
-        88.0,
+        86.0,
         98.0
       ],
       "stable": false
@@ -60,18 +60,18 @@
         98.0,
         98.0,
         98.0,
-        94.0,
-        90.0
+        92.0,
+        86.0
       ],
       "recalls_at_optimum": [
-        0.10266666666666667,
-        0.10266666666666667,
-        0.10266666666666667,
-        0.1385,
-        0.17066666666666666
+        0.04733333333333333,
+        0.04733333333333333,
+        0.04733333333333333,
+        0.1805,
+        0.286
       ],
       "threshold_range": [
-        90.0,
+        86.0,
         98.0
       ],
       "stable": false
@@ -88,22 +88,22 @@
       "optimal_thresholds": [
         90.0,
         92.0,
-        94.0,
-        94.0,
-        98.0
+        92.0,
+        92.0,
+        94.0
       ],
       "recalls_at_optimum": [
-        0.17066666666666666,
-        0.15233333333333332,
-        0.1385,
-        0.1385,
-        0.10266666666666667
+        0.218,
+        0.1805,
+        0.1805,
+        0.1805,
+        0.14683333333333334
       ],
       "threshold_range": [
         90.0,
-        98.0
+        94.0
       ],
-      "stable": false
+      "stable": true
     },
     {
       "parameter": "true_sanctioned_rate",
@@ -116,17 +116,17 @@
       ],
       "optimal_thresholds": [
         98.0,
-        94.0,
-        94.0,
-        88.0,
+        92.0,
+        92.0,
+        86.0,
         70.0
       ],
       "recalls_at_optimum": [
-        0.10266666666666667,
-        0.1385,
-        0.1385,
-        0.1855,
-        0.32016666666666665
+        0.04733333333333333,
+        0.1805,
+        0.1805,
+        0.286,
+        0.4706666666666667
       ],
       "threshold_range": [
         70.0,
@@ -144,42 +144,42 @@
       ],
       "optimal_thresholds": [
         94.0,
-        94.0,
         92.0,
-        92.0
+        92.0,
+        90.0
       ],
       "recalls_at_optimum": [
-        0.1385,
-        0.1385,
-        0.15233333333333332,
-        0.15233333333333332
+        0.14683333333333334,
+        0.1805,
+        0.1805,
+        0.218
       ],
       "threshold_range": [
-        92.0,
+        90.0,
         94.0
       ],
       "stable": true
     }
   ],
   "stable_under": [
+    "review_cost_per_alert",
     "remediation_multiple"
   ],
   "unstable_under": [
     "p_miss_becomes_enforcement",
     "penalty_per_enforcement",
-    "review_cost_per_alert",
     "true_sanctioned_rate"
   ],
   "separation": {
-    "alias_p05": 56.00000000000001,
-    "alias_median": 86.8421052631579,
-    "clean_median": 56.41025641025641,
-    "clean_p95": 81.4814814814815,
-    "clean_max": 96.55172413793103,
+    "alias_p05": 64.15094339622642,
+    "alias_median": 87.5,
+    "clean_median": 58.46153846153845,
+    "clean_p95": 82.35294117647058,
+    "clean_max": 100.0,
     "distributions_overlap": true,
     "overlap_band": [
-      56.00000000000001,
-      81.4814814814815
+      64.15094339622642,
+      82.35294117647058
     ],
     "note": "Where the 5th percentile of correctly-matched aliases sits below the 95th percentile of clean companies, no threshold separates the classes and the decision is purely which error to absorb."
   }
