@@ -1,0 +1,42 @@
+name: probe
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  reach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe every data source this project would need
+        run: |
+          UA="sanctions-triage-research/0.1 (research; contact: harshit-malik-nyu@users.noreply.github.com)"
+          probe() {
+            code=$(curl -sL -o /tmp/o -w "%{http_code}" --max-time 40 -H "User-Agent: $UA" "$1")
+            bytes=$(wc -c < /tmp/o 2>/dev/null || echo 0)
+            echo "HTTP=$code bytes=$bytes  $2"
+            echo "   head: $(head -c 150 /tmp/o | tr '\n' ' ')"
+            echo
+          }
+          {
+            echo "# data reachability probe"
+            echo "run_at=$(date -u +%FT%TZ)"
+            echo
+            probe "https://www.treasury.gov/ofac/downloads/sdn.csv" "OFAC SDN (legacy csv)"
+            probe "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV" "OFAC SDN (list service csv)"
+            probe "https://www.treasury.gov/ofac/downloads/sdn_comments.csv" "OFAC SDN comments"
+            probe "https://www.treasury.gov/ofac/downloads/alt.csv" "OFAC alternate names (AKA)"
+            probe "https://www.treasury.gov/ofac/downloads/consolidated/cons_prim.csv" "OFAC consolidated"
+            probe "https://www.sec.gov/files/company_tickers.json" "SEC EDGAR company list"
+            probe "https://ofac.treasury.gov/civil-penalties-and-enforcement-information/2023-enforcement-information" "OFAC penalties 2023"
+            probe "https://api.first.org/data/v1/countries" "control: known-good public api"
+          } > PROBE.txt 2>&1
+          cat PROBE.txt
+      - name: Commit probe result
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add PROBE.txt
+          git commit -m "probe result" || exit 0
+          git push
