@@ -139,7 +139,7 @@ def build_watchlist(entries, aliases) -> list[WatchlistName]:
 
 
 def screen_aliases(aliases, watchlist: list[WatchlistName],
-                   index=None, limit=None) -> list[AliasResult]:
+                   index=None, limit=None, clustering=None) -> list[AliasResult]:
     """
     Hold-one-out screening.
 
@@ -172,15 +172,24 @@ def screen_aliases(aliases, watchlist: list[WatchlistName],
                 best_pos, best_score = pos, s
 
         matched = watchlist[best_pos].ent_num if best_pos >= 0 else None
+
+        # A catch is a hit on the right ORGANISATION, not the right listing.
+        # OFAC designates the same group under several entity numbers, and
+        # requiring exact equality counted a perfect match against a sister
+        # listing as a miss.
+        if clustering is not None:
+            hit = clustering.same_org(matched, alias.ent_num)
+        else:
+            hit = (matched == alias.ent_num)
+
         out.append(AliasResult(
             alias=alias.name,
             true_ent_num=alias.ent_num,
             matched_ent_num=matched,
             matched_name=names[best_pos] if best_pos >= 0 else None,
             score=best_score,
-            correct=(matched == alias.ent_num),
-            alerted_on_sanctioned=(matched is not None
-                                   and matched != alias.ent_num),
+            correct=hit,
+            alerted_on_sanctioned=(matched is not None and not hit),
         ))
         if (i + 1) % 2000 == 0:
             log.info("screened %s aliases", i + 1)

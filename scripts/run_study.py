@@ -17,7 +17,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
-from triage import costs, decide, evaluate, ofac, penalties, population  # noqa: E402
+from triage import (costs, decide, evaluate, ofac, penalties,  # noqa: E402
+                    population, resolve)
 from triage.match import candidate_index  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -70,7 +71,12 @@ def main() -> int:
     print("=" * 72)
     print("CLEAN POPULATION")
     print("=" * 72)
-    pop = population.load([e.name for e in snapshot.entries],
+    # Overlap removal must run against every name on the WATCHLIST, not just
+    # primary entries. Screening happens against primaries and aliases alike,
+    # so a company exactly matching an alias is a genuine sanctioned overlap
+    # and counting it as a false positive would flatter the headline rate.
+    watchlist_names = [w.name for w in watchlist]
+    pop = population.load(watchlist_names,
                           limit=args.clean_limit, cache_dir=args.cache)
     pprov = pop.provenance()
     print(f"  source      : {pprov['source']}")
@@ -90,8 +96,24 @@ def main() -> int:
     index = candidate_index(names)
     print(f"  blocking index: {len(index):,} keys")
 
+    # Resolve listings to organisations before measuring recall.
+    clustering = resolve.build(watchlist)
+    csum = clustering.summary()
+    print(f"  listings -> organisations: {csum['entities']:,} -> "
+          f"{csum['clusters']:,}")
+    print(f"  multi-listing organisations: {csum['multi_listing_clusters']:,}")
+    for a, b in csum["examples"][:3]:
+        print(f"      merged: {a[:36]!r} + {b[:36]!r}")
+
     alias_results = evaluate.screen_aliases(pairs, watchlist, index,
-                                            limit=args.alias_limit)
+                                            limit=args.alias_limit,
+                                            clustering=clustering)
+
+    unreachable = resolve.unreachable_aliases(alias_results)
+    print(f"\n  aliases with NO candidate at any threshold: "
+          f"{len(unreachable):,} ({len(unreachable)/max(1,len(alias_results)):.1%})")
+    for r_ in unreachable[:6]:
+        print(f"      {r_.alias[:48]!r}")
     clean_results = evaluate.screen_clean(pop.entities, watchlist, index,
                                           limit=args.clean_limit)
     print(f"  aliases screened : {len(alias_results):,}")
@@ -171,6 +193,19 @@ def main() -> int:
     # ---- 7. evidence ------------------------------------------------------
     (EVIDENCE / "provenance.json").write_text(json.dumps({
         "ofac": prov, "population": pprov,
+        "entity_resolution": csum,
+        "unreachable_aliases": {
+            "count": len(unreachable),
+            "share": len(unreachable) / max(1, len(alias_results)),
+            "examples": [r_.alias for r_ in unreachable[:40]],
+            "note": (
+                "Aliases generating no candidate at any threshold. Acronyms "
+                "and unrelated trading names sharing no character sequence "
+                "with any other published name for the same party. This is "
+                "the floor on name-only screening: no metric and no threshold "
+                "reaches them, because there is nothing to be similar to."
+            ),
+        },
         "penalties": psum,
         "watchlist_scope": "entities only (individuals excluded)",
         "aliases_screened": len(alias_results),

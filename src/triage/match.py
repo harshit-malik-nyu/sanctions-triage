@@ -36,16 +36,24 @@ from functools import lru_cache
 
 from rapidfuzz import fuzz
 
-# Corporate and legal-form suffixes stripped before comparison. Deliberately
-# conservative: only forms that are unambiguously structural. "GROUP" and
-# "HOLDINGS" are NOT here — they discriminate between real companies.
+# Legal-form suffixes stripped before comparison.
+#
+# Only forms that are unambiguously structural. The list was originally wider
+# and produced a perfect-score false positive: with "foundation" and "trust"
+# stripped and single-character tokens dropped, `FOUNDATION FOR CONSTRUCTION`
+# and `J D CONSTRUCTION` both normalised to "construction" and matched at 100.
+#
+# For a charity the word "Foundation" IS the name, not a suffix. "GROUP",
+# "HOLDINGS", "BANK" and "INTERNATIONAL" are absent for the same reason — they
+# discriminate between real organisations and removing them manufactures
+# collisions.
 LEGAL_SUFFIXES = {
     "ltd", "limited", "llc", "lc", "inc", "incorporated", "corp",
     "corporation", "co", "company", "plc", "pte", "pvt", "private",
     "sa", "sas", "sarl", "srl", "spa", "ag", "gmbh", "mbh", "kg", "bv",
     "nv", "ab", "as", "oy", "oyj", "aps", "sp", "zoo", "ooo", "oao",
-    "zao", "pjsc", "ojsc", "cjsc", "jsc", "llp", "lp", "gp", "trust",
-    "foundation", "fzc", "fze", "dmcc", "wll", "sal", "psc", "pjs",
+    "zao", "pjsc", "ojsc", "cjsc", "jsc", "llp", "lp", "gp",
+    "fzc", "fze", "dmcc", "wll", "sal", "psc", "pjs",
 }
 
 # Tokens carrying no discriminating power at all.
@@ -53,7 +61,12 @@ STOPWORDS = {"the", "and", "of", "for", "de", "del", "la", "le", "el", "al"}
 
 _PUNCT = re.compile(r"[^\w\s]", re.UNICODE)
 _WS = re.compile(r"\s+")
-_DIGITS = re.compile(r"\d+")
+
+# Dotted abbreviations: S.A., L.L.C., N.V., B.V. Collapsed to a single token
+# BEFORE general punctuation handling, because splitting on the periods first
+# turns "S.A." into two single letters and the legal form stops being
+# recognisable — which cost `CUBANACAN, S.A.` a match against `CUBANACAN SA`.
+_DOTTED = re.compile(r"\b(?:[a-z]\.){2,}", re.IGNORECASE)
 
 
 @lru_cache(maxsize=200_000)
@@ -74,13 +87,17 @@ def normalise(name: str) -> str:
     text = unicodedata.normalize("NFKD", name)
     text = "".join(c for c in text if not unicodedata.combining(c))
 
-    text = _PUNCT.sub(" ", text.casefold())
+    text = text.casefold()
+    text = _DOTTED.sub(lambda m: m.group(0).replace(".", ""), text)
+    text = _PUNCT.sub(" ", text)
     tokens = [t for t in _WS.sub(" ", text).split() if t]
 
-    kept = [
-        t for t in tokens
-        if t not in LEGAL_SUFFIXES and t not in STOPWORDS and len(t) > 1
-    ]
+    # Single-character tokens are KEPT. Dropping them was the other half of
+    # the collision above: initials distinguish `J D CONSTRUCTION` from
+    # `R K CONSTRUCTION`, and discarding them merges every firm sharing one
+    # substantive word.
+    kept = [t for t in tokens
+            if t not in LEGAL_SUFFIXES and t not in STOPWORDS]
 
     # Never normalise a name out of existence: a company called "CO LTD" would
     # otherwise become the empty string and match everything.
