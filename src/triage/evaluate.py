@@ -2,13 +2,29 @@
 Threshold evaluation.
 
 Two measurements, each with ground truth established by construction rather
-than by labelling:
+than by labelling.
 
-    RECALL          Screen real OFAC aliases against the primary-name
-                    watchlist. Each alias carries the entity number it belongs
-                    to, so a correct catch is unambiguous: the top match must
-                    be that entity. An alias that fails to match is a real
-                    sanctioned party a real filter would let through.
+    RECALL          Hold-one-out screening of real OFAC aliases.
+
+                    The first version of this got the experiment wrong, and
+                    the error is instructive. It screened aliases against a
+                    watchlist built from PRIMARY NAMES ONLY, which no bank
+                    runs: a real filter loads every published name, primary
+                    and alias alike. That made acronym aliases — `COIBA`,
+                    `ALEPH`, `BATASUNA` — impossible to match by construction,
+                    and produced a 37.9% recall ceiling that was an artefact of
+                    the setup rather than a property of screening.
+
+                    The watchlist now contains primary names AND aliases, with
+                    the specific alias under test removed. That is the question
+                    worth asking: when a sanctioned party presents a name
+                    variant the list has not seen, does the filter still reach
+                    the right entity through the variants it has?
+
+    FALSE POSITIVES Screen real registered companies against the same
+                    watchlist. Any alert is a false positive, because those
+                    companies are not sanctioned — verified by exact-match
+                    removal before the sweep begins.
 
     FALSE POSITIVES Screen real registered companies against the same
                     watchlist. Any alert is a false positive, because those
@@ -54,14 +70,42 @@ def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, flo
 
 
 @dataclass
+class WatchlistName:
+    """
+    One screenable name on the watchlist.
+
+    A real sanctions filter indexes every published name for an entity, not
+    just the primary one, so the unit here is a NAME rather than an entry.
+    """
+
+    name: str
+    ent_num: int
+    is_primary: bool
+
+
+@dataclass
 class AliasResult:
-    """One real alias screened against the watchlist."""
+    """One held-out alias screened against the remaining watchlist."""
 
     alias: str
     true_ent_num: int
     matched_ent_num: int | None
+    matched_name: str | None
     score: float
     correct: bool
+    """Top match belongs to the correct entity."""
+
+    alerted_on_sanctioned: bool = False
+    """
+    Top match is some sanctioned entity, though not the right one.
+
+    Worth separating. Two SDN entries frequently describe the same real
+    organisation — `AL-AQSA FOUNDATION` is listed several times by country —
+    and an analyst who sees a hit on either blocks the payment. Counting that
+    as a miss understates what the filter achieves operationally, while
+    counting it as a clean catch would overstate precision of attribution.
+    Both numbers are reported.
+    """
 
 
 @dataclass
@@ -83,39 +127,70 @@ class ScreeningRun:
     comparisons: int = 0
 
 
-def screen_aliases(aliases, watchlist, index=None, limit=None) -> list[AliasResult]:
+def build_watchlist(entries, aliases) -> list[WatchlistName]:
     """
-    Score every alias against the watchlist, recording the best hit.
+    Every published name, primary and alias, as a real filter would load it.
+    """
+    out = [WatchlistName(e.name, e.ent_num, True) for e in entries]
+    keep = {e.ent_num for e in entries}
+    out.extend(WatchlistName(a.name, a.ent_num, False)
+               for a in aliases if a.ent_num in keep)
+    return out
 
-    Scoring is done once, at full resolution. The threshold sweep then reads
-    off these scores rather than re-screening, which is both far faster and
-    guarantees every threshold sees identical underlying comparisons.
+
+def screen_aliases(aliases, watchlist: list[WatchlistName],
+                   index=None, limit=None) -> list[AliasResult]:
     """
-    names = [e.name for e in watchlist]
-    ent_nums = [e.ent_num for e in watchlist]
+    Hold-one-out screening.
+
+    For each alias, the identical string is excluded from the watchlist before
+    matching. Without that exclusion the alias matches itself at 100 and the
+    measurement is circular — it would report near-perfect recall while
+    testing nothing.
+
+    Exclusion is by normalised string rather than by index position, because
+    the same name can appear under several entity numbers and leaving a
+    duplicate in would readmit the trivial self-match.
+    """
+    names = [w.name for w in watchlist]
     index = index if index is not None else candidate_index(names)
 
     out: list[AliasResult] = []
-    for i, (alias, target) in enumerate(aliases):
+    for i, (alias, _target) in enumerate(aliases):
         if limit and i >= limit:
             break
-        pos, sc = best_match(alias.name, names, index)
-        matched = ent_nums[pos] if pos >= 0 else None
+
+        held_out = normalise(alias.name)
+        best_pos, best_score = -1, 0.0
+
+        from .match import candidates_for, score as name_score
+        for pos in candidates_for(alias.name, index):
+            if normalise(names[pos]) == held_out:
+                continue          # the held-out variant, and its duplicates
+            s = name_score(alias.name, names[pos])
+            if s > best_score:
+                best_pos, best_score = pos, s
+
+        matched = watchlist[best_pos].ent_num if best_pos >= 0 else None
         out.append(AliasResult(
             alias=alias.name,
             true_ent_num=alias.ent_num,
             matched_ent_num=matched,
-            score=sc,
+            matched_name=names[best_pos] if best_pos >= 0 else None,
+            score=best_score,
             correct=(matched == alias.ent_num),
+            alerted_on_sanctioned=(matched is not None
+                                   and matched != alias.ent_num),
         ))
         if (i + 1) % 2000 == 0:
             log.info("screened %s aliases", i + 1)
     return out
 
 
-def screen_clean(entities, watchlist, index=None, limit=None) -> list[CleanResult]:
-    names = [e.name for e in watchlist]
-    ent_nums = [e.ent_num for e in watchlist]
+def screen_clean(entities, watchlist: list[WatchlistName],
+                 index=None, limit=None) -> list[CleanResult]:
+    names = [w.name for w in watchlist]
+    ent_nums = [w.ent_num for w in watchlist]
     index = index if index is not None else candidate_index(names)
 
     out: list[CleanResult] = []
@@ -142,7 +217,9 @@ class ThresholdPoint:
     aliases_total: int
     aliases_alerted: int
     aliases_caught: int          # alerted AND matched to the right entity
+    aliases_operational: int     # alerted on any sanctioned entity
     recall: float
+    operational_recall: float
     recall_ci: tuple[float, float]
 
     clean_total: int
@@ -155,8 +232,10 @@ class ThresholdPoint:
         return {
             "threshold": self.threshold,
             "recall": self.recall,
+            "operational_recall": self.operational_recall,
             "recall_ci95": list(self.recall_ci),
             "aliases_caught": self.aliases_caught,
+            "aliases_operational": self.aliases_operational,
             "aliases_total": self.aliases_total,
             "false_positive_rate": self.false_positive_rate,
             "fpr_ci95": list(self.fpr_ci),
@@ -189,6 +268,12 @@ def sweep(alias_results: list[AliasResult],
         caught = sum(1 for r in alerted if r.correct)
         recall = caught / n_alias if n_alias else 0.0
 
+        # Operational catch: the filter alerted on SOME sanctioned entity, so
+        # an analyst reviews and blocks even if the attribution is to a sister
+        # listing of the same organisation.
+        operational = sum(1 for r in alerted
+                          if r.correct or r.alerted_on_sanctioned)
+
         fp = sum(1 for r in clean_results if r.score >= t)
         fpr = fp / n_clean if n_clean else 0.0
 
@@ -197,6 +282,8 @@ def sweep(alias_results: list[AliasResult],
             aliases_total=n_alias,
             aliases_alerted=len(alerted),
             aliases_caught=caught,
+            aliases_operational=operational,
+            operational_recall=operational / n_alias if n_alias else 0.0,
             recall=recall,
             recall_ci=wilson_interval(caught, n_alias),
             clean_total=n_clean,

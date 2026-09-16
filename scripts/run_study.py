@@ -53,13 +53,17 @@ def main() -> int:
     # screens and what the clean population consists of. Mixing individuals
     # into the watchlist while the population is all companies would compare
     # populations that are not comparable.
-    watchlist = snapshot.entities()
-    print(f"\n  watchlist (entities only): {len(watchlist):,}")
-
-    keep = {e.ent_num for e in watchlist}
+    entity_entries = snapshot.entities()
+    keep = {e.ent_num for e in entity_entries}
     pairs = [(a, t) for a, t in snapshot.aliases_with_target()
              if a.ent_num in keep]
-    print(f"  aliases of those entities: {len(pairs):,}")
+
+    # A real filter loads every published name, primary and alias alike.
+    watchlist = evaluate.build_watchlist(entity_entries,
+                                         [a for a, _ in pairs])
+    print(f"\n  entity entries            : {len(entity_entries):,}")
+    print(f"  aliases of those entities : {len(pairs):,}")
+    print(f"  watchlist NAMES (primary + alias): {len(watchlist):,}")
 
     # ---- 2. the clean population -----------------------------------------
     print()
@@ -82,7 +86,7 @@ def main() -> int:
     print("=" * 72)
     print("SCREENING")
     print("=" * 72)
-    names = [e.name for e in watchlist]
+    names = [w.name for w in watchlist]
     index = candidate_index(names)
     print(f"  blocking index: {len(index):,} keys")
 
@@ -106,10 +110,12 @@ def main() -> int:
     print("=" * 72)
     print("THRESHOLD SWEEP")
     print("=" * 72)
-    print(f"  {'thr':>4} {'recall':>8} {'FP rate':>9} {'alerts/10k':>11}")
+    print(f"  {'thr':>4} {'recall':>8} {'op.recall':>10} "
+          f"{'FP rate':>9} {'alerts/10k':>11}")
     for p in points:
         if int(p.threshold) % 4 == 0:
             print(f"  {p.threshold:4.0f} {p.recall:8.1%} "
+                  f"{p.operational_recall:10.1%} "
                   f"{p.false_positive_rate:9.2%} {p.alerts_per_10k:11.1f}")
 
     # ---- 5. penalties -----------------------------------------------------
@@ -182,8 +188,9 @@ def main() -> int:
 
     import csv
     with (EVIDENCE / "alias_results.csv").open("w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=["alias", "true_ent_num",
-                                           "matched_ent_num", "score", "correct"])
+        w = csv.DictWriter(fh, fieldnames=[
+            "alias", "true_ent_num", "matched_ent_num", "matched_name",
+            "score", "correct", "alerted_on_sanctioned"])
         w.writeheader()
         for r in alias_results:
             w.writerow(asdict(r))
