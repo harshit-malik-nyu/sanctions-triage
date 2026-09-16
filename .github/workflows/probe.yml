@@ -9,34 +9,41 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Probe every data source this project would need
+      - name: Probe candidate sources for a clean entity population
         run: |
-          UA="sanctions-triage-research/0.1 (research; contact: harshit-malik-nyu@users.noreply.github.com)"
+          # SEC requires a declared UA of the form "Name contact@domain"
+          SEC_UA="sanctions-triage-research harshit-malik-nyu@users.noreply.github.com"
           probe() {
-            code=$(curl -sL -o /tmp/o -w "%{http_code}" --max-time 40 -H "User-Agent: $UA" "$1")
-            bytes=$(wc -c < /tmp/o 2>/dev/null || echo 0)
-            echo "HTTP=$code bytes=$bytes  $2"
-            echo "   head: $(head -c 150 /tmp/o | tr '\n' ' ')"
+            code=$(curl -sL -o /tmp/o -w "%{http_code}" --max-time 40 -H "User-Agent: $2" "$1")
+            echo "HTTP=$code bytes=$(wc -c < /tmp/o)  $3"
+            echo "   head: $(head -c 220 /tmp/o | tr '\n' ' ')"
             echo
           }
           {
-            echo "# data reachability probe"
+            echo "# clean-population probe"
             echo "run_at=$(date -u +%FT%TZ)"
             echo
-            probe "https://www.treasury.gov/ofac/downloads/sdn.csv" "OFAC SDN (legacy csv)"
-            probe "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV" "OFAC SDN (list service csv)"
-            probe "https://www.treasury.gov/ofac/downloads/sdn_comments.csv" "OFAC SDN comments"
-            probe "https://www.treasury.gov/ofac/downloads/alt.csv" "OFAC alternate names (AKA)"
-            probe "https://www.treasury.gov/ofac/downloads/consolidated/cons_prim.csv" "OFAC consolidated"
-            probe "https://www.sec.gov/files/company_tickers.json" "SEC EDGAR company list"
-            probe "https://ofac.treasury.gov/civil-penalties-and-enforcement-information/2023-enforcement-information" "OFAC penalties 2023"
-            probe "https://api.first.org/data/v1/countries" "control: known-good public api"
+            probe "https://www.sec.gov/files/company_tickers.json" "$SEC_UA" "SEC EDGAR companies (declared UA)"
+            probe "https://api.gleif.org/api/v1/lei-records?page[size]=5" "sanctions-triage/0.1" "GLEIF LEI records"
+            probe "https://api.gleif.org/api/v1/lei-records?page[size]=1&filter[entity.legalAddress.country]=US" "sanctions-triage/0.1" "GLEIF filtered by country"
+            echo "--- OFAC alt.csv structure (the true-positive source) ---"
+            curl -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/alt.csv" -o /tmp/alt.csv
+            echo "alt.csv lines: $(wc -l < /tmp/alt.csv)"
+            head -5 /tmp/alt.csv
+            echo
+            echo "--- SDN primary names ---"
+            curl -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/sdn.csv" -o /tmp/sdn.csv
+            echo "sdn.csv lines: $(wc -l < /tmp/sdn.csv)"
+            head -3 /tmp/sdn.csv
+            echo
+            echo "entity-type breakdown:"
+            cut -d, -f3 /tmp/sdn.csv | sort | uniq -c | sort -rn | head -6
           } > PROBE.txt 2>&1
           cat PROBE.txt
-      - name: Commit probe result
+      - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add PROBE.txt
-          git commit -m "probe result" || exit 0
+          git add PROBE.txt && git commit -m "probe: clean population sources" || exit 0
+          git pull --rebase --autostash origin main || true
           git push
