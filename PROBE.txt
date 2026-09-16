@@ -1,0 +1,27 @@
+# data reachability probe
+run_at=2026-09-16T01:42:02Z
+
+HTTP=200 bytes=5692933  OFAC SDN (legacy csv)
+   head: 36,"AEROCARIBBEAN AIRLINES",-0- ,"CUBA",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0-  173,"ANGLO-CARIBBEAN CO., LTD.",-0- ,"CUBA",-0- ,-0- ,-0- ,-0- ,-0- ,
+
+HTTP=200 bytes=5692933  OFAC SDN (list service csv)
+   head: 36,"AEROCARIBBEAN AIRLINES",-0- ,"CUBA",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0-  173,"ANGLO-CARIBBEAN CO., LTD.",-0- ,"CUBA",-0- ,-0- ,-0- ,-0- ,-0- ,
+
+HTTP=200 bytes=48137  OFAC SDN comments
+   head: 17016,"tive Date (EO 14024 Directive)' associated with this name are prohibited.; Listing Date (EO 14024 Directive 3): 24 Feb 2022; Effective Date (EO
+
+HTTP=200 bytes=1063992  OFAC alternate names (AKA)
+   head: 36,12,"aka","AERO-CARIBBEAN",-0-  173,57,"aka","AVIA IMPORT",-0-  306,220,"aka","NATIONAL BANK OF CUBA",-0-  540,471,"aka","COIBA",-0-  552,475,"a
+
+HTTP=200 bytes=262892  OFAC consolidated
+   head: 9640,"ABU TEIR, Mohammed","individual","NS-PLC",-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,-0- ,"DOB 1951; POB Umm Tuba." 9641,"AL-SHANTI, Jamileh Abdullah","indi
+
+HTTP=403 bytes=1925  SEC EDGAR company list
+   head: <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> <html xmlns="http://www.w3.o
+
+HTTP=200 bytes=48106  OFAC penalties 2023
+   head: <!DOCTYPE html> <html lang="en" dir="ltr" prefix="og: https://ogp.me/ns#">   <head>     <meta charset="utf-8" /> <script async src="https://www.google
+
+HTTP=200 bytes=5047  control: known-good public api
+   head: {"status":"OK","status-code":200,"version":"1.0","access":"public","total":249,"offset":0,"limit":100,"data":{"DZ":{"country":"Algeria","region":"Afri
+
