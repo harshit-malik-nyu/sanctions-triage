@@ -1,0 +1,63 @@
+{
+  "ofac": {
+    "source": "U.S. Treasury OFAC, public domain",
+    "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
+    "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
+    "retrieved_utc": "2026-09-16T03:06:50+00:00",
+    "sdn_bytes": 5692933,
+    "alt_bytes": 1063992,
+    "sdn_sha256": "1ac8e3cbbb07ba74d799e53297c97c814dd57630ce2700fcd27902e20183fa79",
+    "alt_sha256": "fa40fd1d5143e534477735ca01f03d3bec190dcbb549c1c9685361817c71852c",
+    "entries": 19388,
+    "entities": 9973,
+    "individuals": 7533,
+    "aliases": 20206,
+    "note": "The SDN list changes several times a week. These hashes identify the exact edition every figure in this study was computed against; a reader re-running later will get a different hash and should expect slightly different counts."
+  },
+  "population": {
+    "source": "GLEIF LEI",
+    "retrieved_utc": "2026-09-16T03:08:26+00:00",
+    "count": 7967,
+    "removed_sanctioned_overlaps": 33,
+    "overlap_names": [
+      "A-C HOLDING AS",
+      "A.O.P. Invest",
+      "AG INVESTMENT",
+      "ARGO SRL",
+      "BV Holding B.V.",
+      "E.C INVEST AS",
+      "F.V. Holding B.V.",
+      "FORTA, LLC",
+      "G & J HOLDING ApS",
+      "GRUPO Z CORP.",
+      "H.W.O. HOLDING AS",
+      "J K TRADING",
+      "K A Holding AB",
+      "K.Z Holding AB",
+      "LLC HOLDING SRL",
+      "LYRA S.P.A.",
+      "LYRA S.R.L.",
+      "M/S R K BUILDERS",
+      "M/S. A.J.TRADING CO.",
+      "P.A. CAPITAL"
+    ],
+    "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
+  },
+  "penalties": {
+    "count": 180,
+    "years": "2014-2025",
+    "years_failed": [],
+    "total_usd": 5249650803.95,
+    "mean_usd": 29164726.688611113,
+    "median_usd": 528031.5,
+    "p25_usd": 145893.0,
+    "p75_usd": 3740442.0,
+    "p90_usd": 12027066.0,
+    "max_usd": 968618825.0,
+    "min_usd": 5000.0,
+    "note": "Median and mean differ by orders of magnitude because the distribution is dominated by a handful of very large institutional settlements. The median is the better anchor for a typical violation; the tail is what makes the expected value large."
+  },
+  "watchlist_scope": "entities only (individuals excluded)",
+  "aliases_screened": 6000,
+  "clean_screened": 7967
+}
