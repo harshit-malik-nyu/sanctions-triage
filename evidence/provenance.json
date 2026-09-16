@@ -3,45 +3,144 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-16T03:13:22+00:00",
-    "sdn_bytes": 5692933,
+    "retrieved_utc": "2026-09-16T23:39:41+00:00",
+    "sdn_bytes": 5691983,
     "alt_bytes": 1063992,
-    "sdn_sha256": "1ac8e3cbbb07ba74d799e53297c97c814dd57630ce2700fcd27902e20183fa79",
+    "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
     "alt_sha256": "fa40fd1d5143e534477735ca01f03d3bec190dcbb549c1c9685361817c71852c",
-    "entries": 19388,
-    "entities": 9973,
-    "individuals": 7533,
+    "entries": 19385,
+    "entities": 9972,
+    "individuals": 7531,
     "aliases": 20206,
     "note": "The SDN list changes several times a week. These hashes identify the exact edition every figure in this study was computed against; a reader re-running later will get a different hash and should expect slightly different counts."
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-16T03:15:05+00:00",
-    "count": 7967,
-    "removed_sanctioned_overlaps": 33,
+    "retrieved_utc": "2026-09-16T23:41:01+00:00",
+    "count": 7999,
+    "removed_sanctioned_overlaps": 1,
     "overlap_names": [
-      "A-C HOLDING AS",
-      "A.O.P. Invest",
-      "AG INVESTMENT",
-      "ARGO SRL",
-      "BV Holding B.V.",
-      "E.C INVEST AS",
-      "F.V. Holding B.V.",
-      "FORTA, LLC",
-      "G & J HOLDING ApS",
-      "GRUPO Z CORP.",
-      "H.W.O. HOLDING AS",
-      "J K TRADING",
-      "K A Holding AB",
-      "K.Z Holding AB",
-      "LLC HOLDING SRL",
-      "LYRA S.P.A.",
-      "LYRA S.R.L.",
-      "M/S R K BUILDERS",
-      "M/S. A.J.TRADING CO.",
-      "P.A. CAPITAL"
+      "FORTA, LLC"
     ],
     "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
+  },
+  "entity_resolution": {
+    "entities": 9972,
+    "clusters": 9785,
+    "multi_listing_clusters": 130,
+    "entities_in_multi_listing_clusters": 317,
+    "largest_cluster": 9,
+    "threshold": 95.0,
+    "examples": [
+      [
+        "CIMEX",
+        "CIMEX, S.A."
+      ],
+      [
+        "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX, S.A.",
+        "CIMEX"
+      ],
+      [
+        "CIMEX, S.A.",
+        "CIMEX"
+      ],
+      [
+        "CORPORACION CIMEX, S.A.",
+        "CORPORACION CIMEX S.A."
+      ],
+      [
+        "HAVANATUR",
+        "HAVANATUR S.A."
+      ],
+      [
+        "NATIONAL LIBERATION ARMY",
+        "NATIONAL LIBERATION ARMY"
+      ],
+      [
+        "AL RASHID TRUST",
+        "AL RASHID TRUST"
+      ],
+      [
+        "REVIVAL OF ISLAMIC HERITAGE SOCIETY",
+        "REVIVAL OF ISLAMIC HERITAGE SOCIETY"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "ASKATASUNA",
+        "ASKATASUNA"
+      ]
+    ],
+    "note": "OFAC designates the same organisation more than once \u2014 by country, by programme, by date \u2014 and each designation carries its own entity number. Requiring exact entity-number equality counted a perfect match against a sister listing as a miss, which accounted for most of an apparent 52% recall."
+  },
+  "unreachable_aliases": {
+    "count": 273,
+    "share": 0.0455,
+    "examples": [
+      "COIBA",
+      "COPROVA",
+      "COPROVA SARL",
+      "CUFLET",
+      "TROVER, S.A.",
+      "A.I.C. SOGO KENKYUSHO",
+      "ALEPH",
+      "EKIN",
+      "XAKI",
+      "DIKUY BOGDIM",
+      "DOV",
+      "KOACH",
+      "NEWKACH.ORG",
+      "PKK",
+      "KADEK",
+      "KGK",
+      "LTTE",
+      "ELN",
+      "PIJ",
+      "PLF",
+      "PPRF",
+      "DHKP/C",
+      "DEV SOL",
+      "DEV SOL SDB",
+      "SPP",
+      "EGP",
+      "DFLP",
+      "INPESCA S.A.",
+      "AUC",
+      "GSPC",
+      "AQIM",
+      "AIAI",
+      "JIT",
+      "AHIYAHU TURUS",
+      "DIBC",
+      "VAZIR",
+      "VEZIR",
+      "NPA",
+      "ETIM",
+      "ETIP"
+    ],
+    "note": "Aliases generating no candidate at any threshold. Acronyms and unrelated trading names sharing no character sequence with any other published name for the same party. This is the floor on name-only screening: no metric and no threshold reaches them, because there is nothing to be similar to."
   },
   "penalties": {
     "count": 180,
@@ -59,5 +158,5 @@
   },
   "watchlist_scope": "entities only (individuals excluded)",
   "aliases_screened": 6000,
-  "clean_screened": 7967
+  "clean_screened": 7999
 }

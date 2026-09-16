@@ -1,9 +1,10 @@
-INFO triage.ofac: SDN list: 5692933 bytes from https://www.treasury.gov/ofac/downloads/sdn.csv
+INFO triage.ofac: SDN list: 5691983 bytes from https://www.treasury.gov/ofac/downloads/sdn.csv
 INFO triage.ofac: alternate names: 1063992 bytes from https://www.treasury.gov/ofac/downloads/alt.csv
-INFO triage.ofac: OFAC: 19388 entries (9973 entities, 7533 individuals), 20206 aliases
+INFO triage.ofac: OFAC: 19385 entries (9972 entities, 7531 individuals), 20206 aliases
 WARNING triage.population: SEC EDGAR unavailable: HTTP Error 403: Forbidden
 INFO triage.population: population: 8000 entities from GLEIF LEI
-WARNING triage.population: removing 33 population entries that exactly match an SDN entry: ['A-C HOLDING AS', 'A.O.P. Invest', 'AG INVESTMENT', 'ARGO SRL', 'BV Holding B.V.']
+WARNING triage.population: removing 1 population entries that exactly match an SDN entry: ['FORTA, LLC']
+INFO triage.resolve: entity resolution: 9972 listings -> 9785 organisations (130 multi-listing)
 INFO triage.evaluate: screened 2000 aliases
 INFO triage.evaluate: screened 4000 aliases
 INFO triage.evaluate: screened 6000 aliases
@@ -25,37 +26,46 @@ INFO triage.penalties: penalties 2025: 14 actions, 14 with amounts
 ========================================================================
 OFAC SANCTIONS LIST
 ========================================================================
-  entries     : 19,388
-  entities    : 9,973
-  individuals : 7,533
+  entries     : 19,385
+  entities    : 9,972
+  individuals : 7,531
   aliases     : 20,206
-  sdn sha256  : 1ac8e3cbbb07ba74...
+  sdn sha256  : f4424647eb39496c...
 
-  entity entries            : 9,973
+  entity entries            : 9,972
   aliases of those entities : 11,333
-  watchlist NAMES (primary + alias): 21,306
+  watchlist NAMES (primary + alias): 21,305
 
 ========================================================================
 CLEAN POPULATION
 ========================================================================
   source      : GLEIF LEI
-  entities    : 7,967
-  removed as genuinely sanctioned: 33
-      - A-C HOLDING AS
-      - A.O.P. Invest
-      - AG INVESTMENT
-      - ARGO SRL
-      - BV Holding B.V.
+  entities    : 7,999
+  removed as genuinely sanctioned: 1
+      - FORTA, LLC
 
 ========================================================================
 SCREENING
 ========================================================================
-  blocking index: 7,137 keys
-  aliases screened : 6,000
-  clean screened   : 7,967
+  blocking index: 7,149 keys
+  listings -> organisations: 9,972 -> 9,785
+  multi-listing organisations: 130
+      merged: 'CIMEX' + 'CIMEX, S.A.'
+      merged: 'CIMEX' + 'CIMEX'
+      merged: 'CIMEX' + 'CIMEX'
 
-  alias median score : 87.5
-  clean median score : 58.5
+  aliases with NO candidate at any threshold: 273 (4.5%)
+      'COIBA'
+      'COPROVA'
+      'COPROVA SARL'
+      'CUFLET'
+      'TROVER, S.A.'
+      'A.I.C. SOGO KENKYUSHO'
+  aliases screened : 6,000
+  clean screened   : 7,999
+
+  alias median score : 87.7
+  clean median score : 58.1
   clean 95th pct     : 82.4
   distributions overlap: True
 
@@ -63,19 +73,19 @@ SCREENING
 THRESHOLD SWEEP
 ========================================================================
    thr   recall  op.recall   FP rate  alerts/10k
-    52    51.6%      92.4%    64.68%      6467.9
-    56    51.2%      90.8%    56.34%      5634.5
-    60    50.6%      88.2%    46.98%      4698.1
-    64    49.8%      84.9%    37.48%      3748.0
-    68    48.1%      79.4%    28.96%      2895.7
-    72    46.0%      72.8%    21.29%      2128.8
-    76    41.6%      63.5%    13.56%      1355.6
-    80    37.6%      54.3%     8.87%       887.4
-    84    32.1%      42.4%     3.49%       348.9
-    88    25.2%      31.0%     1.24%       124.3
-    92    18.1%      21.1%     0.15%        15.1
-    96    10.2%      11.1%     0.09%         8.8
-   100     3.5%       3.9%     0.05%         5.0
+    52    57.3%      92.5%    64.08%      6408.3
+    56    56.8%      91.0%    55.59%      5559.4
+    60    56.1%      88.5%    45.94%      4594.3
+    64    55.3%      85.2%    36.49%      3649.2
+    68    53.5%      79.7%    28.10%      2810.4
+    72    51.2%      73.2%    20.42%      2041.5
+    76    46.8%      64.3%    13.24%      1323.9
+    80    42.6%      55.6%     8.64%       863.9
+    84    36.3%      43.5%     3.33%       332.5
+    88    28.6%      31.6%     1.20%       120.0
+    92    20.3%      21.2%     0.16%        16.3
+    96    11.5%      11.5%     0.04%         3.8
+   100     3.4%       3.4%     0.01%         1.3
 
 ========================================================================
 OFAC ENFORCEMENT RECORD
@@ -92,12 +102,12 @@ OFAC ENFORCEMENT RECORD
 RECOMMENDATION
 ========================================================================
   cost-optimal threshold : 92
-    recall               : 18.1%
-    alerts per 10k       : 15.1
-    annual review cost   : $1,280,281
-    annual exposure      : $24,640,451
-    total                : $25,920,733
-    analyst FTE          : 8.4
+    recall               : 20.3%
+    alerts per 10k       : 16.3
+    annual review cost   : $1,381,423
+    annual exposure      : $23,963,929
+    total                : $25,345,352
+    analyst FTE          : 9.0
 
   stable under   : review_cost_per_alert, remediation_multiple
   UNSTABLE under : p_miss_becomes_enforcement, penalty_per_enforcement, true_sanctioned_rate

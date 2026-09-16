@@ -1,19 +1,19 @@
 {
   "cost_optimal": {
     "threshold": 92.0,
-    "recall": 0.1805,
+    "recall": 0.203,
     "recall_ci95": [
-      0.17097359266753426,
-      0.19043527594752047
+      0.19301363265244897,
+      0.21336644239816527
     ],
-    "false_positive_rate": 0.0015062131291577758,
-    "alerts_per_10k_screened": 15.062131291577758,
-    "alerts_per_year": 75310.65645788879,
-    "review_cost_usd": 1280281.1597841096,
-    "expected_missed_per_year": 40.975,
-    "exposure_cost_usd": 24640451.4675,
-    "total_cost_usd": 25920732.62728411,
-    "analyst_fte": 8.3678507175432
+    "false_positive_rate": 0.0016252031503937992,
+    "alerts_per_10k_screened": 16.252031503937992,
+    "alerts_per_year": 81260.15751968996,
+    "review_cost_usd": 1381422.6778347294,
+    "expected_missed_per_year": 39.849999999999994,
+    "exposure_cost_usd": 23963929.005,
+    "total_cost_usd": 25345351.68283473,
+    "analyst_fte": 9.028906391076664
   },
   "recall_constrained": null,
   "recall_floor": 0.95,
@@ -36,10 +36,10 @@
       ],
       "recalls_at_optimum": [
         0.04733333333333333,
-        0.1805,
-        0.1805,
-        0.1805,
-        0.286
+        0.203,
+        0.203,
+        0.203,
+        0.3245
       ],
       "threshold_range": [
         86.0,
@@ -67,8 +67,8 @@
         0.04733333333333333,
         0.04733333333333333,
         0.04733333333333333,
-        0.1805,
-        0.286
+        0.203,
+        0.3245
       ],
       "threshold_range": [
         86.0,
@@ -90,18 +90,18 @@
         92.0,
         92.0,
         92.0,
-        94.0
+        96.0
       ],
       "recalls_at_optimum": [
-        0.218,
-        0.1805,
-        0.1805,
-        0.1805,
-        0.14683333333333334
+        0.24733333333333332,
+        0.203,
+        0.203,
+        0.203,
+        0.11516666666666667
       ],
       "threshold_range": [
         90.0,
-        94.0
+        96.0
       ],
       "stable": true
     },
@@ -123,10 +123,10 @@
       ],
       "recalls_at_optimum": [
         0.04733333333333333,
-        0.1805,
-        0.1805,
-        0.286,
-        0.4706666666666667
+        0.203,
+        0.203,
+        0.3245,
+        0.5243333333333333
       ],
       "threshold_range": [
         70.0,
@@ -143,20 +143,20 @@
         10.0
       ],
       "optimal_thresholds": [
-        94.0,
+        96.0,
         92.0,
         92.0,
         90.0
       ],
       "recalls_at_optimum": [
-        0.14683333333333334,
-        0.1805,
-        0.1805,
-        0.218
+        0.11516666666666667,
+        0.203,
+        0.203,
+        0.24733333333333332
       ],
       "threshold_range": [
         90.0,
-        94.0
+        96.0
       ],
       "stable": true
     }
@@ -171,14 +171,14 @@
     "true_sanctioned_rate"
   ],
   "separation": {
-    "alias_p05": 64.15094339622642,
-    "alias_median": 87.5,
-    "clean_median": 58.46153846153845,
+    "alias_p05": 64.51612903225806,
+    "alias_median": 87.71929824561404,
+    "clean_median": 58.06451612903225,
     "clean_p95": 82.35294117647058,
     "clean_max": 100.0,
     "distributions_overlap": true,
     "overlap_band": [
-      64.15094339622642,
+      64.51612903225806,
       82.35294117647058
     ],
     "note": "Where the 5th percentile of correctly-matched aliases sits below the 95th percentile of clean companies, no threshold separates the classes and the decision is purely which error to absorb."
