@@ -155,23 +155,63 @@ REMEDIATION_MULTIPLE = Param(
 # ---------------------------------------------------------------------------
 
 SCREENINGS_PER_YEAR = Param(
-    value=50_000_000.0,
-    evidence=Evidence.ESTIMATE,
-    source="ESTIMATE — order of magnitude for a large US bank",
-    note="Customer and transaction screening events per year. Used only to "
-         "convert per-10,000 rates into an annual figure; the threshold "
-         "recommendation itself is scale-invariant.",
+    value=6_000_000.0,
+    evidence=Evidence.PUBLISHED,
+    source="Retail Banker International (2026): a mid-tier bank processing "
+           "500,000 cross-border payments monthly",
+    note="Anchored to a published worked example rather than guessed. Six "
+         "million payments a year at a 5% alert rate gives 25,000 alerts a "
+         "month, which that source costs at $370k-$620k monthly — a "
+         "cross-check this study's own cost model can be compared against. "
+         "A money-centre bank screens an order of magnitude more; the "
+         "threshold recommendation is scale-invariant, only the dollar "
+         "totals move.",
 )
 
 TRUE_SANCTIONED_RATE = Param(
-    value=1e-6,
-    evidence=Evidence.ESTIMATE,
-    source="ESTIMATE — REQUIRES VALIDATION",
-    note="Share of screened parties genuinely on a sanctions list. Extremely "
-         "low, which is exactly why precision is so poor at any usable recall: "
-         "with a base rate this small, even a very specific filter produces "
-         "mostly false positives. This is the arithmetic behind the industry's "
-         "alert-fatigue problem and it is not a tuning failure.",
+    value=2.5e-6,
+    evidence=Evidence.PUBLISHED,
+    source="Derived from published alert statistics: fewer than 10 of every "
+           "100 alerts are true matches (FluxForce 2024, citing Alessa and "
+           "KPMG); false-positive rates of 90-98% (Flagright 2026) and up to "
+           "99% (Retail Banker International 2026); combined with a 5% alert "
+           "rate on screened volume",
+    note="A 5% alert rate with at most 10% of alerts genuine implies roughly "
+         "5 true matches per 10,000 screened at production thresholds — but "
+         "those alerts are mostly transaction-level and one designated party "
+         "generates many. Scaled down two orders of magnitude to approximate "
+         "distinct sanctioned COUNTERPARTIES rather than alerts.\n"
+         "\n"
+         "         Still the weakest link between published data and this "
+         "model, and the derivation is stated so a reader can reject it. "
+         "Swept across three orders of magnitude in the sensitivity analysis.",
+)
+
+# Published benchmark for what a real filter's alert queue looks like. Used to
+# check whether this study's measured rates sit in a plausible operating
+# region, never to tune toward.
+INDUSTRY_ALERT_RATE = Param(
+    value=0.05,
+    evidence=Evidence.PUBLISHED,
+    source="Retail Banker International (2026), described as conservative by "
+           "industry standards",
+    note="Share of screened items generating an alert. This study's measured "
+         "false-positive rate should be compared against it: a threshold "
+         "producing far more than 5% is outside any real operating range, "
+         "whatever its recall.",
+)
+
+# The Swedish regulator tested 19 banks against 5,000 known sanctioned names.
+# The alias result is the directly comparable benchmark for this study, since
+# hold-one-out screening measures exactly that case.
+FI_ACCURACY_CORRECT_SPELLING = Param(
+    value=0.972,
+    evidence=Evidence.PUBLISHED,
+    source="Finansinspektionen FI Supervision 30 (December 2024), 19 banks "
+           "tested against 5,000 sanctioned names",
+    note="Average accuracy on correctly spelled entries. FI reported accuracy "
+         "dropped further on aliases, transliterations and spelling variants "
+         "without publishing a figure — which is the gap this study measures.",
 )
 
 

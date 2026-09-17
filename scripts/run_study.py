@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from triage import (costs, decide, evaluate, ofac, penalties,  # noqa: E402
-                    policy, population, resolve)
+                    operations, policy, population, resolve)
 from triage.match import candidate_index  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -235,6 +235,7 @@ def main() -> int:
         }
     else:
         individuals_summary = {}
+        indiv_points = []
         print("  no individual aliases available")
 
     # ---- 6. the decision --------------------------------------------------
@@ -312,11 +313,89 @@ def main() -> int:
     for r_ in worst:
         print(f"  {r_.score:5.1f}  {r_.name[:44]:46s} vs {str(r_.top_match)[:40]}")
 
+    # ---- 6b. operational levers -------------------------------------------
+    #
+    # The threshold trades recall for volume along a fixed frontier. These
+    # move the frontier, and all three are standard practice in a run
+    # sanctions function.
+    print()
+    print("=" * 72)
+    print("OPERATIONAL LEVERS (no threshold change)")
+    print("=" * 72)
+
+    op_threshold = 84.0
+    conc = operations.list_concentration(clean_results, op_threshold)
+    print(f"  at threshold {op_threshold:.0f}: {conc.total_alerts:,} alerts from "
+          f"{conc.entries_generating_alerts:,} distinct list entries")
+    print(f"    worst 1% of entries generate  : {conc.top_1pct_share:.1%} of alerts")
+    print(f"    worst 5% of entries generate  : {conc.top_5pct_share:.1%} of alerts")
+    for name, count in conc.top_10_entries[:5]:
+        print(f"      {count:3d} alerts  {name[:52]}")
+
+    print()
+    wl = operations.whitelist_impact(clean_results, op_threshold)
+    print("  false-hit list (OFAC recognises the practice explicitly):")
+    for w in wl:
+        print(f"    whitelist top {w.top_n:4d} -> {w.volume_reduction:6.1%} "
+              f"volume removed, {w.residual_alerts:,} alerts remain")
+
+    tuning = operations.population_tuning(points, indiv_points) \
+        if indiv_pairs else None
+    if tuning:
+        print()
+        print("  population tuning (entities and individuals fail differently):")
+        print(f"    entities   : threshold {tuning.entity_threshold:.0f} for "
+              f"{tuning.entity_recall:.1%} recall")
+        print(f"    individuals: threshold {tuning.individual_threshold:.0f} for "
+              f"{tuning.individual_recall:.1%} recall")
+        print(f"    recall given up by using a single threshold: "
+              f"{tuning.single_threshold_recall_loss:.1%}")
+
+    # ---- 6c. does this behave like a real filter? --------------------------
+    print()
+    print("=" * 72)
+    print("SANITY CHECK AGAINST PUBLISHED BENCHMARKS")
+    print("=" * 72)
+    industry_rate = float(costs.INDUSTRY_ALERT_RATE)
+    plausible = [p for p in points
+                 if p.false_positive_rate <= industry_rate * 1.5]
+    if plausible:
+        best_plausible = max(plausible, key=lambda p: p.recall)
+        print(f"  published alert rate benchmark : {industry_rate:.1%} "
+              f"(described as conservative)")
+        print(f"  highest recall within that band: {best_plausible.recall:.1%} "
+              f"at threshold {best_plausible.threshold:.0f} "
+              f"({best_plausible.false_positive_rate:.2%} alert rate)")
+        print()
+        print(f"  Swedish regulator benchmark    : "
+              f"{float(costs.FI_ACCURACY_CORRECT_SPELLING):.1%} accuracy on "
+              f"CORRECTLY SPELLED names across 19 banks")
+        print(f"  this study, on unseen variants : {best_plausible.recall:.1%}")
+        print()
+        print("  FI reported accuracy dropped on aliases and transliterations")
+        print("  without publishing a figure. The gap between those two lines")
+        print("  is that unpublished number, measured.")
+        benchmark = {
+            "industry_alert_rate": industry_rate,
+            "recall_within_industry_alert_rate": best_plausible.recall,
+            "threshold": best_plausible.threshold,
+            "fi_accuracy_correct_spelling": float(costs.FI_ACCURACY_CORRECT_SPELLING),
+        }
+    else:
+        benchmark = {}
+        print("  no threshold produces an alert rate inside the published band")
+
     # ---- 7. evidence ------------------------------------------------------
     (EVIDENCE / "provenance.json").write_text(json.dumps({
         "ofac": prov, "population": pprov,
         "entity_resolution": csum,
         "individuals_comparison": individuals_summary,
+        "operational_levers": {
+            "list_concentration": conc.as_dict(),
+            "whitelist_impact": [w.as_dict() for w in wl],
+            "population_tuning": tuning.as_dict() if tuning else None,
+        },
+        "benchmark_check": benchmark,
         "unreachable_aliases": {
             "count": len(unreachable),
             "share": len(unreachable) / max(1, len(alias_results)),
