@@ -3,7 +3,7 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-17T03:23:59+00:00",
+    "retrieved_utc": "2026-09-17T04:46:06+00:00",
     "sdn_bytes": 5691983,
     "alt_bytes": 1063992,
     "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
@@ -16,7 +16,7 @@
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-17T03:25:25+00:00",
+    "retrieved_utc": "2026-09-17T04:47:42+00:00",
     "count": 7997,
     "removed_sanctioned_overlaps": 3,
     "overlap_names": [
@@ -96,6 +96,15 @@
       ]
     ],
     "note": "OFAC designates the same organisation more than once \u2014 by country, by programme, by date \u2014 and each designation carries its own entity number. Requiring exact entity-number equality counted a perfect match against a sister listing as a miss, which accounted for most of an apparent 52% recall."
+  },
+  "individuals_comparison": {
+    "listings": 7531,
+    "aliases_screened": 6000,
+    "unreachable_count": 580,
+    "unreachable_rate": 0.09666666666666666,
+    "entity_unreachable_rate": 0.15116666666666667,
+    "max_recall": 0.8883333333333333,
+    "scope_note": "Recall side only. Measuring false positives for individuals would require a corpus of innocent people's names, and publishing near-misses between real private individuals and a sanctions list is an exposure this project will not create."
   },
   "unreachable_aliases": {
     "count": 907,

@@ -23,6 +23,10 @@ INFO triage.penalties: penalties 2022: 16 actions, 14 with amounts
 INFO triage.penalties: penalties 2023: 16 actions, 16 with amounts
 INFO triage.penalties: penalties 2024: 12 actions, 12 with amounts
 INFO triage.penalties: penalties 2025: 14 actions, 14 with amounts
+INFO triage.resolve: entity resolution: 7531 listings -> 7499 organisations (31 multi-listing)
+INFO triage.evaluate: screened 2000 aliases
+INFO triage.evaluate: screened 4000 aliases
+INFO triage.evaluate: screened 6000 aliases
 ========================================================================
 OFAC SANCTIONS LIST
 ========================================================================
@@ -75,7 +79,7 @@ SCREENING
 THRESHOLD SWEEP
 ========================================================================
    thr   recall  op.recall   FP rate  alerts/10k
-    52    75.9%      57.3%    64.00%      6399.9
+    52    75.9%      57.2%    64.00%      6399.9
     56    72.7%      56.8%    55.51%      5550.8
     60    69.7%      56.1%    45.79%      4579.2
     64    65.6%      55.3%    36.44%      3643.9
@@ -97,6 +101,25 @@ OFAC ENFORCEMENT RECORD
   mean penalty         : $29,164,727
   90th percentile      : $12,027,066
   largest              : $968,618,825
+
+========================================================================
+DOES THE CEILING HOLD FOR INDIVIDUALS?
+========================================================================
+  individual listings     : 7,531
+  individual aliases      : 8,653
+  screened                : 6,000
+
+  unreachable — ENTITIES    : 15.1% (907/6,000)
+  unreachable — INDIVIDUALS : 9.7% (580/6,000)
+  max recall — individuals  : 88.8%
+
+  The ceiling holds across both populations, which removes
+  the main scope objection to the recommendation.
+      'ZAYDAN, Muhammad'
+      'SALIM, Ahmad Fuad'
+      'ZUMAR, Abbud'
+      'AL-ZUMAR, Abbud'
+      'KHALID, Abu'
 
   loss anchor set to the observed 90th percentile: $12,027,066
 
