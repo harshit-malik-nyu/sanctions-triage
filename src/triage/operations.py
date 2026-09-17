@@ -90,11 +90,11 @@ def whitelist_impact(clean_results, threshold: float,
     if not total:
         return []
 
-    # Rank by score: the highest-scoring non-matches are the ones that alert
-    # under every plausible threshold and so carry the most recurring cost.
-    ranked = sorted(alerting, key=lambda r: -r.score)
     out: list[WhitelistImpact] = []
 
+    # Suppression is counted against the highest-scoring non-matches, which
+    # are the ones alerting under every plausible threshold and therefore
+    # carrying the most recurring cost.
     for n in (top_n_values or [10, 25, 50, 100, 250]):
         n = min(n, total)
         removed = n
