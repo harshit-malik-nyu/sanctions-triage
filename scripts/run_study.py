@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from triage import (costs, decide, evaluate, ofac, penalties,  # noqa: E402
                     operations, policy, population, resolve)
+from triage import brief  # noqa: E402
 from triage.match import candidate_index  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -446,7 +447,11 @@ def main() -> int:
         for r in clean_results:
             w.writerow(asdict(r))
 
+    # ---- 8. the brief -----------------------------------------------------
+    docs = ROOT / "docs"
+    brief.write(EVIDENCE, docs / "index.html")
     print(f"\nEvidence written to {EVIDENCE}")
+    print(f"Decision brief written to {docs / 'index.html'}")
     return 0
 
 

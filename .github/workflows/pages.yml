@@ -1,0 +1,40 @@
+name: pages
+on:
+  push:
+    branches: [main]
+    paths: ['docs/**', 'evidence/**', 'README.md', '.github/workflows/pages.yml']
+  workflow_run:
+    workflows: [study]
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assemble
+        run: |
+          rm -rf _site && mkdir -p _site/evidence _site/docs
+          [ -f docs/index.html ] && cp docs/index.html _site/index.html
+          cp -r evidence/. _site/evidence/ 2>/dev/null || true
+          cp docs/*.md _site/docs/ 2>/dev/null || true
+          cp README.md _site/ 2>/dev/null || true
+          touch _site/.nojekyll
+          [ -f _site/index.html ] || echo '<!doctype html><title>sanctions-triage</title><p>No brief generated yet.' > _site/index.html
+          echo "files: $(find _site -type f | wc -l)"
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd _site
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "pages: ${GITHUB_SHA::10}"
+          git branch -M gh-pages
+          git push -q --force "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" gh-pages
