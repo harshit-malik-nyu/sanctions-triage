@@ -157,6 +157,86 @@ def main() -> int:
     if record.years_failed:
         print(f"  years not parsed     : {record.years_failed}")
 
+    # ---- 5b. does the ceiling hold for individuals? ------------------------
+    #
+    # The headline rests on entity aliases, which skew toward acronyms and
+    # trading names. Most real sanctions false positives come from
+    # transliterated INDIVIDUAL names, which skew toward spelling variants
+    # that fuzzy matching does reach. If the unreachable rate is much lower
+    # for individuals, the recommendation is wrong for the population a bank
+    # screens most, and that objection deserves a measurement rather than a
+    # caveat.
+    #
+    # Only the recall side is run here. Measuring false positives for
+    # individuals would need a corpus of innocent people's names, and
+    # publishing near-misses between real private individuals and a sanctions
+    # list is an exposure this project will not create.
+    print()
+    print("=" * 72)
+    print("DOES THE CEILING HOLD FOR INDIVIDUALS?")
+    print("=" * 72)
+    indiv_entries = snapshot.individuals()
+    indiv_keep = {e.ent_num for e in indiv_entries}
+    indiv_pairs = [(a, t) for a, t in snapshot.aliases_with_target()
+                   if a.ent_num in indiv_keep]
+
+    if indiv_pairs:
+        indiv_watchlist = evaluate.build_watchlist(
+            indiv_entries, [a for a, _ in indiv_pairs])
+        indiv_index = candidate_index([w.name for w in indiv_watchlist])
+        indiv_clustering = resolve.build(indiv_watchlist)
+        indiv_results = evaluate.screen_aliases(
+            indiv_pairs, indiv_watchlist, indiv_index,
+            limit=args.alias_limit, clustering=indiv_clustering)
+
+        indiv_unreachable = [r_ for r_ in indiv_results if r_.hit_score == 0.0]
+        ent_rate = len(unreachable) / max(1, len(alias_results))
+        ind_rate = len(indiv_unreachable) / max(1, len(indiv_results))
+
+        indiv_points = evaluate.sweep(indiv_results, [])
+        best_indiv = max(indiv_points, key=lambda x: x.recall)
+
+        print(f"  individual listings     : {len(indiv_entries):,}")
+        print(f"  individual aliases      : {len(indiv_pairs):,}")
+        print(f"  screened                : {len(indiv_results):,}")
+        print()
+        print(f"  unreachable — ENTITIES    : {ent_rate:.1%} "
+              f"({len(unreachable):,}/{len(alias_results):,})")
+        print(f"  unreachable — INDIVIDUALS : {ind_rate:.1%} "
+              f"({len(indiv_unreachable):,}/{len(indiv_results):,})")
+        print(f"  max recall — individuals  : {best_indiv.recall:.1%}")
+        print()
+        if ind_rate < ent_rate * 0.6:
+            print("  The ceiling is MUCH lower for individuals. The headline")
+            print("  recommendation is scoped to entity screening and should")
+            print("  not be carried to personal-name screening unchanged.")
+        elif ind_rate > ent_rate * 1.4:
+            print("  The ceiling is HIGHER for individuals, strengthening the")
+            print("  recommendation rather than qualifying it.")
+        else:
+            print("  The ceiling holds across both populations, which removes")
+            print("  the main scope objection to the recommendation.")
+        for r_ in indiv_unreachable[:5]:
+            print(f"      {r_.alias[:48]!r}")
+
+        individuals_summary = {
+            "listings": len(indiv_entries),
+            "aliases_screened": len(indiv_results),
+            "unreachable_count": len(indiv_unreachable),
+            "unreachable_rate": ind_rate,
+            "entity_unreachable_rate": ent_rate,
+            "max_recall": best_indiv.recall,
+            "scope_note": (
+                "Recall side only. Measuring false positives for individuals "
+                "would require a corpus of innocent people's names, and "
+                "publishing near-misses between real private individuals and a "
+                "sanctions list is an exposure this project will not create."
+            ),
+        }
+    else:
+        individuals_summary = {}
+        print("  no individual aliases available")
+
     # ---- 6. the decision --------------------------------------------------
     assumptions = costs.CostAssumptions()
     anchors = penalties.loss_anchors(record)
@@ -236,6 +316,7 @@ def main() -> int:
     (EVIDENCE / "provenance.json").write_text(json.dumps({
         "ofac": prov, "population": pprov,
         "entity_resolution": csum,
+        "individuals_comparison": individuals_summary,
         "unreachable_aliases": {
             "count": len(unreachable),
             "share": len(unreachable) / max(1, len(alias_results)),
