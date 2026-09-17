@@ -18,7 +18,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from triage import (costs, decide, evaluate, ofac, penalties,  # noqa: E402
-                    population, resolve)
+                    policy, population, resolve)
 from triage.match import candidate_index  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -190,6 +190,48 @@ def main() -> int:
     print(f"\n  stable under   : {', '.join(rec.stable_parameters) or 'none'}")
     print(f"  UNSTABLE under : {', '.join(rec.unstable_parameters) or 'none'}")
 
+    # ---- tiered policy and operating range --------------------------------
+    print()
+    print("=" * 72)
+    print("OPERATING RANGE (tiered policy)")
+    print("=" * 72)
+    rng = policy.operating_range(points, assumptions)
+    if rng.policies:
+        print(f"  defensible auto-clear floor: {rng.floor_low:.0f} - "
+              f"{rng.floor_high:.0f}")
+        print(f"    at the low end : {rng.constraint_low}")
+        print(f"    at the high end: {rng.constraint_high}")
+        print()
+        print(f"  {'floor':>5} {'recall':>8} {'alerts/10k':>11} "
+              f"{'FTE':>7} {'missed/yr':>10} {'total $':>14}")
+        for pol in sorted(rng.policies, key=lambda x: x.auto_clear_below):
+            print(f"  {pol.auto_clear_below:5.0f} {pol.recall_at_floor:8.1%} "
+                  f"{pol.alerts_per_10k:11.1f} {pol.analyst_fte:7.1f} "
+                  f"{pol.missed_below_floor:10.2f} "
+                  f"${pol.total_cost:13,.0f}")
+    else:
+        print(f"  NO viable policy: {rng.constraint_low}; {rng.constraint_high}")
+
+    all_policies = policy.search_policies(points, assumptions)
+    best_policy = min(all_policies, key=lambda x: x.total_cost) if all_policies else None
+    if best_policy:
+        print()
+        print(f"  cheapest tiered policy: auto-clear below "
+              f"{best_policy.auto_clear_below:.0f}, escalate above "
+              f"{best_policy.escalate_above:.0f}")
+        print(f"    recall at floor : {best_policy.recall_at_floor:.1%}")
+        print(f"    analyst FTE     : {best_policy.analyst_fte:.1f}")
+        print(f"    total cost      : ${best_policy.total_cost:,.0f}")
+
+    # ---- the alerts an analyst actually sees ------------------------------
+    print()
+    print("=" * 72)
+    print("WHAT A FALSE POSITIVE LOOKS LIKE")
+    print("=" * 72)
+    worst = sorted(clean_results, key=lambda r_: -r_.score)[:10]
+    for r_ in worst:
+        print(f"  {r_.score:5.1f}  {r_.name[:44]:46s} vs {str(r_.top_match)[:40]}")
+
     # ---- 7. evidence ------------------------------------------------------
     (EVIDENCE / "provenance.json").write_text(json.dumps({
         "ofac": prov, "population": pprov,
@@ -214,8 +256,16 @@ def main() -> int:
 
     (EVIDENCE / "sweep.json").write_text(json.dumps(
         [p.as_dict() for p in points], indent=2))
-    (EVIDENCE / "recommendation.json").write_text(json.dumps(
-        rec.as_dict(), indent=2, default=float))
+    (EVIDENCE / "recommendation.json").write_text(json.dumps({
+        **rec.as_dict(),
+        "operating_range": rng.as_dict(),
+        "best_tiered_policy": best_policy.as_dict() if best_policy else None,
+        "worst_false_positives": [
+            {"company": r_.name, "matched_sdn_name": r_.top_match,
+             "score": r_.score, "sdn_ent_num": r_.top_ent_num}
+            for r_ in sorted(clean_results, key=lambda x: -x.score)[:25]
+        ],
+    }, indent=2, default=float))
     (EVIDENCE / "penalties.json").write_text(json.dumps({
         "summary": psum,
         "actions": [asdict(p) for p in record.penalties],

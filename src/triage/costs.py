@@ -51,28 +51,56 @@ class Param:
 # ---------------------------------------------------------------------------
 
 MINUTES_PER_ALERT = Param(
-    value=12.0,
-    evidence=Evidence.ESTIMATE,
-    source="ESTIMATE — REQUIRES VALIDATION against an operations team",
-    note="Time to clear one screening alert: open it, compare name, date of "
-         "birth, nationality and identifiers against the list entry, record a "
-         "disposition. Straightforward hits go faster; anything needing "
-         "escalation goes far slower.",
+    value=22.0,
+    evidence=Evidence.PUBLISHED,
+    source="Industry benchmarks: 15-30 min (Retail Banker International, 2026); "
+           "30-45 min for Level 1 review (Sphinx, 2026); 20-45 min per alert "
+           "(Sphinx capacity analysis); 10 min to several hours (FluxForce)",
+    note="Midpoint of the published range. Cited sources disagree by a factor "
+         "of three, which is itself informative: review time depends heavily "
+         "on whether the alert carries secondary identifiers to compare "
+         "against. Swept in the sensitivity analysis rather than treated as "
+         "settled.",
 )
 
 ANALYST_COST_PER_HOUR = Param(
-    value=85.0,
-    evidence=Evidence.ESTIMATE,
-    source="ESTIMATE — fully loaded cost, REQUIRES VALIDATION",
-    note="Salary, benefits, supervision and overhead for a first-line "
-         "sanctions analyst in a US money-centre bank. Offshored review is "
-         "materially cheaper and would lower this substantially.",
+    value=55.0,
+    evidence=Evidence.PUBLISHED,
+    source="$30-50/hour analyst time (Retail Banker International, 2026); "
+           "$25-50 in analyst time per 30-45 min review (Sphinx, 2026)",
+    note="Above the quoted hourly band because published figures appear to be "
+           "direct wage rather than fully loaded. Benefits, supervision, "
+           "QA sampling and overhead are real costs of the same review.",
 )
 
 REVIEW_COST_PER_ALERT = Param(
-    value=float(MINUTES_PER_ALERT) / 60.0 * float(ANALYST_COST_PER_HOUR),
-    evidence=Evidence.DERIVED,
-    source="MINUTES_PER_ALERT x ANALYST_COST_PER_HOUR",
+    value=20.0,
+    evidence=Evidence.PUBLISHED,
+    source="$15-25 per alert direct review cost (Retail Banker International, "
+           "2026); $25-50 per Level 1 review (Sphinx, 2026)",
+    note="Anchored to the published per-alert figure rather than derived, "
+           "because the published number is the observable one. Deriving it "
+           "from my own time and rate assumptions gives $20.17 — agreement "
+           "within a dollar, which is a coincidence worth stating plainly "
+           "rather than presenting as corroboration.",
+)
+
+# What the industry reports its own filters produce. Used to check whether this
+# study's measured false-positive rate is in a plausible operating region, not
+# to tune anything toward it.
+INDUSTRY_FP_RATE_LOW = Param(
+    value=0.90,
+    evidence=Evidence.PUBLISHED,
+    source="PwC benchmark cited since 2018; Alessa and KPMG place sanctions "
+           "screening false positives at 90-95%",
+    note="Share of alerts requiring no action.",
+)
+
+INDUSTRY_FP_RATE_HIGH = Param(
+    value=0.995,
+    evidence=Evidence.PUBLISHED,
+    source="Flagright 2024 review, cited by FluxForce: sanctions models up to "
+           "99.5%",
 )
 
 
