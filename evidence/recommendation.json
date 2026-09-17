@@ -6,14 +6,14 @@
       0.19317708362737848,
       0.21353611147090654
     ],
-    "false_positive_rate": 0.0016256096036013504,
-    "alerts_per_10k_screened": 16.256096036013503,
-    "alerts_per_year": 81280.48018006752,
-    "review_cost_usd": 1625609.6036013504,
-    "expected_missed_per_year": 39.84166666666666,
-    "exposure_cost_usd": 23958917.7275,
-    "total_cost_usd": 25584527.33110135,
-    "analyst_fte": 16.557134851495235
+    "false_positive_rate": 0.0016258129064532266,
+    "alerts_per_10k_screened": 16.258129064532266,
+    "alerts_per_year": 9754.877438719359,
+    "review_cost_usd": 195097.54877438716,
+    "expected_missed_per_year": 11.9525,
+    "exposure_cost_usd": 7187675.3182500005,
+    "total_cost_usd": 7382772.867024387,
+    "analyst_fte": 1.9871046634428324
   },
   "recall_constrained": null,
   "recall_floor": 0.95,
@@ -28,22 +28,22 @@
         0.2
       ],
       "optimal_thresholds": [
-        98.0,
+        96.0,
         92.0,
         92.0,
-        92.0,
-        86.0
+        86.0,
+        78.0
       ],
       "recalls_at_optimum": [
-        0.04733333333333333,
+        0.11516666666666667,
         0.20316666666666666,
         0.20316666666666666,
-        0.20316666666666666,
-        0.326
+        0.326,
+        0.4696666666666667
       ],
       "threshold_range": [
-        86.0,
-        98.0
+        78.0,
+        96.0
       ],
       "stable": false
     },
@@ -59,19 +59,19 @@
       "optimal_thresholds": [
         98.0,
         98.0,
-        98.0,
+        96.0,
         92.0,
-        86.0
+        82.0
       ],
       "recalls_at_optimum": [
         0.04733333333333333,
         0.04733333333333333,
-        0.04733333333333333,
+        0.11516666666666667,
         0.20316666666666666,
-        0.326
+        0.3993333333333333
       ],
       "threshold_range": [
-        86.0,
+        82.0,
         98.0
       ],
       "stable": false
@@ -86,24 +86,24 @@
         60.0
       ],
       "optimal_thresholds": [
+        84.0,
+        86.0,
         90.0,
         92.0,
-        92.0,
-        92.0,
-        96.0
+        92.0
       ],
       "recalls_at_optimum": [
+        0.36883333333333335,
+        0.326,
         0.24766666666666667,
         0.20316666666666666,
-        0.20316666666666666,
-        0.20316666666666666,
-        0.11516666666666667
+        0.20316666666666666
       ],
       "threshold_range": [
-        90.0,
-        96.0
+        84.0,
+        92.0
       ],
-      "stable": true
+      "stable": false
     },
     {
       "parameter": "true_sanctioned_rate",
@@ -143,31 +143,31 @@
         10.0
       ],
       "optimal_thresholds": [
-        96.0,
         92.0,
         92.0,
-        90.0
+        90.0,
+        86.0
       ],
       "recalls_at_optimum": [
-        0.11516666666666667,
         0.20316666666666666,
         0.20316666666666666,
-        0.24766666666666667
+        0.24766666666666667,
+        0.326
       ],
       "threshold_range": [
-        90.0,
-        96.0
+        86.0,
+        92.0
       ],
       "stable": true
     }
   ],
   "stable_under": [
-    "review_cost_per_alert",
     "remediation_multiple"
   ],
   "unstable_under": [
     "p_miss_becomes_enforcement",
     "penalty_per_enforcement",
+    "review_cost_per_alert",
     "true_sanctioned_rate"
   ],
   "separation": {
@@ -195,16 +195,16 @@
     "auto_clear_below": 92.0,
     "escalate_above": 98.0,
     "recall_at_floor": 0.20316666666666666,
-    "review_rate": 0.0016256096036013504,
-    "escalation_rate": 0.00012504689258471927,
-    "alerts_per_10k_screened": 16.256096036013503,
-    "escalations_per_10k_screened": 1.2504689258471926,
-    "annual_review_cost_usd": 1500562.7110166312,
-    "annual_escalation_cost_usd": 375140.6777541578,
-    "exposure_cost_usd": 23958917.7275,
-    "total_cost_usd": 25834621.116270788,
-    "analyst_fte": 19.10438636710989,
-    "missed_below_floor_per_year": 39.84166666666666
+    "review_rate": 0.0016258129064532266,
+    "escalation_rate": 0.0001250625312656328,
+    "alerts_per_10k_screened": 16.258129064532266,
+    "escalations_per_10k_screened": 1.250625312656328,
+    "annual_review_cost_usd": 180090.04502251127,
+    "annual_escalation_cost_usd": 45022.51125562781,
+    "exposure_cost_usd": 7187675.3182500005,
+    "total_cost_usd": 7412787.87452814,
+    "analyst_fte": 2.2928130732032685,
+    "missed_below_floor_per_year": 11.9525
   },
   "worst_false_positives": [
     {
@@ -310,6 +310,12 @@
       "sdn_ent_num": 54838
     },
     {
+      "company": "RNKC INTERNATIONAL PRIVATE LIMITED",
+      "matched_sdn_name": "NPC INTERNATIONAL",
+      "score": 91.42857142857143,
+      "sdn_ent_num": 11620
+    },
+    {
       "company": "KING INTERNATIONAL",
       "matched_sdn_name": "KGI INTERNATIONAL COMPANY LTD",
       "score": 91.42857142857143,
@@ -347,12 +353,6 @@
     },
     {
       "company": "STH Holding GmbH",
-      "matched_sdn_name": "STG HOLDING LIMITED",
-      "score": 90.9090909090909,
-      "sdn_ent_num": 16830
-    },
-    {
-      "company": "STM Holding GmbH",
       "matched_sdn_name": "STG HOLDING LIMITED",
       "score": 90.9090909090909,
       "sdn_ent_num": 16830

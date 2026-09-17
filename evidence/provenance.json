@@ -3,7 +3,7 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-17T04:46:06+00:00",
+    "retrieved_utc": "2026-09-17T14:33:26+00:00",
     "sdn_bytes": 5691983,
     "alt_bytes": 1063992,
     "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
@@ -16,12 +16,13 @@
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-17T04:47:42+00:00",
-    "count": 7997,
-    "removed_sanctioned_overlaps": 3,
+    "retrieved_utc": "2026-09-17T14:34:56+00:00",
+    "count": 7996,
+    "removed_sanctioned_overlaps": 4,
     "overlap_names": [
       "Aman Group S.\u00e0.r.l.",
       "FORTA, LLC",
+      "SD PARTNER",
       "THE RIVIERA"
     ],
     "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
@@ -106,6 +107,128 @@
     "max_recall": 0.8883333333333333,
     "scope_note": "Recall side only. Measuring false positives for individuals would require a corpus of innocent people's names, and publishing near-misses between real private individuals and a sanctions list is an exposure this project will not create."
   },
+  "operational_levers": {
+    "list_concentration": {
+      "threshold": 84.0,
+      "entries_generating_alerts": 189,
+      "total_alerts": 273,
+      "top_1pct_share_of_alerts": 0.03663003663003663,
+      "top_5pct_share_of_alerts": 0.18315018315018314,
+      "worst_entries": [
+        {
+          "name": "CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 10
+        },
+        {
+          "name": "M INVEST, OOO",
+          "alerts": 8
+        },
+        {
+          "name": "RB HOLDING LIMITED",
+          "alerts": 6
+        },
+        {
+          "name": "LAKE FOREST SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 5
+        },
+        {
+          "name": "AMAN HOLDING PRIVATE JSC",
+          "alerts": 5
+        },
+        {
+          "name": "STG HOLDING LIMITED",
+          "alerts": 4
+        },
+        {
+          "name": "T1 HOLDING",
+          "alerts": 4
+        },
+        {
+          "name": "PAPA HOLDING LTD",
+          "alerts": 4
+        },
+        {
+          "name": "MARS INVESTMENT L.L.C",
+          "alerts": 4
+        },
+        {
+          "name": "B&W CONSULTING",
+          "alerts": 4
+        }
+      ]
+    },
+    "whitelist_impact": [
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 273,
+        "total_alerts": 273,
+        "whitelisted_parties": 10,
+        "alerts_removed": 10,
+        "volume_reduction": 0.03663003663003663,
+        "residual_alerts": 263,
+        "parties_requiring_review": 10
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 273,
+        "total_alerts": 273,
+        "whitelisted_parties": 25,
+        "alerts_removed": 25,
+        "volume_reduction": 0.09157509157509157,
+        "residual_alerts": 248,
+        "parties_requiring_review": 25
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 273,
+        "total_alerts": 273,
+        "whitelisted_parties": 50,
+        "alerts_removed": 50,
+        "volume_reduction": 0.18315018315018314,
+        "residual_alerts": 223,
+        "parties_requiring_review": 50
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 273,
+        "total_alerts": 273,
+        "whitelisted_parties": 100,
+        "alerts_removed": 100,
+        "volume_reduction": 0.3663003663003663,
+        "residual_alerts": 173,
+        "parties_requiring_review": 100
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 273,
+        "total_alerts": 273,
+        "whitelisted_parties": 250,
+        "alerts_removed": 250,
+        "volume_reduction": 0.9157509157509157,
+        "residual_alerts": 23,
+        "parties_requiring_review": 250
+      }
+    ],
+    "population_tuning": {
+      "entity": {
+        "threshold": 68.0,
+        "recall": 0.609,
+        "unreachable_rate": 0.22566666666666668
+      },
+      "individual": {
+        "threshold": 82.0,
+        "recall": 0.6061666666666666,
+        "unreachable_rate": 0.11166666666666669
+      },
+      "recall_lost_to_a_single_threshold": 0.1905
+    }
+  },
+  "benchmark_check": {
+    "industry_alert_rate": 0.05,
+    "recall_within_industry_alert_rate": 0.3993333333333333,
+    "threshold": 82.0,
+    "fi_accuracy_correct_spelling": 0.972
+  },
   "unreachable_aliases": {
     "count": 907,
     "share": 0.15116666666666667,
@@ -169,5 +292,5 @@
   },
   "watchlist_scope": "entities only (individuals excluded)",
   "aliases_screened": 6000,
-  "clean_screened": 7997
+  "clean_screened": 7996
 }
