@@ -6,14 +6,14 @@
       0.19317708362737848,
       0.21353611147090654
     ],
-    "false_positive_rate": 0.0016258129064532266,
-    "alerts_per_10k_screened": 16.258129064532266,
-    "alerts_per_year": 9754.877438719359,
-    "review_cost_usd": 195097.54877438716,
+    "false_positive_rate": 0.0016262196647485615,
+    "alerts_per_10k_screened": 16.262196647485613,
+    "alerts_per_year": 9757.317988491368,
+    "review_cost_usd": 195146.35976982737,
     "expected_missed_per_year": 11.9525,
     "exposure_cost_usd": 7187675.3182500005,
-    "total_cost_usd": 7382772.867024387,
-    "analyst_fte": 1.9871046634428324
+    "total_cost_usd": 7382821.678019828,
+    "analyst_fte": 1.987601812470464
   },
   "recall_constrained": null,
   "recall_floor": 0.95,
@@ -126,7 +126,7 @@
         0.20316666666666666,
         0.20316666666666666,
         0.326,
-        0.759
+        0.7588333333333334
       ],
       "threshold_range": [
         52.0,
@@ -173,7 +173,7 @@
   "separation": {
     "alias_p05": 42.85714285714286,
     "alias_median": 80.76923076923077,
-    "clean_median": 58.06451612903225,
+    "clean_median": 57.89473684210527,
     "clean_p95": 82.35294117647058,
     "clean_max": 100.0,
     "distributions_overlap": true,
@@ -195,15 +195,15 @@
     "auto_clear_below": 92.0,
     "escalate_above": 98.0,
     "recall_at_floor": 0.20316666666666666,
-    "review_rate": 0.0016258129064532266,
-    "escalation_rate": 0.0001250625312656328,
-    "alerts_per_10k_screened": 16.258129064532266,
-    "escalations_per_10k_screened": 1.250625312656328,
-    "annual_review_cost_usd": 180090.04502251127,
-    "annual_escalation_cost_usd": 45022.51125562781,
+    "review_rate": 0.0016262196647485615,
+    "escalation_rate": 0.00012509382036527395,
+    "alerts_per_10k_screened": 16.262196647485613,
+    "escalations_per_10k_screened": 1.2509382036527394,
+    "annual_review_cost_usd": 180135.1013259945,
+    "annual_escalation_cost_usd": 45033.77533149862,
     "exposure_cost_usd": 7187675.3182500005,
-    "total_cost_usd": 7412787.87452814,
-    "analyst_fte": 2.2928130732032685,
+    "total_cost_usd": 7412844.194907494,
+    "analyst_fte": 2.293386706696689,
     "missed_below_floor_per_year": 11.9525
   },
   "worst_false_positives": [

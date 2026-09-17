@@ -3,33 +3,35 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-17T14:33:26+00:00",
-    "sdn_bytes": 5691983,
-    "alt_bytes": 1063992,
-    "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
-    "alt_sha256": "fa40fd1d5143e534477735ca01f03d3bec190dcbb549c1c9685361817c71852c",
-    "entries": 19385,
-    "entities": 9972,
-    "individuals": 7531,
-    "aliases": 20206,
+    "retrieved_utc": "2026-09-17T19:50:35+00:00",
+    "sdn_bytes": 5696748,
+    "alt_bytes": 1064468,
+    "sdn_sha256": "01df2c64828bd5471d0e512c5d609d45f80ea13972d3397491b90e375899e09b",
+    "alt_sha256": "5aa36573f317e3c34fc342f78c6bb29a3cad28e476bf48396b1e9fab6ed4730c",
+    "entries": 19399,
+    "entities": 9980,
+    "individuals": 7537,
+    "aliases": 20215,
     "note": "The SDN list changes several times a week. These hashes identify the exact edition every figure in this study was computed against; a reader re-running later will get a different hash and should expect slightly different counts."
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-17T14:34:56+00:00",
-    "count": 7996,
-    "removed_sanctioned_overlaps": 4,
+    "retrieved_utc": "2026-09-17T19:52:16+00:00",
+    "count": 7994,
+    "removed_sanctioned_overlaps": 6,
     "overlap_names": [
+      "AURUM",
       "Aman Group S.\u00e0.r.l.",
       "FORTA, LLC",
+      "SAS EGP",
       "SD PARTNER",
       "THE RIVIERA"
     ],
     "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
   },
   "entity_resolution": {
-    "entities": 9972,
-    "clusters": 9785,
+    "entities": 9980,
+    "clusters": 9793,
     "multi_listing_clusters": 130,
     "entities_in_multi_listing_clusters": 317,
     "largest_cluster": 9,
@@ -37,15 +39,15 @@
     "examples": [
       [
         "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX",
         "CIMEX, S.A."
-      ],
-      [
-        "CIMEX",
-        "CIMEX"
-      ],
-      [
-        "CIMEX",
-        "CIMEX"
       ],
       [
         "CIMEX, S.A.",
@@ -99,7 +101,7 @@
     "note": "OFAC designates the same organisation more than once \u2014 by country, by programme, by date \u2014 and each designation carries its own entity number. Requiring exact entity-number equality counted a perfect match against a sister listing as a miss, which accounted for most of an apparent 52% recall."
   },
   "individuals_comparison": {
-    "listings": 7531,
+    "listings": 7537,
     "aliases_screened": 6000,
     "unreachable_count": 580,
     "unreachable_rate": 0.09666666666666666,
@@ -111,21 +113,25 @@
     "list_concentration": {
       "threshold": 84.0,
       "entries_generating_alerts": 189,
-      "total_alerts": 273,
-      "top_1pct_share_of_alerts": 0.03663003663003663,
-      "top_5pct_share_of_alerts": 0.18315018315018314,
+      "total_alerts": 272,
+      "top_1pct_share_of_alerts": 0.029411764705882353,
+      "top_5pct_share_of_alerts": 0.1801470588235294,
       "worst_entries": [
-        {
-          "name": "CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
-          "alerts": 10
-        },
         {
           "name": "M INVEST, OOO",
           "alerts": 8
         },
         {
+          "name": "CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 8
+        },
+        {
           "name": "RB HOLDING LIMITED",
           "alerts": 6
+        },
+        {
+          "name": "T1 HOLDING",
+          "alerts": 5
         },
         {
           "name": "LAKE FOREST SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
@@ -136,11 +142,11 @@
           "alerts": 5
         },
         {
-          "name": "STG HOLDING LIMITED",
+          "name": "INTER-TRANS SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
           "alerts": 4
         },
         {
-          "name": "T1 HOLDING",
+          "name": "STG HOLDING LIMITED",
           "alerts": 4
         },
         {
@@ -150,62 +156,58 @@
         {
           "name": "MARS INVESTMENT L.L.C",
           "alerts": 4
-        },
-        {
-          "name": "B&W CONSULTING",
-          "alerts": 4
         }
       ]
     },
     "whitelist_impact": [
       {
         "threshold": 84.0,
-        "distinct_alerting_parties": 273,
-        "total_alerts": 273,
+        "distinct_alerting_parties": 272,
+        "total_alerts": 272,
         "whitelisted_parties": 10,
         "alerts_removed": 10,
-        "volume_reduction": 0.03663003663003663,
-        "residual_alerts": 263,
+        "volume_reduction": 0.03676470588235294,
+        "residual_alerts": 262,
         "parties_requiring_review": 10
       },
       {
         "threshold": 84.0,
-        "distinct_alerting_parties": 273,
-        "total_alerts": 273,
+        "distinct_alerting_parties": 272,
+        "total_alerts": 272,
         "whitelisted_parties": 25,
         "alerts_removed": 25,
-        "volume_reduction": 0.09157509157509157,
-        "residual_alerts": 248,
+        "volume_reduction": 0.09191176470588236,
+        "residual_alerts": 247,
         "parties_requiring_review": 25
       },
       {
         "threshold": 84.0,
-        "distinct_alerting_parties": 273,
-        "total_alerts": 273,
+        "distinct_alerting_parties": 272,
+        "total_alerts": 272,
         "whitelisted_parties": 50,
         "alerts_removed": 50,
-        "volume_reduction": 0.18315018315018314,
-        "residual_alerts": 223,
+        "volume_reduction": 0.18382352941176472,
+        "residual_alerts": 222,
         "parties_requiring_review": 50
       },
       {
         "threshold": 84.0,
-        "distinct_alerting_parties": 273,
-        "total_alerts": 273,
+        "distinct_alerting_parties": 272,
+        "total_alerts": 272,
         "whitelisted_parties": 100,
         "alerts_removed": 100,
-        "volume_reduction": 0.3663003663003663,
-        "residual_alerts": 173,
+        "volume_reduction": 0.36764705882352944,
+        "residual_alerts": 172,
         "parties_requiring_review": 100
       },
       {
         "threshold": 84.0,
-        "distinct_alerting_parties": 273,
-        "total_alerts": 273,
+        "distinct_alerting_parties": 272,
+        "total_alerts": 272,
         "whitelisted_parties": 250,
         "alerts_removed": 250,
-        "volume_reduction": 0.9157509157509157,
-        "residual_alerts": 23,
+        "volume_reduction": 0.9191176470588235,
+        "residual_alerts": 22,
         "parties_requiring_review": 250
       }
     ],
@@ -292,5 +294,5 @@
   },
   "watchlist_scope": "entities only (individuals excluded)",
   "aliases_screened": 6000,
-  "clean_screened": 7996
+  "clean_screened": 7994
 }

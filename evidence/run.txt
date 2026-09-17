@@ -1,10 +1,10 @@
-INFO triage.ofac: SDN list: 5691983 bytes from https://www.treasury.gov/ofac/downloads/sdn.csv
-INFO triage.ofac: alternate names: 1063992 bytes from https://www.treasury.gov/ofac/downloads/alt.csv
-INFO triage.ofac: OFAC: 19385 entries (9972 entities, 7531 individuals), 20206 aliases
+INFO triage.ofac: SDN list: 5696748 bytes from https://www.treasury.gov/ofac/downloads/sdn.csv
+INFO triage.ofac: alternate names: 1064468 bytes from https://www.treasury.gov/ofac/downloads/alt.csv
+INFO triage.ofac: OFAC: 19399 entries (9980 entities, 7537 individuals), 20215 aliases
 WARNING triage.population: SEC EDGAR unavailable: HTTP Error 403: Forbidden
 INFO triage.population: population: 8000 entities from GLEIF LEI
-WARNING triage.population: removing 4 population entries that exactly match an SDN entry: ['Aman Group S.à.r.l.', 'FORTA, LLC', 'SD PARTNER', 'THE RIVIERA']
-INFO triage.resolve: entity resolution: 9972 listings -> 9785 organisations (130 multi-listing)
+WARNING triage.population: removing 6 population entries that exactly match an SDN entry: ['AURUM', 'Aman Group S.à.r.l.', 'FORTA, LLC', 'SAS EGP', 'SD PARTNER']
+INFO triage.resolve: entity resolution: 9980 listings -> 9793 organisations (130 multi-listing)
 INFO triage.evaluate: screened 2000 aliases
 INFO triage.evaluate: screened 4000 aliases
 INFO triage.evaluate: screened 6000 aliases
@@ -23,43 +23,44 @@ INFO triage.penalties: penalties 2022: 16 actions, 14 with amounts
 INFO triage.penalties: penalties 2023: 16 actions, 16 with amounts
 INFO triage.penalties: penalties 2024: 12 actions, 12 with amounts
 INFO triage.penalties: penalties 2025: 14 actions, 14 with amounts
-INFO triage.resolve: entity resolution: 7531 listings -> 7499 organisations (31 multi-listing)
+INFO triage.resolve: entity resolution: 7537 listings -> 7505 organisations (31 multi-listing)
 INFO triage.evaluate: screened 2000 aliases
 INFO triage.evaluate: screened 4000 aliases
 INFO triage.evaluate: screened 6000 aliases
 ========================================================================
 OFAC SANCTIONS LIST
 ========================================================================
-  entries     : 19,385
-  entities    : 9,972
-  individuals : 7,531
-  aliases     : 20,206
-  sdn sha256  : f4424647eb39496c...
+  entries     : 19,399
+  entities    : 9,980
+  individuals : 7,537
+  aliases     : 20,215
+  sdn sha256  : 01df2c64828bd547...
 
-  entity entries            : 9,972
-  aliases of those entities : 11,333
-  watchlist NAMES (primary + alias): 21,305
+  entity entries            : 9,980
+  aliases of those entities : 11,341
+  watchlist NAMES (primary + alias): 21,321
 
 ========================================================================
 CLEAN POPULATION
 ========================================================================
   source      : GLEIF LEI
-  entities    : 7,996
-  removed as genuinely sanctioned: 4
+  entities    : 7,994
+  removed as genuinely sanctioned: 6
+      - AURUM
       - Aman Group S.à.r.l.
       - FORTA, LLC
+      - SAS EGP
       - SD PARTNER
-      - THE RIVIERA
 
 ========================================================================
 SCREENING
 ========================================================================
-  blocking index: 7,149 keys
-  listings -> organisations: 9,972 -> 9,785
+  blocking index: 7,155 keys
+  listings -> organisations: 9,980 -> 9,793
   multi-listing organisations: 130
+      merged: 'CIMEX' + 'CIMEX'
+      merged: 'CIMEX' + 'CIMEX'
       merged: 'CIMEX' + 'CIMEX, S.A.'
-      merged: 'CIMEX' + 'CIMEX'
-      merged: 'CIMEX' + 'CIMEX'
 
   aliases with NO candidate at any threshold: 907 (15.1%)
       'AVIA IMPORT'
@@ -69,10 +70,10 @@ SCREENING
       'COPROVA SARL'
       'DELVEST HOLDING COMPANY'
   aliases screened : 6,000
-  clean screened   : 7,996
+  clean screened   : 7,994
 
   alias median score : 80.8
-  clean median score : 58.1
+  clean median score : 57.9
   clean 95th pct     : 82.4
   distributions overlap: True
 
@@ -80,16 +81,16 @@ SCREENING
 THRESHOLD SWEEP
 ========================================================================
    thr   recall  op.recall   FP rate  alerts/10k
-    52    75.9%      57.2%    63.58%      6358.2
-    56    72.7%      56.8%    55.13%      5512.8
-    60    69.7%      56.1%    45.37%      4537.3
-    64    65.6%      55.3%    36.26%      3625.6
-    68    60.9%      53.5%    27.73%      2772.6
-    72    56.3%      51.2%    20.11%      2011.0
-    76    49.9%      46.8%    13.14%      1314.4
-    80    44.4%      42.6%     8.58%       857.9
-    84    36.9%      36.3%     3.41%       341.4
-    88    28.6%      28.6%     1.24%       123.8
+    52    75.9%      57.3%    63.45%      6344.8
+    56    72.7%      56.8%    54.98%      5497.9
+    60    69.7%      56.1%    45.18%      4518.4
+    64    65.6%      55.3%    36.26%      3626.5
+    68    60.9%      53.4%    27.70%      2769.6
+    72    56.3%      51.1%    20.10%      2010.3
+    76    49.9%      46.8%    13.15%      1314.7
+    80    44.4%      42.6%     8.62%       861.9
+    84    36.9%      36.3%     3.40%       340.3
+    88    28.6%      28.6%     1.20%       120.1
     92    20.3%      20.3%     0.16%        16.3
     96    11.5%      11.5%     0.04%         3.8
    100     3.4%       3.4%     0.01%         1.3
@@ -106,8 +107,8 @@ OFAC ENFORCEMENT RECORD
 ========================================================================
 DOES THE CEILING HOLD FOR INDIVIDUALS?
 ========================================================================
-  individual listings     : 7,531
-  individual aliases      : 8,653
+  individual listings     : 7,537
+  individual aliases      : 8,654
   screened                : 6,000
 
   unreachable — ENTITIES    : 15.1% (907/6,000)
@@ -130,9 +131,9 @@ RECOMMENDATION
   cost-optimal threshold : 92
     recall               : 20.3%
     alerts per 10k       : 16.3
-    annual review cost   : $195,098
+    annual review cost   : $195,146
     annual exposure      : $7,187,675
-    total                : $7,382,773
+    total                : $7,382,822
     analyst FTE          : 2.0
 
   stable under   : remediation_multiple
@@ -146,7 +147,7 @@ OPERATING RANGE (tiered policy)
   cheapest tiered policy: auto-clear below 92, escalate above 98
     recall at floor : 20.3%
     analyst FTE     : 2.3
-    total cost      : $7,412,788
+    total cost      : $7,412,844
 
 ========================================================================
 WHAT A FALSE POSITIVE LOOKS LIKE
@@ -165,21 +166,21 @@ WHAT A FALSE POSITIVE LOOKS LIKE
 ========================================================================
 OPERATIONAL LEVERS (no threshold change)
 ========================================================================
-  at threshold 84: 273 alerts from 189 distinct list entries
-    worst 1% of entries generate  : 3.7% of alerts
-    worst 5% of entries generate  : 18.3% of alerts
-       10 alerts  CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA
+  at threshold 84: 272 alerts from 189 distinct list entries
+    worst 1% of entries generate  : 2.9% of alerts
+    worst 5% of entries generate  : 18.0% of alerts
         8 alerts  M INVEST, OOO
+        8 alerts  CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA
         6 alerts  RB HOLDING LIMITED
+        5 alerts  T1 HOLDING
         5 alerts  LAKE FOREST SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA
-        5 alerts  AMAN HOLDING PRIVATE JSC
 
   false-hit list (OFAC recognises the practice explicitly):
-    whitelist top   10 ->   3.7% volume removed, 263 alerts remain
-    whitelist top   25 ->   9.2% volume removed, 248 alerts remain
-    whitelist top   50 ->  18.3% volume removed, 223 alerts remain
-    whitelist top  100 ->  36.6% volume removed, 173 alerts remain
-    whitelist top  250 ->  91.6% volume removed, 23 alerts remain
+    whitelist top   10 ->   3.7% volume removed, 262 alerts remain
+    whitelist top   25 ->   9.2% volume removed, 247 alerts remain
+    whitelist top   50 ->  18.4% volume removed, 222 alerts remain
+    whitelist top  100 ->  36.8% volume removed, 172 alerts remain
+    whitelist top  250 ->  91.9% volume removed, 22 alerts remain
 
   population tuning (entities and individuals fail differently):
     entities   : threshold 68 for 60.9% recall
@@ -200,3 +201,4 @@ SANITY CHECK AGAINST PUBLISHED BENCHMARKS
   is that unpublished number, measured.
 
 Evidence written to /home/runner/work/sanctions-triage/sanctions-triage/evidence
+Decision brief written to /home/runner/work/sanctions-triage/sanctions-triage/docs/index.html
