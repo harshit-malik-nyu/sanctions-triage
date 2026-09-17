@@ -204,6 +204,22 @@ Pulls live OFAC data, records SHA-256 hashes of the exact list edition, and
 writes everything to `evidence/`. The SDN list changes several times a week, so
 a later run produces a different hash and slightly different counts.
 
+## What has not been validated
+
+Everything here is built from public data and published benchmarks. **Nothing
+has been checked by someone who runs a sanctions screening function**, and that
+is the largest remaining weakness — not because the measurements are wrong, but
+because operational reality contains constraints no public source records.
+
+[`docs/practitioner-review.md`](docs/practitioner-review.md) sets out the ten
+questions that would validate or break this, ordered so the ones most likely to
+invert the conclusion come first. Four of them could.
+
+The honest description of this work is: a rigorous measurement on public data,
+checked against published benchmarks, and unvalidated by anyone who does the
+job. The numbers are reproducible. Whether they describe the world a
+practitioner works in is exactly what has not been established.
+
 ## The case against this analysis
 
 [`docs/against.md`](docs/against.md) — the strongest argument I can make that
