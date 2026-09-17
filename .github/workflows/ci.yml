@@ -1,0 +1,39 @@
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[dev]" mypy pyflakes
+      - name: Dead code and unused imports
+        run: python -m pyflakes src/triage scripts tests
+      - name: Static types
+        run: python -m mypy src/triage --ignore-missing-imports
+      - name: Coverage floor
+        # The floor stops coverage sliding. decide.py and penalties.py sat at
+        # 0% while producing the recommendation and anchoring the loss side.
+        run: pytest -q --cov=triage --cov-report=term --cov-fail-under=72

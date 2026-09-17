@@ -39,7 +39,7 @@ import logging
 from collections import defaultdict
 from dataclasses import dataclass, field
 
-from .match import candidate_index, candidates_for, normalise, score
+from .match import candidate_index, candidates_for, score
 
 log = logging.getLogger(__name__)
 
