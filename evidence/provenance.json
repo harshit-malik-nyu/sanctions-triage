@@ -3,7 +3,7 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-17T00:07:55+00:00",
+    "retrieved_utc": "2026-09-17T03:23:59+00:00",
     "sdn_bytes": 5691983,
     "alt_bytes": 1063992,
     "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
@@ -16,7 +16,7 @@
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-17T00:09:25+00:00",
+    "retrieved_utc": "2026-09-17T03:25:25+00:00",
     "count": 7997,
     "removed_sanctioned_overlaps": 3,
     "overlap_names": [
