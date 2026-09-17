@@ -3,7 +3,7 @@ INFO triage.ofac: alternate names: 1063992 bytes from https://www.treasury.gov/o
 INFO triage.ofac: OFAC: 19385 entries (9972 entities, 7531 individuals), 20206 aliases
 WARNING triage.population: SEC EDGAR unavailable: HTTP Error 403: Forbidden
 INFO triage.population: population: 8000 entities from GLEIF LEI
-WARNING triage.population: removing 1 population entries that exactly match an SDN entry: ['FORTA, LLC']
+WARNING triage.population: removing 3 population entries that exactly match an SDN entry: ['Aman Group S.à.r.l.', 'FORTA, LLC', 'THE RIVIERA']
 INFO triage.resolve: entity resolution: 9972 listings -> 9785 organisations (130 multi-listing)
 INFO triage.evaluate: screened 2000 aliases
 INFO triage.evaluate: screened 4000 aliases
@@ -40,9 +40,11 @@ OFAC SANCTIONS LIST
 CLEAN POPULATION
 ========================================================================
   source      : GLEIF LEI
-  entities    : 7,999
-  removed as genuinely sanctioned: 1
+  entities    : 7,997
+  removed as genuinely sanctioned: 3
+      - Aman Group S.à.r.l.
       - FORTA, LLC
+      - THE RIVIERA
 
 ========================================================================
 SCREENING
@@ -62,7 +64,7 @@ SCREENING
       'COPROVA SARL'
       'DELVEST HOLDING COMPANY'
   aliases screened : 6,000
-  clean screened   : 7,999
+  clean screened   : 7,997
 
   alias median score : 80.8
   clean median score : 58.1
@@ -73,16 +75,16 @@ SCREENING
 THRESHOLD SWEEP
 ========================================================================
    thr   recall  op.recall   FP rate  alerts/10k
-    52    75.9%      57.2%    64.08%      6408.3
-    56    72.7%      56.8%    55.59%      5559.4
-    60    69.7%      56.1%    45.94%      4594.3
-    64    65.6%      55.3%    36.49%      3649.2
-    68    60.9%      53.5%    28.10%      2810.4
-    72    56.3%      51.2%    20.42%      2041.5
-    76    49.9%      46.8%    13.24%      1323.9
-    80    44.4%      42.6%     8.64%       863.9
-    84    36.9%      36.3%     3.33%       332.5
-    88    28.6%      28.6%     1.20%       120.0
+    52    75.9%      57.2%    64.00%      6399.9
+    56    72.7%      56.8%    55.51%      5550.8
+    60    69.7%      56.1%    45.79%      4579.2
+    64    65.6%      55.3%    36.44%      3643.9
+    68    60.9%      53.5%    27.90%      2789.8
+    72    56.3%      51.2%    20.25%      2024.5
+    76    49.9%      46.8%    13.25%      1325.5
+    80    44.4%      42.6%     8.70%       870.3
+    84    36.9%      36.3%     3.45%       345.1
+    88    28.6%      28.6%     1.26%       126.3
     92    20.3%      20.3%     0.16%        16.3
     96    11.5%      11.5%     0.04%         3.8
    100     3.4%       3.4%     0.01%         1.3
@@ -104,12 +106,36 @@ RECOMMENDATION
   cost-optimal threshold : 92
     recall               : 20.3%
     alerts per 10k       : 16.3
-    annual review cost   : $1,381,423
+    annual review cost   : $1,625,610
     annual exposure      : $23,958,918
-    total                : $25,340,340
-    analyst FTE          : 9.0
+    total                : $25,584,527
+    analyst FTE          : 16.6
 
   stable under   : review_cost_per_alert, remediation_multiple
   UNSTABLE under : p_miss_becomes_enforcement, penalty_per_enforcement, true_sanctioned_rate
+
+========================================================================
+OPERATING RANGE (tiered policy)
+========================================================================
+  NO viable policy: no floor keeps staffing under 150 FTE; no floor reaches 80% recall
+
+  cheapest tiered policy: auto-clear below 92, escalate above 98
+    recall at floor : 20.3%
+    analyst FTE     : 19.1
+    total cost      : $25,834,621
+
+========================================================================
+WHAT A FALSE POSITIVE LOOKS LIKE
+========================================================================
+  100.0  STAFFING GLOBAL . CORPORATION                  vs GLOBAL STAFFING S.A.
+   97.6  IRIS MARINE SERVICES PRIVATE LIMITED           vs IRISL MARINE SERVICES
+   96.0  FAMAN HOLDING S.R.L.                           vs AMAN HOLDING PRIVATE JSC
+   95.2  HOLDING LS                                     vs LTS HOLDING LIMITED
+   94.7  SB Energy, Inc.                                vs SBL ENERGY PRIVATE LIMITED
+   94.7  T HOLDING S.R.L.                               vs T1 HOLDING
+   94.7  A.O.P. Invest                                  vs AP INVEST OOO
+   94.1  MF INVEST                                      vs M INVEST, OOO
+   94.1  ML Invest                                      vs M INVEST, OOO
+   94.1  ML Invest GmbH                                 vs M INVEST, OOO
 
 Evidence written to /home/runner/work/sanctions-triage/sanctions-triage/evidence

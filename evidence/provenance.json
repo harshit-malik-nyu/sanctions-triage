@@ -3,7 +3,7 @@
     "source": "U.S. Treasury OFAC, public domain",
     "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
     "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
-    "retrieved_utc": "2026-09-16T23:45:17+00:00",
+    "retrieved_utc": "2026-09-17T00:07:55+00:00",
     "sdn_bytes": 5691983,
     "alt_bytes": 1063992,
     "sdn_sha256": "f4424647eb39496c234a1586ef1af11f9d202813aaac732f3ceeaba21bed0884",
@@ -16,11 +16,13 @@
   },
   "population": {
     "source": "GLEIF LEI",
-    "retrieved_utc": "2026-09-16T23:46:37+00:00",
-    "count": 7999,
-    "removed_sanctioned_overlaps": 1,
+    "retrieved_utc": "2026-09-17T00:09:25+00:00",
+    "count": 7997,
+    "removed_sanctioned_overlaps": 3,
     "overlap_names": [
-      "FORTA, LLC"
+      "Aman Group S.\u00e0.r.l.",
+      "FORTA, LLC",
+      "THE RIVIERA"
     ],
     "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
   },
@@ -158,5 +160,5 @@
   },
   "watchlist_scope": "entities only (individuals excluded)",
   "aliases_screened": 6000,
-  "clean_screened": 7999
+  "clean_screened": 7997
 }
