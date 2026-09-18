@@ -1,0 +1,298 @@
+{
+  "ofac": {
+    "source": "U.S. Treasury OFAC, public domain",
+    "sdn_url": "https://www.treasury.gov/ofac/downloads/sdn.csv",
+    "alt_url": "https://www.treasury.gov/ofac/downloads/alt.csv",
+    "retrieved_utc": "2026-09-18T01:06:46+00:00",
+    "sdn_bytes": 5696748,
+    "alt_bytes": 1064468,
+    "sdn_sha256": "01df2c64828bd5471d0e512c5d609d45f80ea13972d3397491b90e375899e09b",
+    "alt_sha256": "5aa36573f317e3c34fc342f78c6bb29a3cad28e476bf48396b1e9fab6ed4730c",
+    "entries": 19399,
+    "entities": 9980,
+    "individuals": 7537,
+    "aliases": 20215,
+    "note": "The SDN list changes several times a week. These hashes identify the exact edition every figure in this study was computed against; a reader re-running later will get a different hash and should expect slightly different counts."
+  },
+  "population": {
+    "source": "GLEIF LEI",
+    "retrieved_utc": "2026-09-18T01:08:06+00:00",
+    "count": 7994,
+    "removed_sanctioned_overlaps": 6,
+    "overlap_names": [
+      "AURUM",
+      "Aman Group S.\u00e0.r.l.",
+      "FORTA, LLC",
+      "SAS EGP",
+      "SD PARTNER",
+      "THE RIVIERA"
+    ],
+    "note": "Real registered legal entities from a public registry. Entities exactly matching an SDN entry were removed from the negative set and are listed here, because counting a genuine sanctioned party as a false positive would flatter the headline rate."
+  },
+  "entity_resolution": {
+    "entities": 9980,
+    "clusters": 9793,
+    "multi_listing_clusters": 130,
+    "entities_in_multi_listing_clusters": 317,
+    "largest_cluster": 9,
+    "threshold": 95.0,
+    "examples": [
+      [
+        "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX",
+        "CIMEX"
+      ],
+      [
+        "CIMEX",
+        "CIMEX, S.A."
+      ],
+      [
+        "CIMEX, S.A.",
+        "CIMEX"
+      ],
+      [
+        "CIMEX, S.A.",
+        "CIMEX"
+      ],
+      [
+        "CORPORACION CIMEX, S.A.",
+        "CORPORACION CIMEX S.A."
+      ],
+      [
+        "HAVANATUR",
+        "HAVANATUR S.A."
+      ],
+      [
+        "NATIONAL LIBERATION ARMY",
+        "NATIONAL LIBERATION ARMY"
+      ],
+      [
+        "AL RASHID TRUST",
+        "AL RASHID TRUST"
+      ],
+      [
+        "REVIVAL OF ISLAMIC HERITAGE SOCIETY",
+        "REVIVAL OF ISLAMIC HERITAGE SOCIETY"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "AL-HARAMAIN ISLAMIC FOUNDATION",
+        "AL-HARAMAIN ISLAMIC FOUNDATION"
+      ],
+      [
+        "ASKATASUNA",
+        "ASKATASUNA"
+      ]
+    ],
+    "note": "OFAC designates the same organisation more than once \u2014 by country, by programme, by date \u2014 and each designation carries its own entity number. Requiring exact entity-number equality counted a perfect match against a sister listing as a miss, which accounted for most of an apparent 52% recall."
+  },
+  "individuals_comparison": {
+    "listings": 7537,
+    "aliases_screened": 6000,
+    "unreachable_count": 580,
+    "unreachable_rate": 0.09666666666666666,
+    "entity_unreachable_rate": 0.15116666666666667,
+    "max_recall": 0.8883333333333333,
+    "scope_note": "Recall side only. Measuring false positives for individuals would require a corpus of innocent people's names, and publishing near-misses between real private individuals and a sanctions list is an exposure this project will not create."
+  },
+  "operational_levers": {
+    "list_concentration": {
+      "threshold": 84.0,
+      "entries_generating_alerts": 186,
+      "total_alerts": 261,
+      "top_1pct_share_of_alerts": 0.02681992337164751,
+      "top_5pct_share_of_alerts": 0.16475095785440613,
+      "worst_entries": [
+        {
+          "name": "CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 7
+        },
+        {
+          "name": "M INVEST, OOO",
+          "alerts": 6
+        },
+        {
+          "name": "RB HOLDING LIMITED",
+          "alerts": 6
+        },
+        {
+          "name": "INTER-TRANS SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 4
+        },
+        {
+          "name": "STG HOLDING LIMITED",
+          "alerts": 4
+        },
+        {
+          "name": "T1 HOLDING",
+          "alerts": 4
+        },
+        {
+          "name": "PAPA HOLDING LTD",
+          "alerts": 4
+        },
+        {
+          "name": "MARS INVESTMENT L.L.C",
+          "alerts": 4
+        },
+        {
+          "name": "B&W CONSULTING",
+          "alerts": 4
+        },
+        {
+          "name": "LAKE FOREST SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA",
+          "alerts": 4
+        }
+      ]
+    },
+    "whitelist_impact": [
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 261,
+        "total_alerts": 261,
+        "whitelisted_parties": 10,
+        "alerts_removed": 10,
+        "volume_reduction": 0.038314176245210725,
+        "residual_alerts": 251,
+        "parties_requiring_review": 10
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 261,
+        "total_alerts": 261,
+        "whitelisted_parties": 25,
+        "alerts_removed": 25,
+        "volume_reduction": 0.09578544061302682,
+        "residual_alerts": 236,
+        "parties_requiring_review": 25
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 261,
+        "total_alerts": 261,
+        "whitelisted_parties": 50,
+        "alerts_removed": 50,
+        "volume_reduction": 0.19157088122605365,
+        "residual_alerts": 211,
+        "parties_requiring_review": 50
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 261,
+        "total_alerts": 261,
+        "whitelisted_parties": 100,
+        "alerts_removed": 100,
+        "volume_reduction": 0.3831417624521073,
+        "residual_alerts": 161,
+        "parties_requiring_review": 100
+      },
+      {
+        "threshold": 84.0,
+        "distinct_alerting_parties": 261,
+        "total_alerts": 261,
+        "whitelisted_parties": 250,
+        "alerts_removed": 250,
+        "volume_reduction": 0.9578544061302682,
+        "residual_alerts": 11,
+        "parties_requiring_review": 250
+      }
+    ],
+    "population_tuning": {
+      "entity": {
+        "threshold": 68.0,
+        "recall": 0.609,
+        "unreachable_rate": 0.22566666666666668
+      },
+      "individual": {
+        "threshold": 82.0,
+        "recall": 0.6061666666666666,
+        "unreachable_rate": 0.11166666666666669
+      },
+      "recall_lost_to_a_single_threshold": 0.1905
+    }
+  },
+  "benchmark_check": {
+    "industry_alert_rate": 0.05,
+    "recall_within_industry_alert_rate": 0.3993333333333333,
+    "threshold": 82.0,
+    "fi_accuracy_correct_spelling": 0.972
+  },
+  "unreachable_aliases": {
+    "count": 907,
+    "share": 0.15116666666666667,
+    "examples": [
+      "AVIA IMPORT",
+      "COIBA",
+      "CRYMSA",
+      "COPROVA",
+      "COPROVA SARL",
+      "DELVEST HOLDING COMPANY",
+      "CARIBBEAN EXPORT ENTERPRISE",
+      "CUBATUR",
+      "CUFLET",
+      "TROVER, S.A.",
+      "AL HARAKAT AL ISLAMIYYA",
+      "AUM SUPREME TRUTH",
+      "A.I.C. SOGO KENKYUSHO",
+      "A.I.C. COMPREHENSIVE RESEARCH INSTITUTE",
+      "ALEPH",
+      "EKIN",
+      "XAKI",
+      "JARRAI-HAIKA-SEGI",
+      "AL-FARAN",
+      "PARTY OF GOD",
+      "FOLLOWERS OF THE PROPHET MUHAMMED",
+      "REPRESSION OF TRAITORS",
+      "DIKUY BOGDIM",
+      "DOV",
+      "THE WAY OF THE TORAH",
+      "KOACH",
+      "NEWKACH.ORG",
+      "PKK",
+      "HALU MESRU SAVUNMA KUVVETI",
+      "KADEK",
+      "KONGRA-GEL",
+      "KGK",
+      "LTTE",
+      "ELLALAN FORCE",
+      "ELN",
+      "PIJ",
+      "PLF",
+      "PFLP",
+      "PPRF",
+      "MARTYR ABU-ALI MUSTAFA BATTALION"
+    ],
+    "note": "Aliases generating no candidate at any threshold. Acronyms and unrelated trading names sharing no character sequence with any other published name for the same party. This is the floor on name-only screening: no metric and no threshold reaches them, because there is nothing to be similar to."
+  },
+  "penalties": {
+    "count": 180,
+    "years": "2014-2025",
+    "years_failed": [],
+    "total_usd": 5249650803.95,
+    "mean_usd": 29164726.688611113,
+    "median_usd": 528031.5,
+    "p25_usd": 145893.0,
+    "p75_usd": 3740442.0,
+    "p90_usd": 12027066.0,
+    "max_usd": 968618825.0,
+    "min_usd": 5000.0,
+    "note": "Median and mean differ by orders of magnitude because the distribution is dominated by a handful of very large institutional settlements. The median is the better anchor for a typical violation; the tail is what makes the expected value large."
+  },
+  "watchlist_scope": "entities only (individuals excluded)",
+  "aliases_screened": 6000,
+  "clean_screened": 7994
+}
