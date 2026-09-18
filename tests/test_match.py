@@ -146,3 +146,57 @@ class TestBlocking:
         names = ["BANCO NACIONAL DE CUBA", "UNRELATED HOLDINGS"]
         idx = candidate_index(names)
         assert 0 in candidates_for("NATIONAL BANK OF CUBA", idx)
+
+
+class TestMatchingHelpers:
+
+    def test_best_match_without_an_index_scans_everything(self):
+        """
+        Blocking is an optimisation. Without it the result must be identical,
+        or the index is silently changing answers rather than speeding them up.
+        """
+        from triage.match import best_match, candidate_index
+        watch = ["BANCO NACIONAL DE CUBA", "UNRELATED HOLDINGS", "ACME LTD"]
+        pos_a, score_a = best_match("NATIONAL BANK OF CUBA", watch)
+        pos_b, score_b = best_match("NATIONAL BANK OF CUBA", watch,
+                                    candidate_index(watch))
+        assert (pos_a, score_a) == (pos_b, score_b)
+
+    def test_best_match_returns_sentinel_when_nothing_is_comparable(self):
+        from triage.match import best_match, candidate_index
+        watch = ["AEROCARIBBEAN AIRLINES"]
+        assert best_match("ZZZQQQ WIDGETS", watch,
+                          candidate_index(watch)) == (-1, 0.0)
+
+    def test_best_match_stops_early_on_an_exact_hit(self):
+        from triage.match import best_match
+        watch = ["ACME TRADING LIMITED", "SOMETHING ELSE"]
+        pos, sc = best_match("Acme Trading Ltd", watch)
+        assert pos == 0 and sc == 100.0
+
+    def test_all_matches_above_returns_every_hit_sorted(self):
+        """
+        Alert volume depends on this rather than on the single best match,
+        because an analyst sees the whole list.
+        """
+        from triage.match import all_matches_above
+        watch = ["M INVEST, OOO", "M INVEST LLC", "TOTALLY UNRELATED PLC"]
+        hits = all_matches_above("ML INVEST", watch, threshold=60.0)
+        assert len(hits) >= 2
+        assert [s for _, s in hits] == sorted([s for _, s in hits], reverse=True)
+
+    def test_all_matches_above_respects_the_threshold(self):
+        from triage.match import all_matches_above
+        watch = ["ACME TRADING LIMITED", "ZZZQQQ WIDGETS"]
+        assert all_matches_above("Acme Trading Ltd", watch, 99.0) == [(0, 100.0)]
+
+    def test_initials_only_names_are_flagged(self):
+        """Too little signal to compare; matching on them is noise."""
+        from triage.match import is_initials_only
+        assert is_initials_only("J D")
+        assert is_initials_only("A.B.")
+        assert not is_initials_only("ACME TRADING")
+
+    def test_empty_name_is_not_initials_only(self):
+        from triage.match import is_initials_only
+        assert not is_initials_only("")

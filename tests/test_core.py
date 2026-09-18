@@ -645,3 +645,90 @@ class TestPopulationLoading:
         assert "ARGO SRL" not in pop.names()
         assert pop.removed_overlaps == ["ARGO SRL"]
         assert pop.provenance()["removed_sanctioned_overlaps"] == 1
+
+
+class TestCostAudit:
+
+    def test_audit_lists_every_parameter_with_its_source(self):
+        """
+        The register is what makes the cost model auditable. A parameter
+        missing from it is a number nobody can trace.
+        """
+        text = costs.audit()
+        for name in costs.registry():
+            assert name in text, f"{name} missing from the audit"
+
+    def test_audit_separates_published_from_estimate(self):
+        text = costs.audit()
+        assert "[PUBLISHED]" in text
+        assert "[ESTIMATE]" in text
+
+    def test_audit_names_the_asymmetry_as_the_decision(self):
+        text = costs.audit()
+        assert "asymmetry ratio" in text
+        assert "reported across a range" in text or "cannot be validated" in text
+
+    def test_every_parameter_carries_a_source(self):
+        for name, p in costs.registry().items():
+            assert p.source, f"{name} has no source"
+
+    def test_estimates_say_so_in_their_source(self):
+        """
+        An unvalidated number must be visibly unvalidated at the point a
+        reader meets it, not only in a summary elsewhere.
+        """
+        for name, p in costs.registry().items():
+            if p.evidence is costs.Evidence.ESTIMATE:
+                assert "ESTIMATE" in p.source.upper(), (
+                    f"{name} is an estimate but does not say so")
+
+
+class TestOfacLoading:
+
+    def test_load_parses_and_records_provenance(self, tmp_path):
+        """
+        The SDN list changes several times a week. Without the hash no figure
+        can be tied to the data that produced it.
+        """
+        from unittest.mock import patch
+        sdn = "\n".join(
+            f'{i},"ENTITY NUMBER {i} TRADING LIMITED",-0- ,"CUBA",'
+            + ",".join(["-0- "] * 8) for i in range(1200))
+        alt = "\n".join(f'{i},1,"aka","ENTITY {i} ALIAS",-0-' for i in range(1200))
+
+        with patch.object(ofac, "fetch_with_fallback",
+                          side_effect=[sdn, alt]):
+            snap = ofac.load(cache_dir=str(tmp_path))
+
+        prov = snap.provenance()
+        assert prov["entries"] == 1200
+        assert prov["aliases"] == 1200
+        assert len(prov["sdn_sha256"]) == 64
+        assert prov["retrieved_utc"]
+
+    def test_load_uses_the_cache_on_a_second_call(self, tmp_path):
+        from unittest.mock import patch
+        sdn = "\n".join(
+            f'{i},"ENTITY {i} TRADING LIMITED",-0- ,"CUBA",'
+            + ",".join(["-0- "] * 8) for i in range(1200))
+        alt = f'1,1,"aka","AN ALIAS",-0-'
+
+        with patch.object(ofac, "fetch_with_fallback",
+                          side_effect=[sdn, alt]) as fetch:
+            ofac.load(cache_dir=str(tmp_path))
+            assert fetch.call_count == 2
+            ofac.load(cache_dir=str(tmp_path))
+            assert fetch.call_count == 2, "second load refetched instead of caching"
+
+    def test_a_short_list_is_refused(self, tmp_path):
+        """
+        A truncated watchlist yields few alerts and a flattering
+        false-positive rate. Reporting from it would be the most misleading
+        possible result.
+        """
+        from unittest.mock import patch
+        with patch.object(ofac, "fetch_with_fallback",
+                          side_effect=['1,"ONLY ONE ENTRY LTD",-0- ,"CUBA"'
+                                       + ",-0- " * 8, ""]):
+            with pytest.raises(ofac.OfacUnavailable):
+                ofac.load(cache_dir=str(tmp_path))

@@ -2,6 +2,9 @@
 
 **And why, on this evidence, the threshold is not the decision worth making.**
 
+📄 **[Read the decision brief](https://harshit-malik-nyu.github.io/sanctions-triage/)**
+— one page, regenerated from live data on every run.
+
 Built on OFAC's published sanctions list, OFAC's published enforcement record,
 and a real registry of legal entities. No synthetic transactions, no generated
 names, no invented labels. Every figure regenerates from
