@@ -550,3 +550,98 @@ class TestDecision:
         d = decide.recommend(self._points()).as_dict()
         assert "cost_optimal" in d and "sensitivities" in d
         assert "unstable_under" in d
+
+
+# ===========================================================================
+# Population loading
+# ===========================================================================
+
+class TestPopulationLoading:
+
+    def test_sec_response_shape_is_handled(self):
+        """
+        The endpoint returns a JSON object keyed by row index rather than a
+        list — a quirk of the endpoint, not the data.
+        """
+        import json as _json
+        from unittest.mock import patch
+        from triage import population
+
+        payload = _json.dumps({
+            "0": {"cik_str": 320193, "ticker": "AAPL", "title": "Apple Inc."},
+            "1": {"cik_str": 789019, "ticker": "MSFT", "title": "Microsoft Corp"},
+        }).encode()
+        with patch.object(population, "_get", return_value=payload):
+            out = population.fetch_sec()
+        assert [e.name for e in out] == ["Apple Inc.", "Microsoft Corp"]
+        assert out[0].identifier == "CIK320193"
+
+    def test_entries_without_a_name_are_skipped(self):
+        import json as _json
+        from unittest.mock import patch
+        from triage import population
+
+        payload = _json.dumps({"0": {"cik_str": 1, "title": ""},
+                               "1": {"cik_str": 2, "title": "Real Co"}}).encode()
+        with patch.object(population, "_get", return_value=payload):
+            assert len(population.fetch_sec()) == 1
+
+    def test_gleif_records_parsed(self):
+        import json as _json
+        from unittest.mock import patch
+        from triage import population
+
+        page = _json.dumps({"data": [{
+            "id": "LEI123",
+            "attributes": {
+                "lei": "LEI123",
+                "entity": {"legalName": {"name": "Global Trading AB"},
+                           "legalAddress": {"country": "SE"}},
+            }}]}).encode()
+        with patch.object(population, "_get", return_value=page):
+            out = population.fetch_gleif(limit=1)
+        assert out[0].name == "Global Trading AB"
+        assert out[0].country == "SE"
+
+    def test_all_sources_failing_raises_rather_than_returning_empty(self):
+        """
+        An empty population makes the false-positive rate undefined, and
+        substituting generated names would put invented data at the centre of
+        the headline number.
+        """
+        from unittest.mock import patch
+        from triage import population
+
+        with patch.object(population, "fetch_sec", side_effect=OSError("down")), \
+             patch.object(population, "fetch_gleif", side_effect=OSError("down")):
+            with pytest.raises(population.PopulationUnavailable):
+                population.load(["SOME SDN NAME"])
+
+    def test_a_thin_source_is_rejected_and_the_next_tried(self):
+        from unittest.mock import patch
+        from triage import population
+
+        thin = [population.Entity(name=f"Co {i}", identifier=str(i),
+                                  source="SEC EDGAR") for i in range(5)]
+        fat = [population.Entity(name=f"Firm {i}", identifier=str(i),
+                                 source="GLEIF LEI") for i in range(800)]
+        with patch.object(population, "fetch_sec", return_value=thin), \
+             patch.object(population, "fetch_gleif", return_value=fat):
+            pop = population.load([])
+        assert pop.source == "GLEIF LEI"
+        assert len(pop.entities) == 800
+
+    def test_sanctioned_overlaps_are_stripped_and_recorded(self):
+        from unittest.mock import patch
+        from triage import population
+
+        entities = [population.Entity(name="ARGO SRL", identifier="1",
+                                      source="GLEIF LEI")]
+        entities += [population.Entity(name=f"Clean {i}", identifier=str(i + 2),
+                                       source="GLEIF LEI") for i in range(700)]
+        with patch.object(population, "fetch_sec", side_effect=OSError("down")), \
+             patch.object(population, "fetch_gleif", return_value=entities):
+            pop = population.load(["ARGO S.R.L."])
+        assert "ARGO SRL" not in pop.names()
+        assert pop.removed_overlaps == ["ARGO SRL"]
+        assert pop.provenance()["removed_sanctioned_overlaps"] == 1

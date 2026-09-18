@@ -36,4 +36,4 @@ jobs:
       - name: Coverage floor
         # The floor stops coverage sliding. decide.py and penalties.py sat at
         # 0% while producing the recommendation and anchoring the loss side.
-        run: pytest -q --cov=triage --cov-report=term --cov-fail-under=76
+        run: pytest -q --cov=triage --cov-report=term --cov-fail-under=82

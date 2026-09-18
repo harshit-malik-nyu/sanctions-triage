@@ -20,10 +20,10 @@ property of the data, and it is measurable:
 
 | | |
 |---|---:|
-| Highest recall at any threshold | **75.9%** |
+| Highest recall at any threshold | **77.4%** |
 | Alert rate required to reach it | **64% of everything screened** |
-| Recall at an operationally plausible alert rate (3.45%) | **36.9%** |
-| Published aliases unreachable by name matching at *any* threshold | **15.1%** |
+| Recall at a staffable alert rate | **39.9%** |
+| Published aliases unreachable at *any* threshold | **15.1%** |
 
 The last line is the binding constraint. **907 of 6,000 held-out aliases share
 no character sequence with any other published name for the same party** —
@@ -49,6 +49,46 @@ number, date of birth, address, the listing identifier itself — address the
 15.1% that no matching improvement can touch. Spend on better fuzzy matching
 buys movement along a frontier that tops out at 75.9%; identifier capture moves
 the frontier.
+
+### The ceiling holds on both populations
+
+The obvious objection is that this measures corporate names, while most real
+false positives come from transliterated personal names. That was tested rather
+than caveated:
+
+| Population | Unreachable at any threshold | Best recall |
+|---|---:|---:|
+| Entities | **15.1%** | 77.4% |
+| Individuals | **9.7%** | 88.8% |
+
+Personal names screen better, as predicted — they skew toward spelling variants
+that fuzzy matching does reach, while entity aliases skew toward acronyms that
+share nothing. But roughly **one alias in ten is still unreachable on the
+population a bank screens most**, so the conclusion survives rather than
+inverting.
+
+Only the recall side was measured for individuals. Measuring their false
+positives needs a corpus of innocent people's names, and publishing near-misses
+between real private individuals and a sanctions list is an exposure this
+project will not create.
+
+### One threshold across both populations costs 19.1% of recall
+
+Entities reach 60.9% recall at threshold 68; individuals need 82 for 60.6%. A
+single threshold must satisfy the harder population, and the recall it gives up
+on the other is measurable. That is a simplification usually made for
+administrative convenience rather than for a reason.
+
+### Does this behave like a real filter?
+
+Sweden's financial regulator tested 19 banks against 5,000 sanctioned names in
+2024. Average accuracy was **97.2% on correctly spelled entries**. It reported
+accuracy fell on aliases and transliterations *without publishing a figure*.
+
+Hold-one-out screening measures exactly that case. At an alert rate inside the
+published industry band, this study finds **39.9%**.
+
+The gap between those two numbers is the one the regulator did not publish.
 
 ### What would change this conclusion
 
