@@ -711,7 +711,7 @@ class TestOfacLoading:
         sdn = "\n".join(
             f'{i},"ENTITY {i} TRADING LIMITED",-0- ,"CUBA",'
             + ",".join(["-0- "] * 8) for i in range(1200))
-        alt = f'1,1,"aka","AN ALIAS",-0-'
+        alt = '1,1,"aka","AN ALIAS",-0-'
 
         with patch.object(ofac, "fetch_with_fallback",
                           side_effect=[sdn, alt]) as fetch:
