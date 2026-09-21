@@ -1,19 +1,19 @@
 {
   "cost_optimal": {
     "threshold": 92.0,
-    "recall": 0.20316666666666666,
+    "recall": 0.203,
     "recall_ci95": [
-      0.19317708362737848,
-      0.21353611147090654
+      0.19301363265244897,
+      0.21336644239816527
     ],
-    "false_positive_rate": 0.0013760320240180136,
-    "alerts_per_10k_screened": 13.760320240180135,
-    "alerts_per_year": 8256.192144108081,
-    "review_cost_usd": 165123.8428821616,
-    "expected_missed_per_year": 11.9525,
-    "exposure_cost_usd": 7187675.3182500005,
-    "total_cost_usd": 7352799.161132162,
-    "analyst_fte": 1.6818169182442388
+    "false_positive_rate": 0.0007506568247216314,
+    "alerts_per_10k_screened": 7.506568247216314,
+    "alerts_per_year": 4503.940948329789,
+    "review_cost_usd": 90078.81896659578,
+    "expected_missed_per_year": 11.955,
+    "exposure_cost_usd": 7189178.7015,
+    "total_cost_usd": 7279257.520466596,
+    "analyst_fte": 0.9174694524375494
   },
   "recall_constrained": null,
   "recall_floor": 0.95,
@@ -28,22 +28,22 @@
         0.2
       ],
       "optimal_thresholds": [
-        96.0,
+        92.0,
         92.0,
         92.0,
         86.0,
         78.0
       ],
       "recalls_at_optimum": [
-        0.11516666666666667,
-        0.20316666666666666,
-        0.20316666666666666,
-        0.326,
-        0.4696666666666667
+        0.203,
+        0.203,
+        0.203,
+        0.3258333333333333,
+        0.4695
       ],
       "threshold_range": [
         78.0,
-        96.0
+        92.0
       ],
       "stable": false
     },
@@ -59,16 +59,16 @@
       "optimal_thresholds": [
         98.0,
         96.0,
-        96.0,
+        94.0,
         92.0,
         82.0
       ],
       "recalls_at_optimum": [
         0.04733333333333333,
-        0.11516666666666667,
-        0.11516666666666667,
-        0.20316666666666666,
-        0.3993333333333333
+        0.115,
+        0.16716666666666666,
+        0.203,
+        0.39916666666666667
       ],
       "threshold_range": [
         82.0,
@@ -93,11 +93,11 @@
         92.0
       ],
       "recalls_at_optimum": [
-        0.36883333333333335,
-        0.326,
-        0.24766666666666667,
-        0.20316666666666666,
-        0.20316666666666666
+        0.36866666666666664,
+        0.3258333333333333,
+        0.2475,
+        0.203,
+        0.203
       ],
       "threshold_range": [
         84.0,
@@ -122,11 +122,11 @@
         52.0
       ],
       "recalls_at_optimum": [
-        0.11516666666666667,
-        0.20316666666666666,
-        0.20316666666666666,
-        0.326,
-        0.7588333333333334
+        0.115,
+        0.203,
+        0.203,
+        0.3258333333333333,
+        0.7586666666666667
       ],
       "threshold_range": [
         52.0,
@@ -145,14 +145,14 @@
       "optimal_thresholds": [
         92.0,
         92.0,
-        90.0,
+        88.0,
         86.0
       ],
       "recalls_at_optimum": [
-        0.20316666666666666,
-        0.20316666666666666,
-        0.24766666666666667,
-        0.326
+        0.203,
+        0.203,
+        0.28633333333333333,
+        0.3258333333333333
       ],
       "threshold_range": [
         86.0,
@@ -173,13 +173,13 @@
   "separation": {
     "alias_p05": 42.85714285714286,
     "alias_median": 80.76923076923077,
-    "clean_median": 57.89473684210527,
-    "clean_p95": 82.05128205128204,
+    "clean_median": 57.14285714285714,
+    "clean_p95": 81.9047619047619,
     "clean_max": 100.0,
     "distributions_overlap": true,
     "overlap_band": [
       42.85714285714286,
-      82.05128205128204
+      81.9047619047619
     ],
     "note": "Where the 5th percentile of correctly-matched aliases sits below the 95th percentile of clean companies, no threshold separates the classes and the decision is purely which error to absorb."
   },
@@ -194,17 +194,17 @@
   "best_tiered_policy": {
     "auto_clear_below": 92.0,
     "escalate_above": 98.0,
-    "recall_at_floor": 0.20316666666666666,
-    "review_rate": 0.0013760320240180136,
-    "escalation_rate": 0.00012509382036527395,
-    "alerts_per_10k_screened": 13.760320240180135,
-    "escalations_per_10k_screened": 1.2509382036527394,
-    "annual_review_cost_usd": 150112.58443832875,
-    "annual_escalation_cost_usd": 45033.77533149862,
-    "exposure_cost_usd": 7187675.3182500005,
-    "total_cost_usd": 7382821.678019828,
-    "analyst_fte": 1.9876018124704642,
-    "missed_below_floor_per_year": 11.9525
+    "recall_at_floor": 0.203,
+    "review_rate": 0.0007506568247216314,
+    "escalation_rate": 0.00012510947078693858,
+    "alerts_per_10k_screened": 7.506568247216314,
+    "escalations_per_10k_screened": 1.2510947078693857,
+    "annual_review_cost_usd": 75065.68247216314,
+    "annual_escalation_cost_usd": 45039.40948329789,
+    "exposure_cost_usd": 7189178.7015,
+    "total_cost_usd": 7309283.793455461,
+    "analyst_fte": 1.223292603250066,
+    "missed_below_floor_per_year": 11.955
   },
   "worst_false_positives": [
     {
@@ -232,36 +232,6 @@
       "sdn_ent_num": 57923
     },
     {
-      "company": "T HOLDING S.R.L.",
-      "matched_sdn_name": "T1 HOLDING",
-      "score": 94.73684210526316,
-      "sdn_ent_num": 47691
-    },
-    {
-      "company": "A.O.P. Invest",
-      "matched_sdn_name": "AP INVEST OOO",
-      "score": 94.73684210526316,
-      "sdn_ent_num": 50181
-    },
-    {
-      "company": "MF INVEST",
-      "matched_sdn_name": "M INVEST, OOO",
-      "score": 94.11764705882352,
-      "sdn_ent_num": 29101
-    },
-    {
-      "company": "ML Invest",
-      "matched_sdn_name": "M INVEST, OOO",
-      "score": 94.11764705882352,
-      "sdn_ent_num": 29101
-    },
-    {
-      "company": "TSAR PROPERTIES LTD",
-      "matched_sdn_name": "SARA PROPERTIES",
-      "score": 93.33333333333333,
-      "sdn_ent_num": 9600
-    },
-    {
       "company": "Elisa Holding B.V.",
       "matched_sdn_name": "ELLISSA SAL (HOLDING)",
       "score": 92.85714285714286,
@@ -280,6 +250,12 @@
       "sdn_ent_num": 17041
     },
     {
+      "company": "AGMA HOLDING",
+      "matched_sdn_name": "AMAN HOLDING PRIVATE JSC",
+      "score": 91.66666666666666,
+      "sdn_ent_num": 26887
+    },
+    {
       "company": "RS SOLUTIONS",
       "matched_sdn_name": "RG SOLUTIONS LIMITED",
       "score": 91.66666666666666,
@@ -292,12 +268,6 @@
       "sdn_ent_num": 26887
     },
     {
-      "company": "GFMC HOLDING",
-      "matched_sdn_name": "GMCG HOLDING CORP",
-      "score": 91.66666666666666,
-      "sdn_ent_num": 54838
-    },
-    {
       "company": "RNKC INTERNATIONAL PRIVATE LIMITED",
       "matched_sdn_name": "NPC INTERNATIONAL",
       "score": 91.42857142857143,
@@ -308,6 +278,36 @@
       "matched_sdn_name": "KGI INTERNATIONAL COMPANY LTD",
       "score": 91.42857142857143,
       "sdn_ent_num": 23323
+    },
+    {
+      "company": "MASH TECHNOLOGIES PRIVATE LIMITED",
+      "matched_sdn_name": "MCS TECHNOLOGIES GMBH",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 16013
+    },
+    {
+      "company": "ADK INTERNATIONAL PRIVATE LIMITED",
+      "matched_sdn_name": "CK INTERNATIONAL LTD",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 23524
+    },
+    {
+      "company": "FTR TRADING LIMITED",
+      "matched_sdn_name": "TR6 TRADING LLP",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 56405
+    },
+    {
+      "company": "PP Holding B.V.",
+      "matched_sdn_name": "PAPA HOLDING LTD",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 48096
+    },
+    {
+      "company": "KALA ENTERPRISES",
+      "matched_sdn_name": "KAFAK ENTERPRISES LIMITED",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 17770
     },
     {
       "company": "RTJ Holding B.V.",
@@ -334,28 +334,28 @@
       "sdn_ent_num": 13356
     },
     {
-      "company": "R.B.G.A. Holding B.V.",
-      "matched_sdn_name": "RB HOLDING LIMITED",
-      "score": 90.9090909090909,
-      "sdn_ent_num": 42744
+      "company": "Alvo Trading International B.V.",
+      "matched_sdn_name": "ATLAS INTERNATIONAL TRADING LIMITED",
+      "score": 90.56603773584906,
+      "sdn_ent_num": 57507
     },
     {
-      "company": "STH Holding GmbH",
-      "matched_sdn_name": "STG HOLDING LIMITED",
-      "score": 90.9090909090909,
-      "sdn_ent_num": 16830
+      "company": "MASS ENGINEERING",
+      "matched_sdn_name": "MCS ENGINEERING",
+      "score": 90.32258064516128,
+      "sdn_ent_num": 16014
     },
     {
-      "company": "STM Holding GmbH",
-      "matched_sdn_name": "STG HOLDING LIMITED",
-      "score": 90.9090909090909,
-      "sdn_ent_num": 16830
+      "company": "galimero Holding GmbH",
+      "matched_sdn_name": "ARIMERO HOLDING LIMITED",
+      "score": 90.32258064516128,
+      "sdn_ent_num": 34616
     },
     {
-      "company": "MVD Holding B.V.",
-      "matched_sdn_name": "MTV HOLDING",
-      "score": 90.9090909090909,
-      "sdn_ent_num": 52176
+      "company": "COSIGO RESOURCES LTD.",
+      "matched_sdn_name": "COSMO RESOURCES PTE. LTD.",
+      "score": 90.32258064516128,
+      "sdn_ent_num": 29064
     }
   ]
 }
