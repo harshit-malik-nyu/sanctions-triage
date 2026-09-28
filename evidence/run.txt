@@ -1,0 +1,203 @@
+INFO triage.ofac: SDN list: 5695076 bytes from https://www.treasury.gov/ofac/downloads/sdn.csv
+INFO triage.ofac: alternate names: 1063989 bytes from https://www.treasury.gov/ofac/downloads/alt.csv
+INFO triage.ofac: OFAC: 19391 entries (9975 entities, 7534 individuals), 20205 aliases
+WARNING triage.population: SEC EDGAR unavailable: HTTP Error 403: Forbidden
+INFO triage.population: population: 8000 entities from GLEIF LEI
+WARNING triage.population: removing 4 population entries that exactly match an SDN entry: ['GP CAPITAL SRL', 'INDUSTRIAL SOLUTIONS', 'Noor & Co Holding AB', 'STAN S.R.L.']
+INFO triage.resolve: entity resolution: 9975 listings -> 9788 organisations (130 multi-listing)
+INFO triage.evaluate: screened 2000 aliases
+INFO triage.evaluate: screened 4000 aliases
+INFO triage.evaluate: screened 6000 aliases
+INFO triage.evaluate: screened 2000 clean entities
+INFO triage.evaluate: screened 4000 clean entities
+INFO triage.evaluate: screened 6000 clean entities
+INFO triage.penalties: penalties 2014: 23 actions, 22 with amounts
+INFO triage.penalties: penalties 2015: 15 actions, 15 with amounts
+INFO triage.penalties: penalties 2016: 9 actions, 9 with amounts
+INFO triage.penalties: penalties 2017: 17 actions, 16 with amounts
+INFO triage.penalties: penalties 2018: 8 actions, 7 with amounts
+INFO triage.penalties: penalties 2019: 22 actions, 22 with amounts
+INFO triage.penalties: penalties 2020: 15 actions, 15 with amounts
+INFO triage.penalties: penalties 2021: 19 actions, 18 with amounts
+INFO triage.penalties: penalties 2022: 16 actions, 14 with amounts
+INFO triage.penalties: penalties 2023: 16 actions, 16 with amounts
+INFO triage.penalties: penalties 2024: 12 actions, 12 with amounts
+INFO triage.penalties: penalties 2025: 14 actions, 14 with amounts
+INFO triage.resolve: entity resolution: 7534 listings -> 7502 organisations (31 multi-listing)
+INFO triage.evaluate: screened 2000 aliases
+INFO triage.evaluate: screened 4000 aliases
+INFO triage.evaluate: screened 6000 aliases
+========================================================================
+OFAC SANCTIONS LIST
+========================================================================
+  entries     : 19,391
+  entities    : 9,975
+  individuals : 7,534
+  aliases     : 20,205
+  sdn sha256  : cf3ffced4675aa15...
+
+  entity entries            : 9,975
+  aliases of those entities : 11,339
+  watchlist NAMES (primary + alias): 21,314
+
+========================================================================
+CLEAN POPULATION
+========================================================================
+  source      : GLEIF LEI
+  entities    : 7,996
+  removed as genuinely sanctioned: 4
+      - GP CAPITAL SRL
+      - INDUSTRIAL SOLUTIONS
+      - Noor & Co Holding AB
+      - STAN S.R.L.
+
+========================================================================
+SCREENING
+========================================================================
+  blocking index: 7,153 keys
+  listings -> organisations: 9,975 -> 9,788
+  multi-listing organisations: 130
+      merged: 'CIMEX' + 'CIMEX, S.A.'
+      merged: 'CIMEX' + 'CIMEX'
+      merged: 'CIMEX' + 'CIMEX'
+
+  aliases with NO candidate at any threshold: 908 (15.1%)
+      'AVIA IMPORT'
+      'COIBA'
+      'CRYMSA'
+      'COPROVA'
+      'COPROVA SARL'
+      'DELVEST HOLDING COMPANY'
+  aliases screened : 6,000
+  clean screened   : 7,996
+
+  alias median score : 80.8
+  clean median score : 57.8
+  clean 95th pct     : 81.8
+  distributions overlap: True
+
+========================================================================
+THRESHOLD SWEEP
+========================================================================
+   thr   recall  op.recall   FP rate  alerts/10k
+    52    75.8%      57.3%    62.86%      6285.6
+    56    72.6%      56.8%    54.31%      5431.5
+    60    69.7%      56.2%    45.71%      4571.0
+    64    65.6%      55.3%    36.11%      3610.6
+    68    60.9%      53.4%    27.80%      2780.1
+    72    56.3%      51.1%    19.92%      1992.2
+    76    49.9%      46.8%    12.56%      1255.6
+    80    44.3%      42.6%     7.70%       770.4
+    84    36.9%      36.3%     2.91%       291.4
+    88    28.6%      28.6%     0.80%        80.0
+    92    20.3%      20.3%     0.06%         6.3
+    96    11.5%      11.5%     0.00%         0.0
+   100     3.4%       3.4%     0.00%         0.0
+
+========================================================================
+OFAC ENFORCEMENT RECORD
+========================================================================
+  actions with amounts : 180 (2014-2025)
+  median penalty       : $528,032
+  mean penalty         : $29,164,727
+  90th percentile      : $12,027,066
+  largest              : $968,618,825
+
+========================================================================
+DOES THE CEILING HOLD FOR INDIVIDUALS?
+========================================================================
+  individual listings     : 7,534
+  individual aliases      : 8,646
+  screened                : 6,000
+
+  unreachable — ENTITIES    : 15.1% (908/6,000)
+  unreachable — INDIVIDUALS : 9.7% (580/6,000)
+  max recall — individuals  : 88.8%
+
+  The ceiling holds across both populations, which removes
+  the main scope objection to the recommendation.
+      'ZAYDAN, Muhammad'
+      'SALIM, Ahmad Fuad'
+      'ZUMAR, Abbud'
+      'AL-ZUMAR, Abbud'
+      'KHALID, Abu'
+
+  loss anchor set to the observed 90th percentile: $12,027,066
+
+========================================================================
+RECOMMENDATION
+========================================================================
+  cost-optimal threshold : 90
+    recall               : 24.8%
+    alerts per 10k       : 38.8
+    annual review cost   : $465,233
+    annual exposure      : $6,787,775
+    total                : $7,253,008
+    analyst FTE          : 4.7
+
+  stable under   : remediation_multiple
+  UNSTABLE under : p_miss_becomes_enforcement, penalty_per_enforcement, review_cost_per_alert, true_sanctioned_rate
+
+========================================================================
+OPERATING RANGE (tiered policy)
+========================================================================
+  NO viable policy: no floor keeps staffing under 150 FTE; no floor reaches 80% recall
+
+  cheapest tiered policy: auto-clear below 90, escalate above 96
+    recall at floor : 24.8%
+    analyst FTE     : 4.7
+    total cost      : $7,253,008
+
+========================================================================
+WHAT A FALSE POSITIVE LOOKS LIKE
+========================================================================
+   94.3  ARYAN ADVANCED TECHNOLOGIES PRIVATE LIMITED    vs ADVANCED TECHNOLOGIES COMPANY OF IRAN
+   94.1  BTL INTERNATIONAL LIMITED                      vs BTW INTERNATIONAL LIMITED
+   92.9  ah-consulting GmbH                             vs ARCH CONSULTING COMPANY
+   92.3  SACHAM HOLDING                                 vs SHAM HOLDING COMPANY SAL
+   92.3  OMKAR TRADING                                  vs OKHAR TRADING LIMITED
+   91.7  Pham Holding GmbH                              vs SHAM HOLDING COMPANY SAL
+   91.7  EG Spa Solutions GmbH                          vs RG SOLUTIONS LIMITED
+   91.7  Nolu Holding B.V.                              vs NOUR HOLDING SAL
+   91.7  Maro Holding B.V.                              vs MAKO HOLDING
+   91.4  ROHAL TECHNOLOGIES PRIVATE LIMITED             vs COAL TECHNOLOGIES
+
+========================================================================
+OPERATIONAL LEVERS (no threshold change)
+========================================================================
+  at threshold 84: 233 alerts from 169 distinct list entries
+    worst 1% of entries generate  : 4.7% of alerts
+    worst 5% of entries generate  : 18.0% of alerts
+       11 alerts  CALLLYNC SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA
+        6 alerts  LLC A INVEST
+        5 alerts  RB CONSULTING LIMITED
+        5 alerts  LAKE FOREST SPOLKA Z OGRANICZONA ODPOWIEDZIALNOSCIA
+        5 alerts  RB HOLDING LIMITED
+
+  false-hit list (OFAC recognises the practice explicitly):
+    whitelist top   10 ->   4.3% volume removed, 223 alerts remain
+    whitelist top   25 ->  10.7% volume removed, 208 alerts remain
+    whitelist top   50 ->  21.5% volume removed, 183 alerts remain
+    whitelist top  100 ->  42.9% volume removed, 133 alerts remain
+    whitelist top  233 -> 100.0% volume removed, 0 alerts remain
+
+  population tuning (entities and individuals fail differently):
+    entities   : threshold 68 for 60.9% recall
+    individuals: threshold 82 for 60.6% recall
+    recall given up by using a single threshold: 19.1%
+
+========================================================================
+SANITY CHECK AGAINST PUBLISHED BENCHMARKS
+========================================================================
+  published alert rate benchmark : 5.0% (described as conservative)
+  highest recall within that band: 39.9% at threshold 82 (4.90% alert rate)
+
+  Swedish regulator benchmark    : 97.2% accuracy on CORRECTLY SPELLED names across 19 banks
+  this study, on unseen variants : 39.9%
+
+  FI reported accuracy dropped on aliases and transliterations
+  without publishing a figure. The gap between those two lines
+  is that unpublished number, measured.
+
+Evidence written to /home/runner/work/sanctions-triage/sanctions-triage/evidence
+Decision brief written to /home/runner/work/sanctions-triage/sanctions-triage/docs/index.html
