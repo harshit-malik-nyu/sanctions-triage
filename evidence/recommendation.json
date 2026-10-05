@@ -1,0 +1,361 @@
+{
+  "cost_optimal": {
+    "threshold": 90.0,
+    "recall": 0.2475,
+    "recall_ci95": [
+      0.236743896202608,
+      0.25857923157611284
+    ],
+    "false_positive_rate": 0.00266844563042028,
+    "alerts_per_10k_screened": 26.6844563042028,
+    "alerts_per_year": 16010.67378252168,
+    "review_cost_usd": 320213.4756504336,
+    "expected_missed_per_year": 11.287500000000001,
+    "exposure_cost_usd": 6787775.373750001,
+    "total_cost_usd": 7107988.849400435,
+    "analyst_fte": 3.261433548291454
+  },
+  "recall_constrained": null,
+  "recall_floor": 0.95,
+  "sensitivities": [
+    {
+      "parameter": "p_miss_becomes_enforcement",
+      "values": [
+        0.002,
+        0.01,
+        0.02,
+        0.05,
+        0.2
+      ],
+      "optimal_thresholds": [
+        96.0,
+        90.0,
+        90.0,
+        88.0,
+        82.0
+      ],
+      "recalls_at_optimum": [
+        0.115,
+        0.2475,
+        0.2475,
+        0.28633333333333333,
+        0.39916666666666667
+      ],
+      "threshold_range": [
+        82.0,
+        96.0
+      ],
+      "stable": false
+    },
+    {
+      "parameter": "penalty_per_enforcement",
+      "values": [
+        50000,
+        377700,
+        1000000,
+        10000000,
+        100000000
+      ],
+      "optimal_thresholds": [
+        98.0,
+        98.0,
+        96.0,
+        90.0,
+        82.0
+      ],
+      "recalls_at_optimum": [
+        0.04733333333333333,
+        0.04733333333333333,
+        0.115,
+        0.2475,
+        0.39916666666666667
+      ],
+      "threshold_range": [
+        82.0,
+        98.0
+      ],
+      "stable": false
+    },
+    {
+      "parameter": "review_cost_per_alert",
+      "values": [
+        4.0,
+        8.0,
+        17.0,
+        34.0,
+        60.0
+      ],
+      "optimal_thresholds": [
+        84.0,
+        88.0,
+        90.0,
+        90.0,
+        90.0
+      ],
+      "recalls_at_optimum": [
+        0.36866666666666664,
+        0.28633333333333333,
+        0.2475,
+        0.2475,
+        0.2475
+      ],
+      "threshold_range": [
+        84.0,
+        90.0
+      ],
+      "stable": true
+    },
+    {
+      "parameter": "true_sanctioned_rate",
+      "values": [
+        1e-07,
+        5e-07,
+        1e-06,
+        1e-05,
+        0.0001
+      ],
+      "optimal_thresholds": [
+        98.0,
+        94.0,
+        90.0,
+        86.0,
+        60.0
+      ],
+      "recalls_at_optimum": [
+        0.04733333333333333,
+        0.16716666666666666,
+        0.2475,
+        0.3258333333333333,
+        0.6963333333333334
+      ],
+      "threshold_range": [
+        60.0,
+        98.0
+      ],
+      "stable": false
+    },
+    {
+      "parameter": "remediation_multiple",
+      "values": [
+        1.0,
+        2.5,
+        5.0,
+        10.0
+      ],
+      "optimal_thresholds": [
+        90.0,
+        90.0,
+        88.0,
+        86.0
+      ],
+      "recalls_at_optimum": [
+        0.2475,
+        0.2475,
+        0.28633333333333333,
+        0.3258333333333333
+      ],
+      "threshold_range": [
+        86.0,
+        90.0
+      ],
+      "stable": true
+    }
+  ],
+  "stable_under": [
+    "review_cost_per_alert",
+    "remediation_multiple"
+  ],
+  "unstable_under": [
+    "p_miss_becomes_enforcement",
+    "penalty_per_enforcement",
+    "true_sanctioned_rate"
+  ],
+  "separation": {
+    "alias_p05": 42.85714285714286,
+    "alias_median": 80.76923076923077,
+    "clean_median": 57.89473684210527,
+    "clean_p95": 81.81818181818181,
+    "clean_max": 97.14285714285714,
+    "distributions_overlap": true,
+    "overlap_band": [
+      42.85714285714286,
+      81.81818181818181
+    ],
+    "note": "Where the 5th percentile of correctly-matched aliases sits below the 95th percentile of clean companies, no threshold separates the classes and the decision is purely which error to absorb."
+  },
+  "operating_range": {
+    "floor_low": 0.0,
+    "floor_high": 0.0,
+    "binding_constraint_at_low_end": "no floor keeps staffing under 150 FTE",
+    "binding_constraint_at_high_end": "no floor reaches 80% recall",
+    "width": 0.0,
+    "policy_count": 0
+  },
+  "best_tiered_policy": {
+    "auto_clear_below": 90.0,
+    "escalate_above": 98.0,
+    "recall_at_floor": 0.2475,
+    "review_rate": 0.00266844563042028,
+    "escalation_rate": 0.0,
+    "alerts_per_10k_screened": 26.6844563042028,
+    "escalations_per_10k_screened": 0.0,
+    "annual_review_cost_usd": 320213.4756504336,
+    "annual_escalation_cost_usd": 0.0,
+    "exposure_cost_usd": 6787775.373750001,
+    "total_cost_usd": 7107988.849400435,
+    "analyst_fte": 3.261433548291454,
+    "missed_below_floor_per_year": 11.287500000000001
+  },
+  "worst_false_positives": [
+    {
+      "company": "AGRO INTERNATIONAL",
+      "matched_sdn_name": "AGR INTERNATIONAL LIMITED",
+      "score": 97.14285714285714,
+      "sdn_ent_num": 35305
+    },
+    {
+      "company": "ALP INVEST",
+      "matched_sdn_name": "AP INVEST OOO",
+      "score": 94.73684210526316,
+      "sdn_ent_num": 50181
+    },
+    {
+      "company": "AO INVEST SRL",
+      "matched_sdn_name": "LLC A INVEST",
+      "score": 94.11764705882352,
+      "sdn_ent_num": 46053
+    },
+    {
+      "company": "RP GROUP HOLDING ApS",
+      "matched_sdn_name": "ZR GROUP SAL HOLDING",
+      "score": 93.75,
+      "sdn_ent_num": 37675
+    },
+    {
+      "company": "HAGMAN HOLDING AS",
+      "matched_sdn_name": "AMAN HOLDING PRIVATE JSC",
+      "score": 92.3076923076923,
+      "sdn_ent_num": 26887
+    },
+    {
+      "company": "Kibo Hotels LLC",
+      "matched_sdn_name": "KAIBO HOTEL",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 54172
+    },
+    {
+      "company": "S. O. HOLDING S.R.L.",
+      "matched_sdn_name": "I AND S HOLDING COMPANY, S.A.",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 13356
+    },
+    {
+      "company": "SIRATY",
+      "matched_sdn_name": "SIRAT",
+      "score": 90.9090909090909,
+      "sdn_ent_num": 8225
+    },
+    {
+      "company": "AE COMPONENTS PRIVATE LIMITED",
+      "matched_sdn_name": "ALICE COMPONENTS CO LIMITED",
+      "score": 89.65517241379311,
+      "sdn_ent_num": 50346
+    },
+    {
+      "company": "AAI FOUNDATION",
+      "matched_sdn_name": "AL-AQSA FOUNDATION",
+      "score": 89.65517241379311,
+      "sdn_ent_num": 7637
+    },
+    {
+      "company": "NEW TECH ENGINEERING CO.",
+      "matched_sdn_name": "INTECH ENGINEERING LTD",
+      "score": 89.47368421052632,
+      "sdn_ent_num": 44845
+    },
+    {
+      "company": "R Asset Management GmbH",
+      "matched_sdn_name": "ONE ASSET MANAGEMENT AG",
+      "score": 89.47368421052632,
+      "sdn_ent_num": 50043
+    },
+    {
+      "company": "OAK INFRASTRUCTURE",
+      "matched_sdn_name": "LLC RKS INFRASTRUCTURE",
+      "score": 88.88888888888889,
+      "sdn_ent_num": 46038
+    },
+    {
+      "company": "TARAS",
+      "matched_sdn_name": "TARA LIMITED",
+      "score": 88.88888888888889,
+      "sdn_ent_num": 23413
+    },
+    {
+      "company": "R P INTERNATIONAL",
+      "matched_sdn_name": "NPC INTERNATIONAL",
+      "score": 88.23529411764706,
+      "sdn_ent_num": 11620
+    },
+    {
+      "company": "Nordic Engineering Oy",
+      "matched_sdn_name": "NICO ENGINEERING LIMITED",
+      "score": 88.23529411764706,
+      "sdn_ent_num": 11642
+    },
+    {
+      "company": "PASTA LOGISTICS LLP",
+      "matched_sdn_name": "POLARSTAR LOGISTICS LLC",
+      "score": 88.23529411764706,
+      "sdn_ent_num": 48021
+    },
+    {
+      "company": "CREAM Holding GmbH",
+      "matched_sdn_name": "CHAM HOLDING",
+      "score": 88.0,
+      "sdn_ent_num": 12744
+    },
+    {
+      "company": "SHIVA TRADING COMPANY",
+      "matched_sdn_name": "SIAS TRADING",
+      "score": 88.0,
+      "sdn_ent_num": 44453
+    },
+    {
+      "company": "ELECTRO-SPEC, INC.",
+      "matched_sdn_name": "OSTEC-ELECTRO LTD",
+      "score": 88.0,
+      "sdn_ent_num": 42869
+    },
+    {
+      "company": "OASIS TRADING AG",
+      "matched_sdn_name": "SIAS TRADING",
+      "score": 88.0,
+      "sdn_ent_num": 44453
+    },
+    {
+      "company": "RAMA TRADING COMPANY",
+      "matched_sdn_name": "AL-OSAMA TRADING CO. LTD.",
+      "score": 88.0,
+      "sdn_ent_num": 18536
+    },
+    {
+      "company": "ABS PROJECTS PRIVATE LIMITED",
+      "matched_sdn_name": "ARAB PROJECTS COMPANY S.A. LTD.",
+      "score": 88.0,
+      "sdn_ent_num": 8342
+    },
+    {
+      "company": "Dema Trading B.V.",
+      "matched_sdn_name": "LERMA TRADING S.A.",
+      "score": 88.0,
+      "sdn_ent_num": 19044
+    },
+    {
+      "company": "EUROMAX INTERNATIONAL",
+      "matched_sdn_name": "HERMEX INTERNATIONAL CORP.",
+      "score": 87.8048780487805,
+      "sdn_ent_num": 49702
+    }
+  ]
+}
