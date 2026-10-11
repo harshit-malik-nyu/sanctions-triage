@@ -13,4 +13,6 @@ jobs:
       - run: python analysis/build.py
       - run: python analysis/business_case.py
       - run: python analysis/product.py analysis/events.synthetic.jsonl
+      - run: python analysis/test_decision_lab.py
+      - run: python analysis/decision_lab.py
       - run: git diff --exit-code -- analysis/output

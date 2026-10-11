@@ -1,0 +1,5 @@
+segment,arm,assigned,activated,activation_itt,incidents,incident_itt
+ambiguous_name,control,640,244,0.38125,4,0.00625
+ambiguous_name,treatment,640,185,0.2890625,13,0.0203125
+simple_name,control,640,315,0.4921875,2,0.003125
+simple_name,treatment,640,397,0.6203125,2,0.003125

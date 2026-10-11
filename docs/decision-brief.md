@@ -16,9 +16,11 @@ Exhaustive-vs-blocked fixtures isolate retrieval defects without new sanctions d
 
 ## Economics and sensitivity
 
-`analysis/business_case.py` executes a transparent planning model. Inputs in `analysis/assumptions.json` are illustrative: 10,000 cases per period, 22 baseline minutes, 15 assisted minutes, $60 per hour and $5,000 fixed cost. Net period value equals cases × [(baseline − assisted minutes) × hourly cost / 60 − quality-loss cost per case] − fixed cost. The committed output shows assisted time at 0.5×, 1× and 1.5× and calculates break-even volume. A nonpositive unit benefit has no finite break-even. Labor capacity released is not cash savings unless staffing or spend changes.
+The current [executive decision summary](../analysis/output/decision_lab/executive-summary.md) compares **Current blocker plus alert review**, **Expanded retrieval plus identifiers**, and **Exhaustive matching with manual review**. The model separates Alert review: 12% at 8 minutes, Alert review: 18% at 7 minutes, Alert review: 40% at 10 minutes, Identifier enrichment, Matching compute.
 
-The zero quality-loss-cost input is an explicit scenario assumption. It must not erase the project's primary risk. Prefer an option only if it passes the safety/quality criteria and remains economical under plausible adverse assumptions. Do not monetize false positives, missed harms or causal business impact using unsupported point estimates.
+The [assumption register](../analysis/decision_spec.json) labels all quantities, unit costs, incident rates and risk ceilings as planning assumptions. A 27-scenario grid varies volume, activity costs and incident risk. Risk and reviewer-capacity gates can veto the cheapest alternative. Expected-loss scenarios, salaried capacity and actual cash outlay are reported separately. The older `business_case.json` is a simple illustrative baseline, superseded for option selection by this richer model.
+
+**Decision reversal:** If expanded retrieval exceeds review capacity or fails the missed-identity gate, increase capacity or hold deployment instead of hiding risk by raising the threshold.
 
 ## Product measurement
 
@@ -41,3 +43,19 @@ For the delivered offline version, acceptance means all available offline regres
 ## Interview walkthrough
 
 Explain the business decision first, then trace one result through the SQL to its source. Demonstrate the failure case that motivated the correction. Change an economic input and describe the decision boundary. Close by separating measured retrospective evidence, simulated validation and what remains unknown. This demonstrates data, business and product analysis without implying experience or outcomes the repository cannot establish.
+
+## Product analysis and experiment decision
+
+The decision laboratory supplies 2,560 explicitly synthetic assigned units across eight weekly cohorts and two project-specific segments. Its stage funnel uses all assigned units, including non-starters. D28 retention excludes immature cohorts; it never treats unobserved returns as failures. Segment results are exploratory.
+
+**Stages:** review_assigned → candidate_set_reviewed → disposition_recorded. **Guardrail incident:** unsafe disposition requiring escalation. **Unit:** screening reviewer; cluster by entity/team when cases repeat. **Repeat-use interpretation:** reviewer returns for another eligible screening queue.
+
+The synthetic A/B decision uses intention-to-treat activation, an incident-rate guardrail, Wilson/Newcombe uncertainty, allocation diagnostics and a fixed-horizon sample-size plan. A primary metric win is insufficient when the guardrail fails. There is no real-world causal or adoption claim. Confirmatory rollout would require a prespecified population, meaningful minimum effect, acceptable incident margin and an appropriate cluster design; these are defined as requirements, not fabricated approvals.
+
+**Prioritized next decisions:**
+
+1. Separate retrieval recall from conditional scoring recall at entity level.
+2. Compare additional alert workload with staffed review capacity before expanding retrieval.
+3. Prespecify identity-labeled negative evaluation and escalation rules; keep unresolved cases unresolved.
+
+The workflow-activation experiment is an adoption-mechanics study; it does not replace the domain quality metric above. The synthetic fixture deliberately includes a harmful treatment segment. Its hold result is a validation success, not evidence that a real product failed.

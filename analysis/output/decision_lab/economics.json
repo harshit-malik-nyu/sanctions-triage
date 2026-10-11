@@ -1,0 +1,2403 @@
+{
+  "base_case": {
+    "cost_factor": 1.0,
+    "options": [
+      {
+        "capacity_gate_pass": true,
+        "cash_outlay_usd": 0.0,
+        "components": [
+          {
+            "activity": "Alert review: 12% at 8 minutes",
+            "cash_outlay_usd": 0.0,
+            "economic_cost_usd": 68000.0,
+            "quantity": 800.0,
+            "unit": "reviewer_hour"
+          }
+        ],
+        "economic_cost_usd": 218000.0,
+        "expected_incidents": 150.0,
+        "feasible": false,
+        "option": "Current blocker plus alert review",
+        "reviewer_hours": 800.0,
+        "risk_gate_pass": false,
+        "scenario_loss_usd": 150000.0,
+        "volume": 50000.0
+      },
+      {
+        "capacity_gate_pass": true,
+        "cash_outlay_usd": 28000.0,
+        "components": [
+          {
+            "activity": "Alert review: 18% at 7 minutes",
+            "cash_outlay_usd": 0.0,
+            "economic_cost_usd": 89250.0,
+            "quantity": 1050.0,
+            "unit": "reviewer_hour"
+          },
+          {
+            "activity": "Identifier enrichment",
+            "cash_outlay_usd": 6000.0,
+            "economic_cost_usd": 6000.0,
+            "quantity": 50000.0,
+            "unit": "screen"
+          }
+        ],
+        "economic_cost_usd": 152250.0,
+        "expected_incidents": 35.0,
+        "feasible": true,
+        "option": "Expanded retrieval plus identifiers",
+        "reviewer_hours": 1050.0,
+        "risk_gate_pass": true,
+        "scenario_loss_usd": 35000.0,
+        "volume": 50000.0
+      },
+      {
+        "capacity_gate_pass": false,
+        "cash_outlay_usd": 9000.0,
+        "components": [
+          {
+            "activity": "Alert review: 40% at 10 minutes",
+            "cash_outlay_usd": 0.0,
+            "economic_cost_usd": 283333.3333333334,
+            "quantity": 3333.3333333333335,
+            "unit": "reviewer_hour"
+          },
+          {
+            "activity": "Matching compute",
+            "cash_outlay_usd": 1000.0,
+            "economic_cost_usd": 1000.0,
+            "quantity": 50000.0,
+            "unit": "screen"
+          }
+        ],
+        "economic_cost_usd": 317333.33,
+        "expected_incidents": 25.0,
+        "feasible": false,
+        "option": "Exhaustive matching with manual review",
+        "reviewer_hours": 3333.333,
+        "risk_gate_pass": true,
+        "scenario_loss_usd": 25000.0,
+        "volume": 50000.0
+      }
+    ],
+    "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+    "risk_factor": 1.0,
+    "volume_factor": 1.0
+  },
+  "break_even": [
+    {
+      "additional_fixed_usd": 22000,
+      "minimum_integer_volume_to_break_even": 12536,
+      "option": "Expanded retrieval plus identifiers",
+      "qualification": "Positive unit advantage required; risk and capacity gates still apply.",
+      "relative_to": "Current blocker plus alert review",
+      "unit_economic_advantage_usd": 1.755
+    },
+    {
+      "additional_fixed_usd": 8000,
+      "minimum_integer_volume_to_break_even": null,
+      "option": "Exhaustive matching with manual review",
+      "qualification": "Positive unit advantage required; risk and capacity gates still apply.",
+      "relative_to": "Current blocker plus alert review",
+      "unit_economic_advantage_usd": -1.826667
+    }
+  ],
+  "evidence_status": "ILLUSTRATIVE PLANNING ASSUMPTIONS; NOT OBSERVED ROI",
+  "scenarios": [
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 25500.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 100500.0,
+          "expected_incidents": 75.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 75000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 24250.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 33468.75,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 2250.0,
+              "economic_cost_usd": 2250.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 75218.75,
+          "expected_incidents": 17.5,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 17500.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8375.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 106250.00000000001,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 375.0,
+              "economic_cost_usd": 375.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 127125.0,
+          "expected_incidents": 12.5,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 12500.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 25500.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 175500.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 24250.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 33468.75,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 2250.0,
+              "economic_cost_usd": 2250.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 92718.75,
+          "expected_incidents": 35.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 35000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8375.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 106250.00000000001,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 375.0,
+              "economic_cost_usd": 375.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 139625.0,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 25500.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 325500.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 24250.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 33468.75,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 2250.0,
+              "economic_cost_usd": 2250.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 127718.75,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8375.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 106250.00000000001,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 375.0,
+              "economic_cost_usd": 375.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 164625.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 50000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 34000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 109000.0,
+          "expected_incidents": 75.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 75000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 25000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 44625.0,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 87125.0,
+          "expected_incidents": 17.5,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 17500.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 141666.6666666667,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 500.0,
+              "economic_cost_usd": 500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 162666.67,
+          "expected_incidents": 12.5,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 12500.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 34000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 184000.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 25000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 44625.0,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 104625.0,
+          "expected_incidents": 35.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 35000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 141666.6666666667,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 500.0,
+              "economic_cost_usd": 500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 175166.67,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 34000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 334000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 25000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 44625.0,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 139625.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 141666.6666666667,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 500.0,
+              "economic_cost_usd": 500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 200166.67,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 50000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 126000.0,
+          "expected_incidents": 75.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 75000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 110937.5,
+          "expected_incidents": 17.5,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 17500.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 233750.0,
+          "expected_incidents": 12.5,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 12500.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 201000.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 128437.5,
+          "expected_incidents": 35.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 35000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 246250.0,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 400.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 351000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 400.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 525.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 163437.5,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 525.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 25000.0
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 1666.6666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 25000.0,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 271250.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 1666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 50000.0,
+          "volume": 25000.0
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 0.5
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 201000.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 128437.5,
+          "expected_incidents": 35.0,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 35000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 246250.0,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 351000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 163437.5,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 271250.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 51000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 651000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 26500.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 66937.5,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 4500.0,
+              "economic_cost_usd": 4500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 233437.5,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 8750.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 212500.00000000003,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 750.0,
+              "economic_cost_usd": 750.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 321250.0,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 100000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 68000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 218000.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 28000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 89250.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 6000.0,
+              "economic_cost_usd": 6000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 152250.0,
+          "expected_incidents": 35.0,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 35000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 283333.3333333334,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1000.0,
+              "economic_cost_usd": 1000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 317333.33,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 68000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 368000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 28000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 89250.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 6000.0,
+              "economic_cost_usd": 6000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 187250.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 283333.3333333334,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1000.0,
+              "economic_cost_usd": 1000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 342333.33,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 68000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 668000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 28000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 89250.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 6000.0,
+              "economic_cost_usd": 6000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 257250.0,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 283333.3333333334,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1000.0,
+              "economic_cost_usd": 1000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 392333.33,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 100000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 252000.0,
+          "expected_incidents": 150.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 150000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 199875.0,
+          "expected_incidents": 35.0,
+          "feasible": true,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 35000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 459500.0,
+          "expected_incidents": 25.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 25000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": "Expanded retrieval plus identifiers",
+      "risk_factor": 1,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 402000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 234875.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 70000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 484500.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 800.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 702000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 800.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": true,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 1050.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 304875.0,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 1050.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 50000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 3333.3333333333335,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 50000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 534500.0,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 3333.333,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 100000.0,
+          "volume": 50000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 1
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 402000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 234875.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 70000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 484500.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 1,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 702000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 304875.0,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 534500.0,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 100000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 0.75,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 102000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 1302000.0,
+          "expected_incidents": 1200.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 1200000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 31000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 133875.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 9000.0,
+              "economic_cost_usd": 9000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 444875.0,
+          "expected_incidents": 280.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 280000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 9500.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 425000.00000000006,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 1500.0,
+              "economic_cost_usd": 1500.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 634500.0,
+          "expected_incidents": 200.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 200000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 136000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 436000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 34000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 178500.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 12000.0,
+              "economic_cost_usd": 12000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 282500.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 70000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 10000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 566666.6666666667,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 2000.0,
+              "economic_cost_usd": 2000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 626666.67,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 1,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 136000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 736000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 34000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 178500.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 12000.0,
+              "economic_cost_usd": 12000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 352500.0,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 10000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 566666.6666666667,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 2000.0,
+              "economic_cost_usd": 2000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 676666.67,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 100000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 136000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 1336000.0,
+          "expected_incidents": 1200.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 1200000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 34000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 178500.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 12000.0,
+              "economic_cost_usd": 12000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 492500.0,
+          "expected_incidents": 280.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 280000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 10000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 566666.6666666667,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 2000.0,
+              "economic_cost_usd": 2000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 776666.67,
+          "expected_incidents": 200.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 200000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 204000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 504000.0,
+          "expected_incidents": 300.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 300000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 40000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 267750.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 18000.0,
+              "economic_cost_usd": 18000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 377750.0,
+          "expected_incidents": 70.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 70000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 11000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 850000.0000000001,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 911000.0,
+          "expected_incidents": 50.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 50000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 1,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 204000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 804000.0,
+          "expected_incidents": 600.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 600000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 40000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 267750.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 18000.0,
+              "economic_cost_usd": 18000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 447750.0,
+          "expected_incidents": 140.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 140000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 11000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 850000.0000000001,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 961000.0,
+          "expected_incidents": 100.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": true,
+          "scenario_loss_usd": 100000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 2,
+      "volume_factor": 2
+    },
+    {
+      "cost_factor": 1.5,
+      "options": [
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 0.0,
+          "components": [
+            {
+              "activity": "Alert review: 12% at 8 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 204000.0,
+              "quantity": 1600.0,
+              "unit": "reviewer_hour"
+            }
+          ],
+          "economic_cost_usd": 1404000.0,
+          "expected_incidents": 1200.0,
+          "feasible": false,
+          "option": "Current blocker plus alert review",
+          "reviewer_hours": 1600.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 1200000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 40000.0,
+          "components": [
+            {
+              "activity": "Alert review: 18% at 7 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 267750.0,
+              "quantity": 2100.0,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Identifier enrichment",
+              "cash_outlay_usd": 18000.0,
+              "economic_cost_usd": 18000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 587750.0,
+          "expected_incidents": 280.0,
+          "feasible": false,
+          "option": "Expanded retrieval plus identifiers",
+          "reviewer_hours": 2100.0,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 280000.0,
+          "volume": 100000
+        },
+        {
+          "capacity_gate_pass": false,
+          "cash_outlay_usd": 11000.0,
+          "components": [
+            {
+              "activity": "Alert review: 40% at 10 minutes",
+              "cash_outlay_usd": 0.0,
+              "economic_cost_usd": 850000.0000000001,
+              "quantity": 6666.666666666667,
+              "unit": "reviewer_hour"
+            },
+            {
+              "activity": "Matching compute",
+              "cash_outlay_usd": 3000.0,
+              "economic_cost_usd": 3000.0,
+              "quantity": 100000,
+              "unit": "screen"
+            }
+          ],
+          "economic_cost_usd": 1061000.0,
+          "expected_incidents": 200.0,
+          "feasible": false,
+          "option": "Exhaustive matching with manual review",
+          "reviewer_hours": 6666.667,
+          "risk_gate_pass": false,
+          "scenario_loss_usd": 200000.0,
+          "volume": 100000
+        }
+      ],
+      "recommended_if_assumptions_hold": null,
+      "risk_factor": 4,
+      "volume_factor": 2
+    }
+  ]
+}

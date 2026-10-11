@@ -1,0 +1,120 @@
+{
+  "project": "sanctions-triage",
+  "title": "Repair candidate retrieval before buying a lower alert threshold",
+  "decision_owner": "Screening operations lead",
+  "observed_evidence": "909/6,000 held-out aliases scored zero in the historical blocked pipeline. A fixture demonstrates a greater-than-90 similarity match lost by prefix blocking; this is a retrieval defect, not an impossibility bound.",
+  "executive_recommendation": "Prioritize recall diagnostics and secondary identifiers. Neither low alert volume nor a high similarity threshold establishes identity or compliance.",
+  "priorities": [
+    "Separate retrieval recall from conditional scoring recall at entity level.",
+    "Compare additional alert workload with staffed review capacity before expanding retrieval.",
+    "Prespecify identity-labeled negative evaluation and escalation rules; keep unresolved cases unresolved."
+  ],
+  "reversal": "If expanded retrieval exceeds review capacity or fails the missed-identity gate, increase capacity or hold deployment instead of hiding risk by raising the threshold.",
+  "uncertainty": "Historical negatives are not identity-adjudicated ground truth; expected losses and incident rates here are scenario values, not legal or financial forecasts.",
+  "economics": {
+    "evidence_status": "ILLUSTRATIVE ASSUMPTIONS, NOT MEASURED COSTS OR RISK",
+    "period": "one planning year",
+    "volume": 50000,
+    "review_capacity_hours": 1200,
+    "loss_per_incident_usd": 1000,
+    "max_incident_rate": 0.001,
+    "options": [
+      {
+        "name": "Current blocker plus alert review",
+        "fixed_usd": 0,
+        "incident_rate": 0.003,
+        "activities": [
+          {
+            "name": "Alert review: 12% at 8 minutes",
+            "unit": "reviewer_hour",
+            "units_per_case": 0.016,
+            "usd_per_unit": 85,
+            "cash": false
+          }
+        ]
+      },
+      {
+        "name": "Expanded retrieval plus identifiers",
+        "fixed_usd": 22000,
+        "incident_rate": 0.0007,
+        "activities": [
+          {
+            "name": "Alert review: 18% at 7 minutes",
+            "unit": "reviewer_hour",
+            "units_per_case": 0.021,
+            "usd_per_unit": 85,
+            "cash": false
+          },
+          {
+            "name": "Identifier enrichment",
+            "unit": "screen",
+            "units_per_case": 1,
+            "usd_per_unit": 0.12,
+            "cash": true
+          }
+        ]
+      },
+      {
+        "name": "Exhaustive matching with manual review",
+        "fixed_usd": 8000,
+        "incident_rate": 0.0005,
+        "activities": [
+          {
+            "name": "Alert review: 40% at 10 minutes",
+            "unit": "reviewer_hour",
+            "units_per_case": 0.06666666666666667,
+            "usd_per_unit": 85,
+            "cash": false
+          },
+          {
+            "name": "Matching compute",
+            "unit": "screen",
+            "units_per_case": 1,
+            "usd_per_unit": 0.02,
+            "cash": true
+          }
+        ]
+      }
+    ]
+  },
+  "product": {
+    "seed": 732,
+    "randomization_unit": "screening reviewer; cluster by entity/team when cases repeat",
+    "stages": [
+      "review_assigned",
+      "candidate_set_reviewed",
+      "disposition_recorded"
+    ],
+    "incident_definition": "unsafe disposition requiring escalation",
+    "retention_interpretation": "reviewer returns for another eligible screening queue",
+    "observation_day": 56,
+    "minimum_activation_lift": 0.02,
+    "maximum_incident_increase": 0.005,
+    "planning_baseline": 0.45,
+    "minimum_detectable_effect": 0.05,
+    "segments": [
+      {
+        "name": "simple_name",
+        "start_probability": 0.9,
+        "control_activation": 0.64,
+        "treatment_delta": 0.12,
+        "apply_probability": 0.88,
+        "control_incident": 0.004,
+        "treatment_incident": 0.004,
+        "return7": 0.55,
+        "return28": 0.35
+      },
+      {
+        "name": "ambiguous_name",
+        "start_probability": 0.8200000000000001,
+        "control_activation": 0.52,
+        "treatment_delta": -0.08,
+        "apply_probability": 0.8,
+        "control_incident": 0.01,
+        "treatment_incident": 0.064,
+        "return7": 0.43000000000000005,
+        "return28": 0.24999999999999997
+      }
+    ]
+  }
+}

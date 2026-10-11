@@ -1,5 +1,7 @@
 # Where to set a sanctions screening threshold
 
+**Decision study:** [Executive recommendation](analysis/output/decision_lab/executive-summary.md) · [Cost, cohort and experiment methods](analysis/README.md#decision-laboratory). Behavioral results are synthetic QA; economics are explicit planning assumptions.
+
 > **Validation update (2026-10-10):** The blocker can miss a greater-than-90 similarity pair. Zero hit scores in the frozen blocked pipeline are not a universal ceiling. The declared CLI now exists. See the [current decision brief](docs/decision-brief.md) and [reproducible analysis](analysis/README.md). Historical evidence and figures retain their original run context; this update supersedes conflicting claims below.
 
 
