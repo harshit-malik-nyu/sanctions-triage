@@ -1,0 +1,23 @@
+{
+  "decision": "Choose a retrieval and review workflow that avoids losing candidate matches before scoring.",
+  "primary_outcome": "Adjudicated true-match retrieval recall at candidate generation, followed separately by review precision and workload.",
+  "denominator": "All independently adjudicated positive aliases for recall; all reviewed candidates for precision; historical zero scores are a different descriptive denominator.",
+  "independence_unit": "Underlying entity; many aliases of one entity are not independent entities.",
+  "quality_guardrail": "Missed-entity risk, reviewer capacity and no identity decision from string similarity alone.",
+  "minimum_data": "Entity/alias IDs, source provenance, blocker and scorer versions, complete candidate sets, adjudicated identity and review time.",
+  "failure_handling": "Unadjudicated negatives remain unknown. A zero blocked score may mean not retrieved, so compare retrieval sets before scoring quality.",
+  "release_rule": "Require verified retrieval quality and bounded review load before operational use; historical alias scores alone do not validate compliance performance.",
+  "reversal": "A broader blocker recovers missed positives but exceeds review capacity, or entity-held-out validation reveals retrieval loss.",
+  "project": "sanctions-triage",
+  "status": "PROPOSED MEASUREMENT CONTRACT; NOT AN EXECUTED DOMAIN EXPERIMENT",
+  "defense": [
+    [
+      "Does 909 of 6,000 establish an impossibility limit?",
+      "No. It describes zero scores in one historical blocked pipeline. A fixture shows that prefix blocking can discard a high-similarity match."
+    ],
+    [
+      "Why separate retrieval and scoring?",
+      "A scorer cannot rescue a candidate it never receives. Measuring them separately identifies the operational cause of a miss."
+    ]
+  ]
+}

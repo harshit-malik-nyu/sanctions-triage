@@ -1,0 +1,248 @@
+{
+  "cluster_limit": "Equal-size cluster approximation with assumed ICC, not fitted dependence or guaranteed joint power. Small cluster counts, unequal sizes and rare outcomes need a design-specific calculation.",
+  "cluster_planning": [
+    {
+      "assumed_icc": 0,
+      "clusters_per_arm": 1244,
+      "design_effect": 1,
+      "mean_cluster_size": 5,
+      "units_per_arm": 6220
+    },
+    {
+      "assumed_icc": 0.05,
+      "clusters_per_arm": 1493,
+      "design_effect": 1.2,
+      "mean_cluster_size": 5,
+      "units_per_arm": 7465
+    },
+    {
+      "assumed_icc": 0.2,
+      "clusters_per_arm": 2239,
+      "design_effect": 1.8,
+      "mean_cluster_size": 5,
+      "units_per_arm": 11195
+    },
+    {
+      "assumed_icc": 0,
+      "clusters_per_arm": 311,
+      "design_effect": 1,
+      "mean_cluster_size": 20,
+      "units_per_arm": 6220
+    },
+    {
+      "assumed_icc": 0.05,
+      "clusters_per_arm": 607,
+      "design_effect": 1.9500000000000002,
+      "mean_cluster_size": 20,
+      "units_per_arm": 12140
+    },
+    {
+      "assumed_icc": 0.2,
+      "clusters_per_arm": 1493,
+      "design_effect": 4.800000000000001,
+      "mean_cluster_size": 20,
+      "units_per_arm": 29860
+    }
+  ],
+  "domain_outcome_status": "NOT MEASURED BY SYNTHETIC ACTIVATION. Use measurement_contract.json.",
+  "evidence_status": "ASSUMED ECONOMICS; SYNTHETIC PRODUCT STRESS TESTS",
+  "missing_outcomes": [
+    {
+      "all_completions_clear_margins": false,
+      "arms": {
+        "control": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.0046875,
+            0.0046875
+          ],
+          "missing": 0,
+          "primary_bounds": [
+            0.43671875,
+            0.43671875
+          ]
+        },
+        "treatment": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.01171875,
+            0.01171875
+          ],
+          "missing": 0,
+          "primary_bounds": [
+            0.4546875,
+            0.4546875
+          ]
+        }
+      },
+      "incident_identification_bounds": [
+        0.00703125,
+        0.00703125
+      ],
+      "interpretation": "Synthetic masking stress test. Identification bounds are NOT confidence intervals and do not authorize launch. Hidden outcomes may be nonrandom; no favorable imputation.",
+      "masked_fraction": 0,
+      "primary_identification_bounds": [
+        0.017968750000000033,
+        0.017968750000000033
+      ]
+    },
+    {
+      "all_completions_clear_margins": false,
+      "arms": {
+        "control": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.0046875,
+            0.0546875
+          ],
+          "missing": 64,
+          "primary_bounds": [
+            0.415625,
+            0.465625
+          ]
+        },
+        "treatment": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.01171875,
+            0.06171875
+          ],
+          "missing": 64,
+          "primary_bounds": [
+            0.43515625,
+            0.48515625
+          ]
+        }
+      },
+      "incident_identification_bounds": [
+        -0.04296875,
+        0.057031250000000006
+      ],
+      "interpretation": "Synthetic masking stress test. Identification bounds are NOT confidence intervals and do not authorize launch. Hidden outcomes may be nonrandom; no favorable imputation.",
+      "masked_fraction": 0.05,
+      "primary_identification_bounds": [
+        -0.03046874999999999,
+        0.06953124999999999
+      ]
+    },
+    {
+      "all_completions_clear_margins": false,
+      "arms": {
+        "control": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.0046875,
+            0.1046875
+          ],
+          "missing": 128,
+          "primary_bounds": [
+            0.39296875,
+            0.49296875
+          ]
+        },
+        "treatment": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.0109375,
+            0.1109375
+          ],
+          "missing": 128,
+          "primary_bounds": [
+            0.4125,
+            0.5125
+          ]
+        }
+      },
+      "incident_identification_bounds": [
+        -0.09375,
+        0.10625
+      ],
+      "interpretation": "Synthetic masking stress test. Identification bounds are NOT confidence intervals and do not authorize launch. Hidden outcomes may be nonrandom; no favorable imputation.",
+      "masked_fraction": 0.1,
+      "primary_identification_bounds": [
+        -0.08046875000000003,
+        0.11953124999999998
+      ]
+    },
+    {
+      "all_completions_clear_margins": false,
+      "arms": {
+        "control": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.0046875,
+            0.2046875
+          ],
+          "missing": 256,
+          "primary_bounds": [
+            0.3546875,
+            0.5546875
+          ]
+        },
+        "treatment": {
+          "assigned": 1280,
+          "incident_bounds": [
+            0.009375,
+            0.209375
+          ],
+          "missing": 256,
+          "primary_bounds": [
+            0.3671875,
+            0.5671875
+          ]
+        }
+      },
+      "incident_identification_bounds": [
+        -0.1953125,
+        0.2046875
+      ],
+      "interpretation": "Synthetic masking stress test. Identification bounds are NOT confidence intervals and do not authorize launch. Hidden outcomes may be nonrandom; no favorable imputation.",
+      "masked_fraction": 0.2,
+      "primary_identification_bounds": [
+        -0.1875,
+        0.21249999999999997
+      ]
+    }
+  ],
+  "robustness": {
+    "boundary_note": "Capacity boundary holds activity rates fixed. Null capacity limit means no modeled reviewer hours; null risk multiplier means zero assumed incidents, not proof of safety.",
+    "interpretation": "Finite assumed grid, not a probability distribution or protection outside the grid. Conditional regret never overrides feasibility. Null robust option means no unconditional recommendation.",
+    "no_feasible_option_scenarios": 21,
+    "options": [
+      {
+        "capacity_failures": 9,
+        "feasible_scenarios": 0,
+        "max_risk_multiplier": 0.3333333333333333,
+        "max_volume_at_fixed_capacity": 75000,
+        "option": "Current blocker plus alert review",
+        "risk_failures": 27,
+        "robust_across_grid": false,
+        "total_scenarios": 27,
+        "worst_regret_when_feasible_usd": null
+      },
+      {
+        "capacity_failures": 9,
+        "feasible_scenarios": 6,
+        "max_risk_multiplier": 1.4285714285714286,
+        "max_volume_at_fixed_capacity": 57142,
+        "option": "Expanded retrieval plus identifiers",
+        "risk_failures": 18,
+        "robust_across_grid": false,
+        "total_scenarios": 27,
+        "worst_regret_when_feasible_usd": 0.0
+      },
+      {
+        "capacity_failures": 27,
+        "feasible_scenarios": 0,
+        "max_risk_multiplier": 2.0,
+        "max_volume_at_fixed_capacity": 18000,
+        "option": "Exhaustive matching with manual review",
+        "risk_failures": 9,
+        "robust_across_grid": false,
+        "total_scenarios": 27,
+        "worst_regret_when_feasible_usd": null
+      }
+    ],
+    "robust_minimax_option": null
+  }
+}
