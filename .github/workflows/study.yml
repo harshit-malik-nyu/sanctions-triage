@@ -1,13 +1,8 @@
 name: study
 on:
-  push:
-    branches: [main]
-    paths: ['.study-trigger', 'src/**', 'scripts/**']
-  schedule:
-    - cron: '41 5 * * 1'
   workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: study
   cancel-in-progress: false
@@ -30,14 +25,10 @@ jobs:
         if: always()
         run: |
           { echo '## Study run'; echo; echo '```'; tail -60 evidence/run.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
-      - name: Commit evidence
+      - uses: actions/upload-artifact@v4
         if: always()
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A evidence docs
-          git diff --staged --quiet || {
-            git commit -m "evidence: study run [skip ci]"
-            git pull --rebase --autostash origin main || true
-            git push
-          }
+        with:
+          name: live-study-evidence
+          path: |
+            evidence/
+            docs/

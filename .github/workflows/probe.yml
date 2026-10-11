@@ -1,9 +1,8 @@
 name: probe
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
 permissions:
-  contents: write
+  contents: read
 jobs:
   reach:
     runs-on: ubuntu-latest
@@ -14,7 +13,7 @@ jobs:
           # SEC requires a declared UA of the form "Name contact@domain"
           SEC_UA="sanctions-triage-research harshit-malik-nyu@users.noreply.github.com"
           probe() {
-            code=$(curl -sL -o /tmp/o -w "%{http_code}" --max-time 40 -H "User-Agent: $2" "$1")
+            code=$(curl --globoff -sL -o /tmp/o -w "%{http_code}" --max-time 40 -H "User-Agent: $2" "$1")
             echo "HTTP=$code bytes=$(wc -c < /tmp/o)  $3"
             echo "   head: $(head -c 220 /tmp/o | tr '\n' ' ')"
             echo
@@ -27,12 +26,12 @@ jobs:
             probe "https://api.gleif.org/api/v1/lei-records?page[size]=5" "sanctions-triage/0.1" "GLEIF LEI records"
             probe "https://api.gleif.org/api/v1/lei-records?page[size]=1&filter[entity.legalAddress.country]=US" "sanctions-triage/0.1" "GLEIF filtered by country"
             echo "--- OFAC alt.csv structure (the true-positive source) ---"
-            curl -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/alt.csv" -o /tmp/alt.csv
+            curl --globoff -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/alt.csv" -o /tmp/alt.csv
             echo "alt.csv lines: $(wc -l < /tmp/alt.csv)"
             head -5 /tmp/alt.csv
             echo
             echo "--- SDN primary names ---"
-            curl -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/sdn.csv" -o /tmp/sdn.csv
+            curl --globoff -sL --max-time 40 "https://www.treasury.gov/ofac/downloads/sdn.csv" -o /tmp/sdn.csv
             echo "sdn.csv lines: $(wc -l < /tmp/sdn.csv)"
             head -3 /tmp/sdn.csv
             echo
@@ -40,10 +39,8 @@ jobs:
             cut -d, -f3 /tmp/sdn.csv | sort | uniq -c | sort -rn | head -6
           } > PROBE.txt 2>&1
           cat PROBE.txt
-      - name: Commit
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add PROBE.txt && git commit -m "probe: clean population sources" || exit 0
-          git pull --rebase --autostash origin main || true
-          git push
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-availability-probe
+          path: PROBE.txt

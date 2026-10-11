@@ -2,8 +2,8 @@
 """
 Run the full study against live OFAC and registry data.
 
-Executed by CI. Writes to evidence/, which is committed so every figure in the
-README traces to the run that produced it.
+Run manually when a fresh live-data study is needed. Writes to evidence/;
+CI uploads the results for review without replacing committed evidence.
 """
 
 from __future__ import annotations
