@@ -1,0 +1,19 @@
+{
+  "external_services_required": false,
+  "input_sha256": {
+    "evidence/alias_results.csv": "8fa7fbbd57e9469db53bfc18d077e764cdd2529efa21bacf398aa84ca6dc767d"
+  },
+  "outputs": {
+    "query_1.csv": "3c5d3eae25f8fafd6997e4d18e4628e6ba9843f458c09a1ca21b79de63cfa5e2",
+    "query_2.csv": "d22e929558189fe4b86f6dd4d4639e65bbf9ff9a0e257c7c36bd47ee32800f57"
+  },
+  "project": "sanctions-triage",
+  "quality_checks": [
+    "SQL type and domain constraints",
+    "row-count reconciliation",
+    "SQLite integrity"
+  ],
+  "query_sha256": "fc91aaf9b12982116b20d57bfffe5252031aa15ac12c73a4dada8be784c0650f",
+  "rows": 6000,
+  "scope": "Frozen OFAC held-out aliases evaluated through a prefix blocker. Zero score is a matcher failure, not a universal name-matching impossibility."
+}

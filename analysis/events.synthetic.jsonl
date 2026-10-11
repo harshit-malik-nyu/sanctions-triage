@@ -1,0 +1,5 @@
+{"event_id": "0-0", "session_id": "qa-0", "event": "started", "elapsed_ms": 0, "source": "synthetic_qa"}
+{"event_id": "0-1", "session_id": "qa-0", "event": "completed", "elapsed_ms": 1000, "source": "synthetic_qa"}
+{"event_id": "1-0", "session_id": "qa-1", "event": "started", "elapsed_ms": 0, "source": "synthetic_qa"}
+{"event_id": "1-1", "session_id": "qa-1", "event": "failed", "elapsed_ms": 1001, "source": "synthetic_qa"}
+{"event_id": "2-0", "session_id": "qa-2", "event": "started", "elapsed_ms": 0, "source": "synthetic_qa"}

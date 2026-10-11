@@ -155,7 +155,7 @@ def build_watchlist(entries, aliases) -> list[WatchlistName]:
 
 
 def screen_aliases(aliases, watchlist: list[WatchlistName],
-                   index=None, limit=None, clustering=None) -> list[AliasResult]:
+                   index=None, limit=None, clustering=None, exhaustive=False) -> list[AliasResult]:
     """
     Hold-one-out screening, scored as a filter actually behaves.
 
@@ -193,7 +193,7 @@ def screen_aliases(aliases, watchlist: list[WatchlistName],
         held_out = normalise(alias.name)
         scored: list[tuple[float, int]] = []
 
-        for pos in candidates_for(alias.name, index):
+        for pos in (range(len(names)) if exhaustive else candidates_for(alias.name, index)):
             if normalise(names[pos]) == held_out:
                 continue
             scored.append((name_score(alias.name, names[pos]), pos))

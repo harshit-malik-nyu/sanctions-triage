@@ -1,5 +1,8 @@
 # Where to set a sanctions screening threshold
 
+> **Validation update (2026-10-10):** The blocker can miss a greater-than-90 similarity pair. Zero hit scores in the frozen blocked pipeline are not a universal ceiling. The declared CLI now exists. See the [current decision brief](docs/decision-brief.md) and [reproducible analysis](analysis/README.md). Historical evidence and figures retain their original run context; this update supersedes conflicting claims below.
+
+
 **And why, on this evidence, the threshold is not the decision worth making.**
 
 📄 **[Read the decision brief](https://harshit-malik-nyu.github.io/sanctions-triage/)**
@@ -15,96 +18,15 @@ names, no invented labels. Every figure regenerates from
 
 ## Recommendation
 
-**Do not tune the threshold. Buy identifiers.**
+**Audit candidate retrieval before selecting a threshold or buying a matching upgrade.** The historical prefix-blocked matcher recovered at most **77.4%** of held-out entity aliases across the tested thresholds. At threshold 92 its recall was **20.3%**. These figures describe this implementation and sample.
 
-Entity name screening against the full SDN list cannot be made both staffable
-and adequately sensitive at any cut-off. That is not a tuning failure — it is a
-property of the data, and it is measurable:
+**909 of 6,000 aliases (15.2%) received zero hit scores in the evaluated pipeline.** This does not prove that no similarity method could retrieve them. A four-character prefix blocker can discard a pair whose exhaustive similarity exceeds 90. The new `triage blocking-audit` command and regression fixture demonstrate that failure directly.
 
-| | |
-|---|---:|
-| Highest recall at any threshold | **77.4%** |
-| Alert rate required to reach it | **64% of everything screened** |
-| Recall at a staffable alert rate | **39.9%** |
-| Published aliases unreachable at *any* threshold | **15.1%** |
+The historical individual-alias comparison reported **9.7%** zero-score cases, and the population-tuning analysis reported a **19.1%** recall loss from a single threshold. Those are retained as historical matcher measurements, not intrinsic ceilings. Exact-name overlap removal from the registry does not establish that every remaining entity is a labeled negative; alert rates should therefore not be treated as validated production false-positive rates.
 
-The last line is the binding constraint. **907 of 6,000 held-out aliases share
-no character sequence with any other published name for the same party** —
-`COIBA`, `AVIA IMPORT`, `CRYMSA`, `COPROVA`. No similarity metric reaches them,
-because there is nothing to be similar to. A filter tuned to perfection still
-misses one alias in seven.
+Compare threshold tuning, improved candidate retrieval and secondary identifiers. Secondary identifiers can assist identity resolution, but the current evidence does not establish the return on any purchased solution. Keep review cost and capacity as explicit scenarios. No threshold here is recommended for automatic compliance clearance.
 
-### What that means for the threshold decision
-
-No viable single policy exists under any defensible pair of constraints. A floor
-low enough to clear 80% recall generates an alert queue no institution can
-staff; a floor light enough to staff clears roughly a fifth of variants. The
-study reports that rather than relaxing a constraint until an answer appears.
-
-**If a number is required today**, the cheapest tiered policy that survives
-costing is auto-clear below 92, escalate above 98: 19 analyst FTE, 0.16% alert
-rate, and **20.3% recall at the floor** — a defensible operational choice and an
-indefensible detection claim. It should be adopted alongside compensating
-controls, not as the control.
-
-**The investment case is elsewhere.** Secondary identifiers — registration
-number, date of birth, address, the listing identifier itself — address the
-15.1% that no matching improvement can touch. Spend on better fuzzy matching
-buys movement along a frontier that tops out at 75.9%; identifier capture moves
-the frontier.
-
-### The ceiling holds on both populations
-
-The obvious objection is that this measures corporate names, while most real
-false positives come from transliterated personal names. That was tested rather
-than caveated:
-
-| Population | Unreachable at any threshold | Best recall |
-|---|---:|---:|
-| Entities | **15.1%** | 77.4% |
-| Individuals | **9.7%** | 88.8% |
-
-Personal names screen better, as predicted — they skew toward spelling variants
-that fuzzy matching does reach, while entity aliases skew toward acronyms that
-share nothing. But roughly **one alias in ten is still unreachable on the
-population a bank screens most**, so the conclusion survives rather than
-inverting.
-
-Only the recall side was measured for individuals. Measuring their false
-positives needs a corpus of innocent people's names, and publishing near-misses
-between real private individuals and a sanctions list is an exposure this
-project will not create.
-
-### One threshold across both populations costs 19.1% of recall
-
-Entities reach 60.9% recall at threshold 68; individuals need 82 for 60.6%. A
-single threshold must satisfy the harder population, and the recall it gives up
-on the other is measurable. That is a simplification usually made for
-administrative convenience rather than for a reason.
-
-### Does this behave like a real filter?
-
-Sweden's financial regulator tested 19 banks against 5,000 sanctioned names in
-2024. Average accuracy was **97.2% on correctly spelled entries**. It reported
-accuracy fell on aliases and transliterations *without publishing a figure*.
-
-Hold-one-out screening measures exactly that case. At an alert rate inside the
-published industry band, this study finds **39.9%**.
-
-The gap between those two numbers is the one the regulator did not publish.
-
-### What would change this conclusion
-
-- **A different population.** This screens corporate entities. Individual-name
-  screening has different transliteration behaviour and may not share the
-  ceiling.
-- **Address and country matching.** Excluded here, standard in production, and
-  both would raise precision at a given recall.
-- **A validated true-sanctioned base rate.** At one in a million, precision is
-  near zero at any usable recall. That figure is my estimate and it drives the
-  cost balance more than any other input.
-
----
+The offline decision brief and SQL outputs show what can be established from the frozen evidence without new data collection.
 
 ## What a false positive actually looks like
 
@@ -156,9 +78,9 @@ intermediate numbers looked suspicious.
 | 37.9% | Watchlist held primary names only. No bank runs that — a real filter loads every published name, so acronym aliases were unmatchable by construction. |
 | 52.3% | Strict entity-number equality. OFAC designates the same organisation repeatedly; `POPULAR REVOLUTIONARY STRUGGLE` matched `REVOLUTIONARY POPULAR STRUGGLE` at 100 and was scored a miss. |
 | 57.3% | Top-1 scoring. A filter returns every hit above threshold and an analyst works the list; a correct answer at rank 2 was counted as a failure. |
-| **75.9%** | Current. |
+| **77.4%** | Current. |
 
-The **15.1% unreachable** figure held steady through all three corrections,
+The **15.2% unreachable** figure held steady through all three corrections,
 which is why it carries the recommendation rather than the recall number does.
 
 ### The metric was chosen by measurement

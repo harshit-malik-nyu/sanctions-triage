@@ -1,0 +1,16 @@
+name: Reproducible analysis
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python analysis/build.py
+      - run: python analysis/business_case.py
+      - run: python analysis/product.py analysis/events.synthetic.jsonl
+      - run: git diff --exit-code -- analysis/output
